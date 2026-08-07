@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HRMS Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">HR</div>
+          <div>
+            <h1>HRMS Portal</h1>
+            <p>Employee management</p>
+          </div>
+        </div>
+        <nav class="nav-menu">
+          <button class="nav-item active" data-panel="dashboard">Dashboard</button>
+          <button class="nav-item" data-panel="employees">Employees</button>
+          <button class="nav-item" data-panel="attendance">Attendance</button>
+          <button class="nav-item" data-panel="leave">Leave Requests</button>
+          <button class="nav-item" data-panel="issues">Issues</button>
+          <button class="nav-item" data-panel="reports">Reports</button>
+          <button class="nav-item" data-panel="settings">Settings</button>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h2 id="panel-title">Dashboard</h2>
+            <p id="welcome-text">Welcome back, HR manager.</p>
+          </div>
+          <div class="topbar-actions">
+            <button id="create-employee-btn" class="primary-btn">Create employee</button>
+            <button id="logout-btn" class="secondary-btn">Logout</button>
+            <div>
+              <div class="profile-chip" id="profile-initials">AS</div>
+              <div class="user-meta">
+                <span id="current-user-name">User</span>
+                <span id="current-user-role">Role</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section id="dashboard" class="panel active-panel">
+          <div class="cards-grid">
+            <article class="stat-card">
+              <h3 id="dashboard-title-1">Active employees</h3>
+              <p class="stat-value" id="dashboard-value-1">128</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="dashboard-title-2">Pending leave</h3>
+              <p class="stat-value" id="dashboard-value-2">12</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="dashboard-title-3">Open issues</h3>
+              <p class="stat-value" id="dashboard-value-3">8</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="dashboard-title-4">Attendance rate</h3>
+              <p class="stat-value" id="dashboard-value-4">98%</p>
+            </article>
+          </div>
+
+          <div class="dashboard-panels">
+            <div class="panel-block">
+              <h4>Team summary</h4>
+              <ul class="item-list" id="dashboard-summary-list">
+                <li>Priya Sharma — Performance review due</li>
+                <li>Rohit Singh — Leave requested</li>
+                <li>Asha Mehta — Issue reported</li>
+              </ul>
+            </div>
+            <div class="panel-block">
+              <h4>Announcements</h4>
+              <p>Update performance review cycle by August 5.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="employees" class="panel">
+          <div class="panel-header">
+            <h3>Employees</h3>
+            <input type="search" id="employee-search" placeholder="Search employees" />
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="employee-rows">
+              <tr>
+                <td>Neha Verma</td>
+                <td>HR Business Partner</td>
+                <td>Human Resources</td>
+                <td><span class="status-pill active">Active</span></td>
+                <td><button class="text-btn">View</button></td>
+              </tr>
+              <tr>
+                <td>Amit Patel</td>
+                <td>Recruiter</td>
+                <td>Human Resources</td>
+                <td><span class="status-pill active">Active</span></td>
+                <td><button class="text-btn">View</button></td>
+              </tr>
+              <tr>
+                <td>Rina Gupta</td>
+                <td>Payroll Specialist</td>
+                <td>Finance</td>
+                <td><span class="status-pill inactive">On leave</span></td>
+                <td><button class="text-btn">View</button></td>
+              </tr>
+              <tr>
+                <td>Sameer Khan</td>
+                <td>Learning & Development</td>
+                <td>HR</td>
+                <td><span class="status-pill active">Active</span></td>
+                <td><button class="text-btn">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="attendance" class="panel">
+          <div class="panel-header">
+            <h3>Attendance</h3>
+          </div>
+          <div id="attendance-action" class="attendance-action"></div>
+          <div id="attendance-history" class="attendance-history"></div>
+        </section>
+
+        <section id="leave" class="panel">
+          <div class="panel-header">
+            <h3>Leave Requests</h3>
+          </div>
+          <div id="leave-action" class="leave-action"></div>
+          <div id="leave-list" class="requests-list"></div>
+        </section>
+
+        <section id="issues" class="panel">
+          <div class="panel-header">
+            <h3>Issues</h3>
+          </div>
+          <div id="issue-action" class="issue-action"></div>
+          <div id="issue-list" class="requests-list"></div>
+        </section>
+
+        <section id="reports" class="panel">
+          <div class="panel-header">
+            <h3>Reports</h3>
+          </div>
+          <div class="report-grid" id="report-grid"></div>
+        </section>
+
+        <section id="settings" class="panel">
+          <div class="panel-header">
+            <h3>Settings</h3>
+          </div>
+          <div class="settings-grid">
+            <div class="setting-card">
+              <h4>Create login</h4>
+              <p>Admins can add employee or team leader credentials.</p>
+            </div>
+          </div>
+          <form id="admin-create-form" class="admin-create-form">
+            <label>
+              Full name
+              <input name="employee-name" type="text" placeholder="Employee name" required />
+            </label>
+            <label>
+              Email
+              <input name="employee-email" type="email" placeholder="employee@example.com" required />
+            </label>
+            <label>
+              Role
+              <select name="employee-role">
+                <option value="employee">Employee</option>
+                <option value="team-leader">Team Leader</option>
+              </select>
+            </label>
+            <label>
+              Password
+              <input name="employee-password" type="password" placeholder="Strong password" required />
+            </label>
+            <button type="submit" class="secondary-btn">Create login</button>
+            <div id="admin-form-message" class="admin-form-message"></div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="portal.js"></script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HRMS Sign Up</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="login-shell">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="brand-icon">HR</div>
+          <div>
+            <h1>Sign up</h1>
+            <p>Create an employee account to access the portal.</p>
+          </div>
+        </div>
+
+        <form id="signup-form" class="login-form">
+          <label>
+            Full name
+            <input name="name" type="text" placeholder="Your full name" required />
+          </label>
+          <label>
+            Email address
+            <input name="email" type="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" placeholder="Create a password" required />
+          </label>
+          <button type="submit" class="primary-btn login-submit">Sign up</button>
+          <div id="signup-message" class="login-message"></div>
+        </form>
+
+        <p class="login-note">
+          Already have an account? <a href="login.html">Sign in</a>
+        </p>
+      </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="signup.js"></script>
+  </body>
+</html>
