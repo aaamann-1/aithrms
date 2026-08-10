@@ -1,0 +1,243 @@
+<div class="register-page">
+
+  <!-- LEFT SIDE -->
+  <div class="register-left">
+
+    <div class="left-content">
+
+      <div class="welcome-badge">
+        Welcome to DSR Web Panel
+      </div>
+
+      <h1>
+        Join Your<br>
+        <span>Support Team.</span>
+      </h1>
+
+      <p class="description">
+        Create your DSR Web Panel account to manage daily support
+        activities, track client issues and stay connected with your team.
+      </p>
+
+      <div class="benefits">
+
+        <div class="benefit-card">
+          <i class="bi bi-person-check-fill"></i>
+
+          <div>
+            <h4>Easy Registration</h4>
+            <p>Create your account in just a few steps.</p>
+          </div>
+        </div>
+
+        <div class="benefit-card">
+          <i class="bi bi-shield-check"></i>
+
+          <div>
+            <h4>Secure Account</h4>
+            <p>Your account is protected with secure authentication.</p>
+          </div>
+        </div>
+
+        <div class="benefit-card">
+          <i class="bi bi-clipboard-check"></i>
+
+          <div>
+            <h4>Track Daily Work</h4>
+            <p>Manage support tasks and daily reports efficiently.</p>
+          </div>
+        </div>
+
+        <div class="benefit-card">
+          <i class="bi bi-people-fill"></i>
+
+          <div>
+            <h4>Team Access</h4>
+            <p>Stay connected with your support team.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- RIGHT SIDE -->
+  <div class="register-right">
+
+    <div class="register-card">
+
+      <h2>Create Account</h2>
+
+      <p class="subtitle">
+        Register to continue
+      </p>
+
+
+      <!-- ROLE -->
+
+      <div class="role-selection">
+
+        <label class="role-option">
+
+          <input
+            type="radio"
+            name="role"
+            value="admin"
+            [(ngModel)]="selectedRole">
+
+          <span>Admin</span>
+
+        </label>
+
+
+        <label class="role-option">
+
+          <input
+            type="radio"
+            name="role"
+            value="staff"
+            [(ngModel)]="selectedRole">
+
+          <span>Staff</span>
+
+        </label>
+
+      </div>
+
+
+      <!-- FULL NAME -->
+
+      <div class="input-group-custom">
+
+        <i class="bi bi-person"></i>
+
+        <input
+          type="text"
+          placeholder="Full Name"
+          [(ngModel)]="fullName">
+
+      </div>
+
+
+      <!-- USERNAME -->
+
+      <div class="input-group-custom">
+
+        <i class="bi bi-person-badge"></i>
+
+        <input
+          type="text"
+          placeholder="Username"
+          [(ngModel)]="username">
+
+      </div>
+
+
+      <!-- CONTACT -->
+
+      <div class="input-group-custom">
+
+        <i class="bi bi-telephone"></i>
+
+        <input
+          type="tel"
+          maxlength="10"
+          placeholder="Contact Number"
+          [(ngModel)]="contactNumber">
+
+      </div>
+
+
+      <!-- PASSWORD -->
+
+      <div class="input-group-custom">
+
+        <i class="bi bi-lock"></i>
+
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          [(ngModel)]="password">
+
+        <button
+          type="button"
+          class="password-toggle"
+          (click)="showPassword = !showPassword">
+
+          <i
+            class="bi"
+            [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'">
+          </i>
+
+        </button>
+
+      </div>
+
+
+      <!-- CONFIRM PASSWORD -->
+
+      <div class="input-group-custom">
+
+        <i class="bi bi-lock-fill"></i>
+
+        <input
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          placeholder="Confirm Password"
+          [(ngModel)]="confirmPassword">
+
+        <button
+          type="button"
+          class="password-toggle"
+          (click)="showConfirmPassword = !showConfirmPassword">
+
+          <i
+            class="bi"
+            [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'">
+          </i>
+
+        </button>
+
+      </div>
+
+
+      <!-- REGISTER BUTTON -->
+
+      <button
+        type="button"
+        class="create-btn"
+        (click)="register()">
+
+        Create Account
+
+      </button>
+
+
+      <!-- DIVIDER -->
+
+      <div class="divider">
+
+        <span>OR</span>
+
+      </div>
+
+
+      <!-- LOGIN LINK -->
+
+      <p class="login-link">
+
+        Already have an account?
+
+        <a routerLink="/login">
+          Sign In
+        </a>
+
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

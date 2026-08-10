@@ -1,0 +1,177 @@
+.login-page{
+    min-height:100vh;
+    background:#f4f8ff;
+}
+
+.left-panel{
+    display:flex;
+    align-items:center;
+    padding:80px;
+}
+
+.content h5{
+    display:inline-block;
+    padding:10px 22px;
+    border-radius:30px;
+    background:#2563eb;
+    color:#fff;
+    font-size:15px;
+    margin-bottom:30px;
+}
+
+.content h1{
+    font-size:68px;
+    font-weight:800;
+    line-height:1.1;
+    color:#1f2937;
+}
+
+.content h1 span{
+    color:#2563eb;
+}
+
+.content p{
+    font-size:22px;
+    color:#555;
+    margin-top:25px;
+    max-width:700px;
+}
+
+.feature{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    transition:.3s;
+    height:100%;
+}
+
+.feature:hover{
+    transform:translateY(-8px);
+}
+
+.feature i{
+    font-size:40px;
+    color:#2563eb;
+}
+
+.feature h5{
+    margin-top:20px;
+    font-size:28px;
+    font-weight:700;
+}
+
+.feature p{
+    font-size:18px;
+    color:#666;
+    margin-top:12px;
+}
+
+.right-panel{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#2563eb;
+}
+.login-card{
+width:420px;
+background:#fff;
+padding:45px;
+border-radius:20px;
+box-shadow:0 20px 50px rgba(0,0,0,.2);
+}
+
+.login-card h2{
+    font-size:38px;
+    font-weight:700;
+}
+
+.login-card p{
+    color:#666;
+    margin-bottom:30px;
+}
+
+.form-control{
+    height:55px;
+    border-radius:12px;
+}
+
+.btn-primary{
+    height:55px;
+    border-radius:12px;
+    font-size:20px;
+    font-weight:600;
+}
+
+@media(max-width:992px){
+
+.left-panel{
+padding:40px;
+}
+
+.content h1{
+font-size:45px;
+}
+
+.login-card{
+margin:40px 20px;
+width:100%;
+}
+
+}
+/* ---------- Login Links ---------- */
+
+.login-links{
+    margin-top:20px;
+    text-align:center;
+}
+
+.forgot-link{
+    display:block;
+    color:#2563eb;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+.forgot-link:hover{
+    text-decoration:underline;
+}
+
+.divider{
+    display:flex;
+    align-items:center;
+    margin:15px 0;
+}
+
+.divider::before,
+.divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:#dcdcdc;
+}
+
+.divider span{
+    padding:0 12px;
+    color:#888;
+    font-size:13px;
+}
+
+.new-user{
+    font-size:15px;
+    color:#666;
+    margin-bottom:0;
+}
+
+.new-user a{
+    color:#2563eb;
+    font-weight:700;
+    text-decoration:none;
+    margin-left:4px;
+}
+
+.new-user a:hover{
+    text-decoration:underline;
+}

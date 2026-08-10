@@ -1,0 +1,152 @@
+<div class="login-page">
+
+  <div class="container-fluid">
+
+    <div class="row min-vh-100">
+
+      <!-- LEFT SIDE -->
+
+      <div class="col-lg-7 left-panel">
+
+        <div class="content">
+
+          <h5 class="badge bg-primary mb-4">
+            Welcome to DSR Web Panel
+          </h5>
+
+          <h1>
+            Smart Support.<br>
+            <span>Stronger Business.</span>
+          </h1>
+
+          <p>
+            DSR Web Panel is a daily support reporting system for Billing Software Support Teams.
+          </p>
+
+          <div class="row mt-5 g-4">
+
+            <div class="col-md-6">
+              <div class="feature">
+                <i class="bi bi-people-fill"></i>
+                <h5>Staff Management</h5>
+                <p>Manage staff credentials and permissions.</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="feature">
+                <i class="bi bi-broadcast"></i>
+                <h5>Live Activity Feed</h5>
+                <p>Real-time staff activity updates.</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="feature">
+                <i class="bi bi-list-check"></i>
+                <h5>Task Tracking</h5>
+                <p>Track every client issue easily.</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="feature">
+                <i class="bi bi-shield-check"></i>
+                <h5>Secure Login</h5>
+                <p>Role-based authentication system.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE -->
+
+      <div class="col-lg-5 right-panel">
+
+        <div class="login-card">
+
+          <h2>Welcome Back!</h2>
+
+          <p>Login to continue</p>
+
+          <div class="mt-4">
+
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="role"
+                value="admin"
+                [(ngModel)]="selectedRole">
+
+              <label class="form-check-label">
+                Admin
+              </label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="role"
+                value="staff"
+                [(ngModel)]="selectedRole">
+
+              <label class="form-check-label">
+                Staff
+              </label>
+            </div>
+
+          </div>
+
+          <input
+            class="form-control mt-4"
+            placeholder="Username">
+
+          <input
+            class="form-control mt-3"
+            placeholder="Contact Number">
+
+          <input
+            class="form-control mt-3"
+            placeholder="Password"
+            type="password">
+
+          <button class="btn btn-primary w-100 mt-4">
+            Sign In
+          </button>
+
+          <!-- LOGIN LINKS -->
+
+          <div class="login-links">
+
+            <a routerLink="/forgot-password" class="forgot-link">
+              Forgot Password?
+            </a>
+
+            <div class="divider">
+              <span>OR</span>
+            </div>
+
+            <p class="new-user">
+              New User?
+              <a routerLink="/register">
+                Create Account
+              </a>
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

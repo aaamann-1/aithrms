@@ -1,0 +1,55 @@
+.hero{
+
+padding:90px 0;
+
+background:#f8fbff;
+
+}
+
+.hero h1{
+
+font-weight:800;
+
+line-height:1.2;
+
+}
+
+.hero p{
+
+color:#555;
+
+font-size:18px;
+
+}
+
+.hero-image{
+
+width:420px;
+
+max-width:100%;
+
+animation:float 4s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-15px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
