@@ -1,243 +1,211 @@
 <div class="register-page">
 
-  <!-- LEFT SIDE -->
-  <div class="register-left">
+  <!-- RIGHT SIDE -->
+  <div class="register-right">
 
-    <div class="left-content">
+<div class="register-card">
 
-      <div class="welcome-badge">
-        Welcome to DSR Web Panel
-      </div>
+  <h2>Create Account</h2>
 
-      <h1>
-        Join Your<br>
-        <span>Support Team.</span>
-      </h1>
+  <p class="subtitle">
+    Register to continue
+  </p>
 
-      <p class="description">
-        Create your DSR Web Panel account to manage daily support
-        activities, track client issues and stay connected with your team.
-      </p>
 
-      <div class="benefits">
+  <!-- ROLE -->
 
-        <div class="benefit-card">
-          <i class="bi bi-person-check-fill"></i>
+  <div class="role-selection">
 
-          <div>
-            <h4>Easy Registration</h4>
-            <p>Create your account in just a few steps.</p>
-          </div>
-        </div>
+    <label class="role-option">
 
-        <div class="benefit-card">
-          <i class="bi bi-shield-check"></i>
+      <input
+        type="radio"
+        name="role"
+        value="admin"
+        [(ngModel)]="selectedRole">
 
-          <div>
-            <h4>Secure Account</h4>
-            <p>Your account is protected with secure authentication.</p>
-          </div>
-        </div>
+      <span>Admin</span>
 
-        <div class="benefit-card">
-          <i class="bi bi-clipboard-check"></i>
+    </label>
 
-          <div>
-            <h4>Track Daily Work</h4>
-            <p>Manage support tasks and daily reports efficiently.</p>
-          </div>
-        </div>
 
-        <div class="benefit-card">
-          <i class="bi bi-people-fill"></i>
+    <label class="role-option">
 
-          <div>
-            <h4>Team Access</h4>
-            <p>Stay connected with your support team.</p>
-          </div>
-        </div>
+      <input
+        type="radio"
+        name="role"
+        value="staff"
+        [(ngModel)]="selectedRole">
 
-      </div>
+      <span>Staff</span>
 
-    </div>
+    </label>
 
   </div>
 
 
-  <!-- RIGHT SIDE -->
-  <div class="register-right">
+  <!-- FULL NAME -->
 
-    <div class="register-card">
+  <div class="input-group-custom">
 
-      <h2>Create Account</h2>
+  <i class="bi bi-person"></i>
 
-      <p class="subtitle">
-        Register to continue
-      </p>
+  <input
+    type="text"
+    placeholder="Full Name"
+    [(ngModel)]="fullName">
 
+</div>
 
-      <!-- ROLE -->
+<div
+  class="validation-message"
+  *ngIf="submitted && !fullName">
+  Full Name is required.
+</div>
 
-      <div class="role-selection">
 
-        <label class="role-option">
+  <!-- USERNAME -->
 
-          <input
-            type="radio"
-            name="role"
-            value="admin"
-            [(ngModel)]="selectedRole">
+  <div class="input-group-custom">
 
-          <span>Admin</span>
+  <i class="bi bi-person-badge"></i>
 
-        </label>
+  <input
+    type="text"
+    placeholder="Username"
+    [(ngModel)]="username">
 
+</div>
 
-        <label class="role-option">
+<div
+  class="validation-message"
+  *ngIf="submitted && !username">
+  Username is required.
+</div>
 
-          <input
-            type="radio"
-            name="role"
-            value="staff"
-            [(ngModel)]="selectedRole">
 
-          <span>Staff</span>
+  <!-- CONTACT -->
+<div class="input-group-custom">
 
-        </label>
+  <i class="bi bi-telephone"></i>
 
-      </div>
+  <input
+    type="tel"
+    maxlength="10"
+    placeholder="Contact Number"
+    [(ngModel)]="contactNumber">
 
+</div>
 
-      <!-- FULL NAME -->
+<div
+  class="validation-message"
+  *ngIf="submitted && contactNumber.length !== 10">
 
-      <div class="input-group-custom">
+  Contact Number must contain exactly 10 digits.
 
-        <i class="bi bi-person"></i>
+</div>
 
-        <input
-          type="text"
-          placeholder="Full Name"
-          [(ngModel)]="fullName">
 
-      </div>
+  <!-- PASSWORD -->
 
+ <div class="input-group-custom">
 
-      <!-- USERNAME -->
+  <i class="bi bi-lock"></i>
 
-      <div class="input-group-custom">
+  <input
+    [type]="showPassword ? 'text' : 'password'"
+    placeholder="Password"
+    [(ngModel)]="password">
 
-        <i class="bi bi-person-badge"></i>
+  <button
+    type="button"
+    class="password-toggle"
+    (click)="showPassword = !showPassword">
 
-        <input
-          type="text"
-          placeholder="Username"
-          [(ngModel)]="username">
+    <i
+      class="bi"
+      [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'">
+    </i>
 
-      </div>
+  </button>
 
+</div>
 
-      <!-- CONTACT -->
+<div
+  class="validation-message"
+  *ngIf="submitted && password.length < 6">
 
-      <div class="input-group-custom">
+  Password must be at least 6 characters.
 
-        <i class="bi bi-telephone"></i>
+</div>
 
-        <input
-          type="tel"
-          maxlength="10"
-          placeholder="Contact Number"
-          [(ngModel)]="contactNumber">
+  <!-- CONFIRM PASSWORD -->
 
-      </div>
+ <div class="input-group-custom">
 
+  <i class="bi bi-lock-fill"></i>
 
-      <!-- PASSWORD -->
+  <input
+    [type]="showConfirmPassword ? 'text' : 'password'"
+    placeholder="Confirm Password"
+    [(ngModel)]="confirmPassword">
 
-      <div class="input-group-custom">
+  <button
+    type="button"
+    class="password-toggle"
+    (click)="showConfirmPassword = !showConfirmPassword">
 
-        <i class="bi bi-lock"></i>
+    <i
+      class="bi"
+      [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'">
+    </i>
 
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          placeholder="Password"
-          [(ngModel)]="password">
+  </button>
 
-        <button
-          type="button"
-          class="password-toggle"
-          (click)="showPassword = !showPassword">
+</div>
 
-          <i
-            class="bi"
-            [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'">
-          </i>
+<div
+  class="validation-message"
+  *ngIf="submitted && confirmPassword && password !== confirmPassword">
 
-        </button>
+  Passwords do not match.
 
-      </div>
+</div>
 
+  <!-- REGISTER BUTTON -->
 
-      <!-- CONFIRM PASSWORD -->
+  <button
+    type="button"
+    class="create-btn"
+    (click)="register()">
 
-      <div class="input-group-custom">
+    Create Account
 
-        <i class="bi bi-lock-fill"></i>
+  </button>
 
-        <input
-          [type]="showConfirmPassword ? 'text' : 'password'"
-          placeholder="Confirm Password"
-          [(ngModel)]="confirmPassword">
 
-        <button
-          type="button"
-          class="password-toggle"
-          (click)="showConfirmPassword = !showConfirmPassword">
+  <!-- DIVIDER -->
 
-          <i
-            class="bi"
-            [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'">
-          </i>
+  <div class="divider">
 
-        </button>
+    <span>OR</span>
 
-      </div>
+  </div>
 
 
-      <!-- REGISTER BUTTON -->
+  <!-- LOGIN LINK -->
 
-      <button
-        type="button"
-        class="create-btn"
-        (click)="register()">
+  <p class="login-link">
 
-        Create Account
+    Already have an account?
 
-      </button>
+    <a routerLink="/login">
+      Sign In
+    </a>
 
+  </p>
 
-      <!-- DIVIDER -->
-
-      <div class="divider">
-
-        <span>OR</span>
-
-      </div>
-
-
-      <!-- LOGIN LINK -->
-
-      <p class="login-link">
-
-        Already have an account?
-
-        <a routerLink="/login">
-          Sign In
-        </a>
-
-      </p>
-
-    </div>
-
+</div>
   </div>
 
 </div>
