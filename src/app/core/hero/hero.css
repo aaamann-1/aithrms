@@ -1,55 +1,439 @@
-.hero{
+/* =========================================
+   HERO SECTION
+========================================= */
 
-padding:90px 0;
+.hero {
+  padding: 90px 0 70px;
+  background: #f8fbff;
+}
 
-background:#f8fbff;
+
+/* =========================================
+   HERO TEXT
+========================================= */
+
+.hero h1 {
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero p {
+  color: #555;
+  font-size: 18px;
+  max-width: 700px;
+}
+
+
+/* =========================================
+   HERO IMAGE
+========================================= */
+
+.hero-image {
+  width: 420px;
+  max-width: 100%;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 
 }
 
-.hero h1{
 
-font-weight:800;
+/* =========================================
+   HERO BUTTONS
+========================================= */
 
-line-height:1.2;
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+  min-height: 50px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   BOOK DEMO SECTION
+========================================= */
+
+.demo-section {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+
+  margin-top: 60px;
+  padding: 50px 20px;
+
+  background: #f8fbff;
+}
+
+
+/* =========================================
+   DEMO CARD
+========================================= */
+
+.demo-card {
+  width: 650px;
+  max-width: 100%;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   DEMO CARD HEADER
+========================================= */
+
+.demo-card-header {
+  background: #2563eb;
+
+  color: #ffffff;
+
+  text-align: center;
+
+  padding: 30px 25px;
+}
+
+.demo-card-header h2 {
+  margin: 0;
+
+  font-size: 30px;
+
+  font-weight: 700;
+}
+
+.demo-card-header p {
+  margin: 10px 0 0;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   DEMO FORM
+========================================= */
+
+.demo-form {
+  padding: 30px;
+}
+
+.demo-form .form-control {
+  width: 100%;
+
+  height: 55px;
+
+  margin-bottom: 15px;
+
+  padding: 0 15px;
+
+  border: 1px solid #d5dbe5;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+
+  box-sizing: border-box;
+}
+
+.demo-form .form-control:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+
+  outline: none;
+}
+
+
+/* =========================================
+   DEMO SUBMIT
+========================================= */
+
+.demo-submit {
+  width: 100%;
+
+  height: 55px;
+
+  border-radius: 8px;
+
+  font-size: 18px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   POPUP OVERLAY
+========================================= */
+
+.demo-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  backdrop-filter: blur(7px);
+
+  -webkit-backdrop-filter: blur(7px);
+}
+
+
+/* =========================================
+   POPUP
+========================================= */
+
+.demo-modal {
+  position: relative;
+
+  width: 480px;
+
+  max-width: 100%;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.30);
+
+  animation: demoPopup 0.25s ease-out;
+}
+
+
+/* =========================================
+   POPUP ANIMATION
+========================================= */
+
+@keyframes demoPopup {
+
+  from {
+    opacity: 0;
+
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
 
 }
 
-.hero p{
 
-color:#555;
+/* =========================================
+   CLOSE BUTTON
+========================================= */
 
-font-size:18px;
+.modal-close {
+  position: absolute;
 
+  top: -14px;
+
+  right: -14px;
+
+  width: 42px;
+
+  height: 42px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #000000;
+
+  color: #ffffff;
+
+  font-size: 28px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
 }
 
-.hero-image{
-
-width:420px;
-
-max-width:100%;
-
-animation:float 4s ease-in-out infinite;
-
+.modal-close:hover {
+  background: #2563eb;
 }
 
-@keyframes float{
 
-0%{
+/* =========================================
+   POPUP HEADER
+========================================= */
 
-transform:translateY(0);
+.modal-header {
+  background: #2563eb;
 
+  color: #ffffff;
+
+  padding: 28px 25px;
+
+  text-align: center;
+
+  border-radius: 18px 18px 0 0;
 }
 
-50%{
+.modal-header h2 {
+  margin: 0;
 
-transform:translateY(-15px);
+  font-size: 30px;
 
+  font-weight: 700;
 }
 
-100%{
+.modal-header p {
+  margin: 8px 0 0;
 
-transform:translateY(0);
-
+  font-size: 15px;
 }
+
+
+/* =========================================
+   POPUP BODY
+========================================= */
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-body .form-control {
+  width: 100%;
+
+  height: 55px;
+
+  margin-bottom: 14px;
+
+  padding: 0 15px;
+
+  border: 1px solid #d5dbe5;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+
+  box-sizing: border-box;
+}
+
+.modal-body .form-control:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+
+  outline: none;
+}
+
+
+/* =========================================
+   POPUP BUTTON
+========================================= */
+
+.modal-submit {
+  width: 100%;
+
+  height: 55px;
+
+  margin-top: 5px;
+
+  border-radius: 8px;
+
+  font-size: 18px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .hero {
+    padding: 60px 0 40px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+
+    margin: 0 !important;
+  }
+
+  .demo-section {
+    margin-top: 40px;
+
+    padding: 35px 15px;
+  }
+
+  .demo-form {
+    padding: 20px;
+  }
+
+  .demo-card-header h2 {
+    font-size: 25px;
+  }
+
+  .demo-modal {
+    width: 100%;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 25px;
+  }
+
+  .modal-close {
+    right: -5px;
+    top: -5px;
+  }
 
 }

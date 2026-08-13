@@ -2,7 +2,11 @@
 
   <div class="container">
 
+    <!-- ================= HERO MAIN ================= -->
+
     <div class="row align-items-center">
+
+      <!-- LEFT SIDE -->
 
       <div class="col-lg-6">
 
@@ -11,11 +15,15 @@
         </span>
 
         <h1 class="display-4 fw-bold">
+
           Smart Support.
+
           <br>
+
           <span class="text-primary">
             Stronger Business.
           </span>
+
         </h1>
 
         <p class="lead mt-4">
@@ -26,19 +34,40 @@
 
         </p>
 
-        <div class="mt-4">
+        <!-- HERO BUTTONS -->
 
-          <a routerLink="/login"
-             class="btn btn-primary btn-lg me-3">
+        <div class="hero-buttons mt-4">
 
-              Login
+          <!-- LOGIN -->
+
+          <a
+            routerLink="/login"
+            class="btn btn-primary btn-lg">
+
+            Login
 
           </a>
 
-          <a href="#features"
-             class="btn btn-outline-primary btn-lg">
 
-              Learn More
+          <!-- BOOK DEMO -->
+
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-lg"
+            (click)="openDemoModal()">
+
+            📅 Book a Demo
+
+          </button>
+
+
+          <!-- LEARN MORE -->
+
+          <a
+            href="#features"
+            class="btn btn-outline-primary btn-lg">
+
+            Learn More
 
           </a>
 
@@ -46,11 +75,86 @@
 
       </div>
 
+
+      <!-- RIGHT SIDE IMAGE -->
+
       <div class="col-lg-6 text-center">
 
         <img
-        src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png"
-        class="img-fluid hero-image">
+          src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png"
+          class="img-fluid hero-image"
+          alt="DSR Web Panel Support Team">
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- BOOK DEMO CARD BELOW HERO -->
+    <!-- ================================================= -->
+
+    <div class="demo-section">
+
+      <div class="demo-card">
+
+        <!-- HEADER -->
+
+        <div class="demo-card-header">
+
+          <h2>
+            Book a Free Demo
+          </h2>
+
+          <p>
+            See how DSR Web Panel can simplify your support operations.
+          </p>
+
+        </div>
+
+
+        <!-- MAIN BOOK DEMO FORM -->
+
+        <div class="demo-form">
+
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Name"
+            [(ngModel)]="demoName">
+
+
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Email ID"
+            [(ngModel)]="demoEmail">
+
+
+          <input
+            type="tel"
+            class="form-control"
+            placeholder="Mobile No."
+            [(ngModel)]="demoMobile">
+
+
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Employee Size"
+            [(ngModel)]="demoEmployeeSize">
+
+
+          <button
+            type="button"
+            class="btn btn-primary demo-submit"
+            (click)="submitDemo()">
+
+            Book Demo
+
+          </button>
+
+        </div>
 
       </div>
 
@@ -59,3 +163,94 @@
   </div>
 
 </section>
+
+
+<!-- ================================================= -->
+<!-- BOOK DEMO POPUP -->
+<!-- ================================================= -->
+
+<div
+  class="demo-modal-overlay"
+  *ngIf="showDemoModal">
+
+
+  <!-- POPUP BOX -->
+
+  <div
+    class="demo-modal"
+    (click)="$event.stopPropagation()">
+
+
+    <!-- CLOSE BUTTON -->
+
+    <button
+      type="button"
+      class="modal-close"
+      (click)="closeDemoModal()">
+
+      ×
+
+    </button>
+
+
+    <!-- POPUP HEADER -->
+
+    <div class="modal-header">
+
+      <h2>
+        Book a Free Demo
+      </h2>
+
+      <p>
+        Fill in your details and our team will contact you.
+      </p>
+
+    </div>
+
+
+    <!-- POPUP FORM -->
+
+    <div class="modal-body">
+
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Name"
+        [(ngModel)]="demoName">
+
+
+      <input
+        type="email"
+        class="form-control"
+        placeholder="Email ID"
+        [(ngModel)]="demoEmail">
+
+
+      <input
+        type="tel"
+        class="form-control"
+        placeholder="Mobile No."
+        [(ngModel)]="demoMobile">
+
+
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Employee Size"
+        [(ngModel)]="demoEmployeeSize">
+
+
+      <button
+        type="button"
+        class="btn btn-primary modal-submit"
+        (click)="submitDemo()">
+
+        Book Demo
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
