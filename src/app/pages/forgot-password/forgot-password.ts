@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -19,15 +19,13 @@ export class ForgotPassword {
   username = '';
   contactNumber = '';
 
-  sendResetRequest() {
+  sendResetRequest(form: NgForm) {
 
-    if (!this.username || !this.contactNumber) {
-      alert('Please enter your username and contact number.');
-      return;
-    }
+    if (form.invalid) {
+      Object.values(form.controls).forEach(control => {
+        control.markAsTouched();
+      });
 
-    if (this.contactNumber.length !== 10) {
-      alert('Please enter a valid 10-digit contact number.');
       return;
     }
 

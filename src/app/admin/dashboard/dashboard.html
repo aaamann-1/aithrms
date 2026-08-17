@@ -1,1 +1,1469 @@
-<p>dashboard works!</p>
+<div class="dashboard-layout">
+
+  <!-- =====================================================
+       FIXED SIDEBAR
+  ====================================================== -->
+
+  <aside class="sidebar">
+
+    <!-- LOGO -->
+
+    <div class="logo-section">
+
+      <div class="logo-icon">
+        <span>♢</span>
+      </div>
+
+      <div class="logo-text">
+
+        <h2>DSR Web Panel</h2>
+
+        <p>Billing Support</p>
+
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION TITLE -->
+
+    <div class="navigation-title">
+      NAVIGATION
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navigation">
+
+      <!-- Dashboard -->
+
+      <button
+        class="nav-item active"
+        type="button"
+        (click)="goTo('/admin/dashboard')"
+      >
+
+        <span class="nav-icon">▦</span>
+
+        <span>
+          Dashboard
+        </span>
+
+        <span class="active-dot">
+          •
+        </span>
+
+      </button>
+
+
+      <!-- Live Activity -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/liveffed')"
+      >
+
+        <span class="nav-icon">〽</span>
+
+        <span>
+          Live Activity Feed
+        </span>
+
+      </button>
+
+
+      <!-- Staff Management -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/staff-management')"
+      >
+
+        <span class="nav-icon">♙</span>
+
+        <span>
+          Staff Management
+        </span>
+
+      </button>
+
+
+      <!-- Reports -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/reports')"
+      >
+
+        <span class="nav-icon">▥</span>
+
+        <span>
+          Reports
+        </span>
+
+      </button>
+
+
+      <!-- Settings -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/setting')"
+      >
+
+        <span class="nav-icon">⚙</span>
+
+        <span>
+          Settings
+        </span>
+
+      </button>
+
+    </nav>
+
+
+    <!-- SIDEBAR LOGOUT -->
+
+    <div class="sidebar-bottom">
+
+      <button
+        class="logout-button"
+        type="button"
+        (click)="logout()"
+      >
+
+        <span>⇥</span>
+
+        Logout
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+  ====================================================== -->
+
+  <main class="main-content">
+
+
+    <!-- =====================================================
+         TOP HEADER
+    ====================================================== -->
+
+    <header class="top-header">
+
+
+      <!-- MENU -->
+
+      <button
+        class="menu-button"
+        type="button"
+      >
+        ☰
+      </button>
+
+
+      <!-- =================================================
+           SEARCH
+      ================================================== -->
+
+      <div class="search-container">
+
+        <div class="search-box">
+
+          <span class="search-icon">
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            placeholder="Search client, staff, issue..."
+            [value]="searchText"
+            (input)="searchDashboard($event)"
+          />
+
+          <button
+            *ngIf="searchText"
+            class="clear-search"
+            type="button"
+            (click)="clearSearch()"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <!-- SEARCH RESULTS -->
+
+        <div
+          class="search-results"
+          *ngIf="searchText"
+        >
+
+          <div
+            *ngIf="searchResults.length === 0"
+            class="no-results"
+          >
+
+            No results found
+
+          </div>
+
+
+          <button
+            *ngFor="let result of searchResults"
+            class="search-result-item"
+            type="button"
+          >
+
+            <div class="result-title">
+
+              {{ result.title }}
+
+            </div>
+
+            <div class="result-description">
+
+              {{ result.description }}
+
+            </div>
+
+            <span
+              class="result-status"
+              [ngClass]="{
+                'resolved': result.status === 'Resolved',
+                'pending': result.status === 'Pending',
+                'escalated': result.status === 'Escalated'
+              }"
+            >
+
+              {{ result.status }}
+
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- DATE -->
+
+      <div class="date-box">
+
+        <span>
+          ▣
+        </span>
+
+        <span>
+          {{ getCurrentDate() }}
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           NOTIFICATION
+      ================================================== -->
+
+      <div class="notification-wrapper">
+
+        <button
+          class="notification-button"
+          type="button"
+          (click)="toggleNotificationDropdown()"
+        >
+
+          ♧
+
+          <span class="notification-dot"></span>
+
+        </button>
+
+
+        <!-- NOTIFICATION DROPDOWN -->
+
+        <div
+          class="notification-dropdown"
+          *ngIf="notificationDropdownOpen"
+        >
+
+          <div class="notification-header">
+
+            <strong>
+              Notifications
+            </strong>
+
+            <span>
+              3 new
+            </span>
+
+          </div>
+
+
+          <div class="notification-item">
+
+            <div class="notification-icon red">
+              !
+            </div>
+
+            <div>
+
+              <strong>
+                Escalated Issue
+              </strong>
+
+              <p>
+                Apex Solutions requires attention.
+              </p>
+
+              <small>
+                5 minutes ago
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="notification-item">
+
+            <div class="notification-icon orange">
+              !
+            </div>
+
+            <div>
+
+              <strong>
+                Pending Issue
+              </strong>
+
+              <p>
+                Mehta & Sons ticket is pending.
+              </p>
+
+              <small>
+                15 minutes ago
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="notification-item">
+
+            <div class="notification-icon green">
+              ✓
+            </div>
+
+            <div>
+
+              <strong>
+                Issue Resolved
+              </strong>
+
+              <p>
+                Sharma Enterprises issue resolved.
+              </p>
+
+              <small>
+                20 minutes ago
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ADMIN PROFILE
+      ================================================== -->
+
+      <div class="admin-profile-wrapper">
+
+
+        <button
+          class="admin-profile"
+          type="button"
+          (click)="toggleProfileDropdown()"
+        >
+
+          <div class="profile-avatar">
+            DS
+          </div>
+
+
+          <div class="profile-details">
+
+            <strong>
+              {{ currentUser?.name || 'Dev Sharma' }}
+            </strong>
+
+            <span>
+              Administrator
+            </span>
+
+          </div>
+
+
+          <span
+            class="profile-arrow"
+            [class.rotate]="profileDropdownOpen"
+          >
+            ⌄
+          </span>
+
+        </button>
+
+
+        <!-- =================================================
+             PROFILE DROPDOWN
+        ================================================== -->
+
+        <div
+          class="profile-dropdown"
+          *ngIf="profileDropdownOpen"
+        >
+
+
+          <!-- USER -->
+
+          <div class="dropdown-user">
+
+            <div class="dropdown-avatar">
+              DS
+            </div>
+
+            <div>
+
+              <strong>
+                {{ currentUser?.name || 'Dev Sharma' }}
+              </strong>
+
+              <span>
+                Administrator
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="dropdown-divider"></div>
+
+
+          <!-- MY PROFILE -->
+
+          <button
+            class="dropdown-item"
+            type="button"
+            (click)="goTo('/admin/profile')"
+          >
+
+            <span class="dropdown-icon">
+              👤
+            </span>
+
+            <span>
+              My Profile
+            </span>
+
+          </button>
+
+
+          <!-- SETTINGS -->
+
+          <button
+            class="dropdown-item"
+            type="button"
+            (click)="goTo('/admin/setting')"
+          >
+
+            <span class="dropdown-icon">
+              ⚙
+            </span>
+
+            <span>
+              Settings
+            </span>
+
+          </button>
+
+
+          <div class="dropdown-divider"></div>
+
+
+          <!-- LOGOUT -->
+
+          <button
+            class="dropdown-item logout-item"
+            type="button"
+            (click)="logout()"
+          >
+
+            <span class="dropdown-icon">
+              ⇥
+            </span>
+
+            <span>
+              Log Out
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         DASHBOARD CONTENT
+    ====================================================== -->
+
+    <div class="dashboard-content">
+
+
+      <!-- PAGE TITLE -->
+
+      <div class="page-title">
+
+        <div>
+
+          <h1>
+            Dashboard
+          </h1>
+
+          <p>
+            Overview of today's support operations
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           STATISTICS
+      ================================================== -->
+
+      <section class="stats-grid">
+
+
+        <!-- TOTAL STAFF -->
+
+        <div class="stat-card">
+
+          <div class="stat-content">
+
+            <span class="stat-title">
+              TOTAL STAFF
+            </span>
+
+            <h2>
+              {{ stats.totalStaff }}
+            </h2>
+
+            <span class="stat-positive">
+              ↑ &nbsp;+2 vs yesterday
+            </span>
+
+          </div>
+
+          <div class="stat-icon blue">
+            ♙
+          </div>
+
+        </div>
+
+
+        <!-- PRESENT -->
+
+        <div class="stat-card">
+
+          <div class="stat-content">
+
+            <span class="stat-title">
+              PRESENT TODAY
+            </span>
+
+            <h2>
+              {{ stats.presentToday }}
+            </h2>
+
+            <span class="stat-positive">
+              ↑ &nbsp;+1 vs yesterday
+            </span>
+
+          </div>
+
+          <div class="stat-icon green">
+            ♙
+          </div>
+
+        </div>
+
+
+        <!-- ISSUES SOLVED -->
+
+        <div class="stat-card">
+
+          <div class="stat-content">
+
+            <span class="stat-title">
+              ISSUES SOLVED
+            </span>
+
+            <h2>
+              {{ stats.issuesSolved }}
+            </h2>
+
+            <span class="stat-positive">
+              ↑ &nbsp;+18 vs yesterday
+            </span>
+
+          </div>
+
+          <div class="stat-icon purple">
+            ✓
+          </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="stat-card">
+
+          <div class="stat-content">
+
+            <span class="stat-title">
+              PENDING ISSUES
+            </span>
+
+            <h2>
+              {{ stats.pendingIssues }}
+            </h2>
+
+            <span class="stat-negative">
+              ↓ &nbsp;-5 vs yesterday
+            </span>
+
+          </div>
+
+          <div class="stat-icon orange">
+            !
+          </div>
+
+        </div>
+
+
+        <!-- ESCALATED -->
+
+        <div class="stat-card">
+
+          <div class="stat-content">
+
+            <span class="stat-title">
+              ESCALATED
+            </span>
+
+            <h2>
+              {{ stats.escalated }}
+            </h2>
+
+            <span class="stat-negative">
+              ↓ &nbsp;+2 vs yesterday
+            </span>
+
+          </div>
+
+          <div class="stat-icon red">
+            ⚠
+          </div>
+
+        </div>
+
+
+        <!-- AVG RESOLUTION -->
+
+        <div class="stat-card">
+
+          <div class="stat-content">
+
+            <span class="stat-title">
+              AVG RESOLUTION
+            </span>
+
+            <h2>
+              {{ stats.avgResolution }}
+            </h2>
+
+            <span class="stat-neutral">
+              — &nbsp;neutral vs yesterday
+            </span>
+
+          </div>
+
+          <div class="stat-icon cyan">
+            ◷
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           LIVE ACTIVITY FEED
+      ================================================== -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Live Activity Feed
+            </h2>
+
+            <p>
+              Real-time support activities
+            </p>
+
+          </div>
+
+          <div class="live-status">
+
+            <span></span>
+
+            Live
+
+          </div>
+
+        </div>
+
+
+        <div class="activity-list">
+
+          <div
+            class="activity-row"
+            *ngFor="let activity of activities"
+          >
+
+
+            <div
+              class="activity-avatar"
+              [ngClass]="activity.avatar"
+            >
+
+              {{ activity.initials }}
+
+              <span class="online-dot"></span>
+
+            </div>
+
+
+            <div class="activity-information">
+
+              <div class="activity-main-line">
+
+                <strong>
+                  {{ activity.name }}
+                </strong>
+
+                <span class="arrow">
+                  ›
+                </span>
+
+                <span class="client-name">
+                  {{ activity.client }}
+                </span>
+
+                <span class="client-id">
+                  ({{ activity.clientId }})
+                </span>
+
+              </div>
+
+
+              <div class="activity-sub-line">
+
+                <span>
+                  {{ activity.category }}
+                </span>
+
+                <span>•</span>
+
+                <span>
+                  ◷ {{ activity.duration }}
+                </span>
+
+                <span>•</span>
+
+                <span>
+                  {{ activity.time }}
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <span
+              class="activity-status"
+              [ngClass]="{
+                'resolved': activity.status === 'Resolved',
+                'pending': activity.status === 'Pending',
+                'escalated': activity.status === 'Escalated'
+              }"
+            >
+
+              ● {{ activity.status }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           ISSUE STATUS
+      ================================================== -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Issue Status
+            </h2>
+
+            <p>
+              Today's distribution
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="donut-container">
+
+          <div class="donut-chart">
+
+            <div class="donut-center"></div>
+
+          </div>
+
+        </div>
+
+
+        <div class="issue-legend">
+
+
+          <div class="legend-row">
+
+            <div class="legend-name">
+
+              <span class="legend-dot resolved-dot"></span>
+
+              Resolved
+
+            </div>
+
+            <strong>
+              {{ stats.issuesSolved }}
+            </strong>
+
+            <span>
+              74%
+            </span>
+
+          </div>
+
+
+          <div class="legend-row">
+
+            <div class="legend-name">
+
+              <span class="legend-dot pending-dot"></span>
+
+              Pending
+
+            </div>
+
+            <strong>
+              {{ stats.pendingIssues }}
+            </strong>
+
+            <span>
+              18%
+            </span>
+
+          </div>
+
+
+          <div class="legend-row">
+
+            <div class="legend-name">
+
+              <span class="legend-dot escalated-dot"></span>
+
+              Escalated
+
+            </div>
+
+            <strong>
+              {{ stats.escalated }}
+            </strong>
+
+            <span>
+              8%
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           ISSUES BY CATEGORY
+      ================================================== -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Issues by Category
+            </h2>
+
+            <p>
+              All time breakdown
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="category-list">
+
+          <div
+            class="category-row"
+            *ngFor="let category of categories"
+          >
+
+            <div class="category-label">
+
+              {{ category.name }}
+
+            </div>
+
+
+            <div class="category-bar-container">
+
+              <div
+                class="category-bar"
+                [style.width]="getCategoryWidth(category.value)"
+              ></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           WEEKLY TREND
+      ================================================== -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Weekly Trend
+            </h2>
+
+            <p>
+              Last 7 days performance
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="trend-chart">
+
+          <div class="chart-y-labels">
+
+            <span>60</span>
+
+            <span>45</span>
+
+            <span>30</span>
+
+            <span>15</span>
+
+            <span>0</span>
+
+          </div>
+
+
+          <div class="chart-area">
+
+            <div class="grid-line line-60"></div>
+
+            <div class="grid-line line-45"></div>
+
+            <div class="grid-line line-30"></div>
+
+            <div class="grid-line line-15"></div>
+
+            <div class="grid-line line-0"></div>
+
+
+            <svg
+              class="trend-svg"
+              viewBox="0 0 700 220"
+              preserveAspectRatio="none"
+            >
+
+              <defs>
+
+                <linearGradient
+                  id="trendGradient"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+
+                  <stop
+                    offset="0%"
+                    stop-opacity="0.18"
+                  />
+
+                  <stop
+                    offset="100%"
+                    stop-opacity="0"
+                  />
+
+                </linearGradient>
+
+              </defs>
+
+
+              <path
+                d="M0,102
+                   C45,110 70,116 116,118
+                   C160,120 190,65 233,55
+                   C275,45 315,77 350,78
+                   C390,78 425,65 466,65
+                   C505,65 535,130 583,150
+                   C620,164 660,175 700,180
+                   L700,220
+                   L0,220 Z"
+                fill="url(#trendGradient)"
+              />
+
+
+              <path
+                d="M0,102
+                   C45,110 70,116 116,118
+                   C160,120 190,65 233,55
+                   C275,45 315,77 350,78
+                   C390,78 425,65 466,65
+                   C505,65 535,130 583,150
+                   C620,164 660,175 700,180"
+                fill="none"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+
+            </svg>
+
+
+            <div class="chart-days">
+
+              <span>Mon</span>
+
+              <span>Tue</span>
+
+              <span>Wed</span>
+
+              <span>Thu</span>
+
+              <span>Fri</span>
+
+              <span>Sat</span>
+
+              <span>Sun</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="trend-legend">
+
+          <span>
+
+            <i class="green-small-dot"></i>
+
+            Resolved
+
+          </span>
+
+          <span>
+
+            <i class="orange-small-dot"></i>
+
+            Pending
+
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           RECENT TASKS
+      ================================================== -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Recent Tasks
+            </h2>
+
+            <p>
+              Latest support tickets
+            </p>
+
+          </div>
+
+          <button
+            class="view-all"
+            type="button"
+          >
+            View All
+          </button>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  CLIENT ID
+                </th>
+
+                <th>
+                  CLIENT NAME
+                </th>
+
+                <th>
+                  CATEGORY
+                </th>
+
+                <th>
+                  STATUS
+                </th>
+
+                <th>
+                  TIME
+                </th>
+
+                <th>
+                  STAFF
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="let task of recentTasks"
+              >
+
+                <td class="client-id-table">
+
+                  {{ task.clientId }}
+
+                </td>
+
+                <td>
+
+                  {{ task.clientName }}
+
+                </td>
+
+                <td>
+
+                  {{ task.category }}
+
+                </td>
+
+                <td>
+
+                  <span
+                    class="table-status"
+                    [ngClass]="{
+                      'resolved': task.status === 'Resolved',
+                      'pending': task.status === 'Pending',
+                      'escalated': task.status === 'Escalated'
+                    }"
+                  >
+
+                    ● {{ task.status }}
+
+                  </span>
+
+                </td>
+
+                <td>
+
+                  {{ task.time }}
+
+                </td>
+
+                <td>
+
+                  {{ task.staff }}
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           ATTENDANCE SUMMARY
+      ================================================== -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Attendance Summary
+            </h2>
+
+            <p>
+              Today, {{ getCurrentDate() }}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ATTENDANCE STATISTICS -->
+
+        <div class="attendance-stats">
+
+
+          <div class="attendance-stat">
+
+            <div class="attendance-stat-icon green-icon">
+              ♙
+            </div>
+
+            <div>
+
+              <span>
+                Staff Present
+              </span>
+
+              <strong>
+                {{ stats.presentToday }}/{{ stats.totalStaff }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="attendance-stat">
+
+            <div class="attendance-stat-icon blue-icon">
+              ◷
+            </div>
+
+            <div>
+
+              <span>
+                Avg Check-In
+              </span>
+
+              <strong>
+                09:08 AM
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="attendance-stat">
+
+            <div class="attendance-stat-icon purple-icon">
+              ◴
+            </div>
+
+            <div>
+
+              <span>
+                Avg Working Hrs
+              </span>
+
+              <strong>
+                7h 56m
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="attendance-stat">
+
+            <div class="attendance-stat-icon red-icon">
+              !
+            </div>
+
+            <div>
+
+              <span>
+                Absent Today
+              </span>
+
+              <strong>
+                {{ stats.totalStaff - stats.presentToday }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ATTENDANCE PEOPLE -->
+
+        <div class="attendance-list">
+
+          <div
+            class="attendance-row"
+            *ngFor="let person of attendance"
+          >
+
+            <div class="attendance-person">
+
+              <div class="attendance-avatar">
+
+                {{ person.initials }}
+
+              </div>
+
+              <strong>
+
+                {{ person.name }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="attendance-time">
+
+              {{ person.time }}
+
+            </div>
+
+
+            <span
+              class="attendance-status"
+              [ngClass]="{
+                'present': person.status === 'Present',
+                'absent': person.status === 'Absent'
+              }"
+            >
+
+              ● {{ person.status }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </div>
+
+  </main>
+
+</div>
