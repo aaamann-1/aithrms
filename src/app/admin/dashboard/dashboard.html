@@ -1,7 +1,10 @@
-<div class="dashboard-layout">
+<div
+  class="dashboard-layout"
+  [class.sidebar-collapsed]="sidebarCollapsed"
+>
 
   <!-- =====================================================
-       FIXED SIDEBAR
+       SIDEBAR
   ====================================================== -->
 
   <aside class="sidebar">
@@ -15,24 +18,18 @@
       </div>
 
       <div class="logo-text">
-
         <h2>DSR Web Panel</h2>
-
         <p>Billing Support</p>
-
       </div>
 
     </div>
 
 
-    <!-- NAVIGATION TITLE -->
+    <!-- NAVIGATION -->
 
     <div class="navigation-title">
       NAVIGATION
     </div>
-
-
-    <!-- NAVIGATION -->
 
     <nav class="navigation">
 
@@ -40,13 +37,12 @@
 
       <button
         class="nav-item active"
-        type="button"
         (click)="goTo('/admin/dashboard')"
       >
 
         <span class="nav-icon">▦</span>
 
-        <span>
+        <span class="nav-label">
           Dashboard
         </span>
 
@@ -61,13 +57,12 @@
 
       <button
         class="nav-item"
-        type="button"
         (click)="goTo('/admin/liveffed')"
       >
 
         <span class="nav-icon">〽</span>
 
-        <span>
+        <span class="nav-label">
           Live Activity Feed
         </span>
 
@@ -78,13 +73,12 @@
 
       <button
         class="nav-item"
-        type="button"
         (click)="goTo('/admin/staff-management')"
       >
 
         <span class="nav-icon">♙</span>
 
-        <span>
+        <span class="nav-label">
           Staff Management
         </span>
 
@@ -95,13 +89,12 @@
 
       <button
         class="nav-item"
-        type="button"
         (click)="goTo('/admin/reports')"
       >
 
         <span class="nav-icon">▥</span>
 
-        <span>
+        <span class="nav-label">
           Reports
         </span>
 
@@ -112,13 +105,12 @@
 
       <button
         class="nav-item"
-        type="button"
         (click)="goTo('/admin/setting')"
       >
 
         <span class="nav-icon">⚙</span>
 
-        <span>
+        <span class="nav-label">
           Settings
         </span>
 
@@ -127,19 +119,20 @@
     </nav>
 
 
-    <!-- SIDEBAR LOGOUT -->
+    <!-- LOGOUT -->
 
     <div class="sidebar-bottom">
 
       <button
         class="logout-button"
-        type="button"
         (click)="logout()"
       >
 
         <span>⇥</span>
 
-        Logout
+        <span class="nav-label">
+          Logout
+        </span>
 
       </button>
 
@@ -155,17 +148,18 @@
   <main class="main-content">
 
 
-    <!-- =====================================================
-         TOP HEADER
-    ====================================================== -->
+    <!-- ===================================================
+         HEADER
+    ==================================================== -->
 
     <header class="top-header">
 
 
-      <!-- MENU -->
+      <!-- SIDEBAR TOGGLE -->
 
       <button
         class="menu-button"
+        (click)="toggleSidebar()"
         type="button"
       >
         ☰
@@ -176,101 +170,59 @@
            SEARCH
       ================================================== -->
 
-      <div class="search-container">
+      <div class="search-box">
 
-        <div class="search-box">
+        <button
+          type="button"
+          class="search-button"
+          (click)="performSearch()"
+          title="Search"
+        >
+          🔍
+        </button>
 
-          <span class="search-icon">
-            ⌕
-          </span>
-
-          <input
-            type="text"
-            placeholder="Search client, staff, issue..."
-            [value]="searchText"
-            (input)="searchDashboard($event)"
-          />
-
-          <button
-            *ngIf="searchText"
-            class="clear-search"
-            type="button"
-            (click)="clearSearch()"
-          >
-            ×
-          </button>
-
-        </div>
-
-
-        <!-- SEARCH RESULTS -->
-
-        <div
-          class="search-results"
-          *ngIf="searchText"
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (keydown)="onSearchKey($event)"
+          placeholder="Search client, staff, issue..."
         >
 
-          <div
-            *ngIf="searchResults.length === 0"
-            class="no-results"
-          >
-
-            No results found
-
-          </div>
-
-
-          <button
-            *ngFor="let result of searchResults"
-            class="search-result-item"
-            type="button"
-          >
-
-            <div class="result-title">
-
-              {{ result.title }}
-
-            </div>
-
-            <div class="result-description">
-
-              {{ result.description }}
-
-            </div>
-
-            <span
-              class="result-status"
-              [ngClass]="{
-                'resolved': result.status === 'Resolved',
-                'pending': result.status === 'Pending',
-                'escalated': result.status === 'Escalated'
-              }"
-            >
-
-              {{ result.status }}
-
-            </span>
-
-          </button>
-
-        </div>
+        <button
+          *ngIf="searchQuery"
+          type="button"
+          class="clear-search"
+          (click)="clearSearch()"
+          title="Clear search"
+        >
+          ×
+        </button>
 
       </div>
 
 
-      <!-- DATE -->
+      <!-- =================================================
+           CALENDAR
+      ================================================== -->
+<div class="date-box">
 
-      <div class="date-box">
+  <span class="calendar-icon">
+    📅
+  </span>
 
-        <span>
-          ▣
-        </span>
+  <input
+    type="date"
+    [(ngModel)]="selectedDate"
+    class="date-input"
+    (change)="onDateChange()"
+    aria-label="Select date"
+  >
 
-        <span>
-          {{ getCurrentDate() }}
-        </span>
+  <span class="selected-date">
+    {{ getFormattedDate() }}
+  </span>
 
-      </div>
+</div>
 
 
       <!-- =================================================
@@ -282,7 +234,7 @@
         <button
           class="notification-button"
           type="button"
-          (click)="toggleNotificationDropdown()"
+          (click)="toggleNotifications()"
         >
 
           ♧
@@ -296,90 +248,43 @@
 
         <div
           class="notification-dropdown"
-          *ngIf="notificationDropdownOpen"
+          *ngIf="notificationOpen"
         >
 
-          <div class="notification-header">
+          <div class="dropdown-header">
 
             <strong>
               Notifications
             </strong>
 
             <span>
-              3 new
+              {{ notifications.length }}
             </span>
 
           </div>
 
 
-          <div class="notification-item">
+          <div
+            class="notification-item"
+            *ngFor="let notification of notifications"
+          >
 
-            <div class="notification-icon red">
-              !
+            <div class="notification-icon">
+              ●
             </div>
 
-            <div>
+            <div class="notification-content">
 
               <strong>
-                Escalated Issue
+                {{ notification.title }}
               </strong>
 
               <p>
-                Apex Solutions requires attention.
+                {{ notification.message }}
               </p>
 
               <small>
-                5 minutes ago
-              </small>
-
-            </div>
-
-          </div>
-
-
-          <div class="notification-item">
-
-            <div class="notification-icon orange">
-              !
-            </div>
-
-            <div>
-
-              <strong>
-                Pending Issue
-              </strong>
-
-              <p>
-                Mehta & Sons ticket is pending.
-              </p>
-
-              <small>
-                15 minutes ago
-              </small>
-
-            </div>
-
-          </div>
-
-
-          <div class="notification-item">
-
-            <div class="notification-icon green">
-              ✓
-            </div>
-
-            <div>
-
-              <strong>
-                Issue Resolved
-              </strong>
-
-              <p>
-                Sharma Enterprises issue resolved.
-              </p>
-
-              <small>
-                20 minutes ago
+                {{ notification.time }}
               </small>
 
             </div>
@@ -395,19 +300,17 @@
            ADMIN PROFILE
       ================================================== -->
 
-      <div class="admin-profile-wrapper">
-
+      <div class="profile-wrapper">
 
         <button
           class="admin-profile"
           type="button"
-          (click)="toggleProfileDropdown()"
+          (click)="toggleProfile()"
         >
 
           <div class="profile-avatar">
             DS
           </div>
-
 
           <div class="profile-details">
 
@@ -421,32 +324,23 @@
 
           </div>
 
-
-          <span
-            class="profile-arrow"
-            [class.rotate]="profileDropdownOpen"
-          >
+          <span class="profile-arrow">
             ⌄
           </span>
 
         </button>
 
 
-        <!-- =================================================
-             PROFILE DROPDOWN
-        ================================================== -->
+        <!-- PROFILE DROPDOWN -->
 
         <div
           class="profile-dropdown"
-          *ngIf="profileDropdownOpen"
+          *ngIf="profileOpen"
         >
 
+          <div class="profile-dropdown-header">
 
-          <!-- USER -->
-
-          <div class="dropdown-user">
-
-            <div class="dropdown-avatar">
+            <div class="profile-avatar large">
               DS
             </div>
 
@@ -471,12 +365,12 @@
           <!-- MY PROFILE -->
 
           <button
-            class="dropdown-item"
             type="button"
-            (click)="goTo('/admin/profile')"
+            class="dropdown-item"
+            (click)="openProfile()"
           >
 
-            <span class="dropdown-icon">
+            <span>
               👤
             </span>
 
@@ -490,12 +384,12 @@
           <!-- SETTINGS -->
 
           <button
-            class="dropdown-item"
             type="button"
-            (click)="goTo('/admin/setting')"
+            class="dropdown-item"
+            (click)="openSettings()"
           >
 
-            <span class="dropdown-icon">
+            <span>
               ⚙
             </span>
 
@@ -506,18 +400,15 @@
           </button>
 
 
-          <div class="dropdown-divider"></div>
-
-
           <!-- LOGOUT -->
 
           <button
-            class="dropdown-item logout-item"
             type="button"
+            class="dropdown-item logout-item"
             (click)="logout()"
           >
 
-            <span class="dropdown-icon">
+            <span>
               ⇥
             </span>
 
@@ -534,9 +425,9 @@
     </header>
 
 
-    <!-- =====================================================
+    <!-- ===================================================
          DASHBOARD CONTENT
-    ====================================================== -->
+    ==================================================== -->
 
     <div class="dashboard-content">
 
@@ -556,6 +447,53 @@
           </p>
 
         </div>
+
+      </div>
+
+
+      <!-- =================================================
+           SEARCH RESULT MESSAGE
+      ================================================== -->
+
+      <div
+        class="search-result"
+        *ngIf="searchPerformed"
+      >
+
+        <span
+          *ngIf="
+            filteredActivities.length > 0 ||
+            filteredRecentTasks.length > 0 ||
+            filteredAttendance.length > 0 ||
+            filteredCategories.length > 0
+          "
+        >
+          Search results for:
+          <strong>
+            {{ searchQuery }}
+          </strong>
+        </span>
+
+        <span
+          *ngIf="
+            filteredActivities.length === 0 &&
+            filteredRecentTasks.length === 0 &&
+            filteredAttendance.length === 0 &&
+            filteredCategories.length === 0
+          "
+        >
+          No results found for:
+          <strong>
+            {{ searchQuery }}
+          </strong>
+        </span>
+
+        <button
+          type="button"
+          (click)="clearSearch()"
+        >
+          Clear
+        </button>
 
       </div>
 
@@ -766,9 +704,8 @@
 
           <div
             class="activity-row"
-            *ngFor="let activity of activities"
+            *ngFor="let activity of filteredActivities"
           >
-
 
             <div
               class="activity-avatar"
@@ -843,6 +780,18 @@
 
           </div>
 
+
+          <!-- NO ACTIVITY -->
+
+          <div
+            class="no-results"
+            *ngIf="filteredActivities.length === 0"
+          >
+
+            No matching activity found.
+
+          </div>
+
         </div>
 
       </section>
@@ -883,7 +832,6 @@
 
 
         <div class="issue-legend">
-
 
           <div class="legend-row">
 
@@ -979,15 +927,12 @@
 
           <div
             class="category-row"
-            *ngFor="let category of categories"
+            *ngFor="let category of filteredCategories"
           >
 
             <div class="category-label">
-
               {{ category.name }}
-
             </div>
-
 
             <div class="category-bar-container">
 
@@ -997,6 +942,16 @@
               ></div>
 
             </div>
+
+          </div>
+
+
+          <div
+            class="no-results"
+            *ngIf="filteredCategories.length === 0"
+          >
+
+            No matching category found.
 
           </div>
 
@@ -1033,13 +988,9 @@
           <div class="chart-y-labels">
 
             <span>60</span>
-
             <span>45</span>
-
             <span>30</span>
-
             <span>15</span>
-
             <span>0</span>
 
           </div>
@@ -1048,13 +999,9 @@
           <div class="chart-area">
 
             <div class="grid-line line-60"></div>
-
             <div class="grid-line line-45"></div>
-
             <div class="grid-line line-30"></div>
-
             <div class="grid-line line-15"></div>
-
             <div class="grid-line line-0"></div>
 
 
@@ -1122,17 +1069,11 @@
             <div class="chart-days">
 
               <span>Mon</span>
-
               <span>Tue</span>
-
               <span>Wed</span>
-
               <span>Thu</span>
-
               <span>Fri</span>
-
               <span>Sat</span>
-
               <span>Sun</span>
 
             </div>
@@ -1235,25 +1176,19 @@
             <tbody>
 
               <tr
-                *ngFor="let task of recentTasks"
+                *ngFor="let task of filteredRecentTasks"
               >
 
                 <td class="client-id-table">
-
                   {{ task.clientId }}
-
                 </td>
 
                 <td>
-
                   {{ task.clientName }}
-
                 </td>
 
                 <td>
-
                   {{ task.category }}
-
                 </td>
 
                 <td>
@@ -1274,14 +1209,26 @@
                 </td>
 
                 <td>
-
                   {{ task.time }}
-
                 </td>
 
                 <td>
-
                   {{ task.staff }}
+                </td>
+
+              </tr>
+
+
+              <tr
+                *ngIf="filteredRecentTasks.length === 0"
+              >
+
+                <td
+                  colspan="6"
+                  class="no-table-results"
+                >
+
+                  No matching task found.
 
                 </td>
 
@@ -1311,7 +1258,7 @@
             </h2>
 
             <p>
-              Today, {{ getCurrentDate() }}
+              {{ getFormattedDate() }}
             </p>
 
           </div>
@@ -1337,7 +1284,7 @@
               </span>
 
               <strong>
-                {{ stats.presentToday }}/{{ stats.totalStaff }}
+                10/12
               </strong>
 
             </div>
@@ -1400,7 +1347,7 @@
               </span>
 
               <strong>
-                {{ stats.totalStaff - stats.presentToday }}
+                2
               </strong>
 
             </div>
@@ -1416,30 +1363,24 @@
 
           <div
             class="attendance-row"
-            *ngFor="let person of attendance"
+            *ngFor="let person of filteredAttendance"
           >
 
             <div class="attendance-person">
 
               <div class="attendance-avatar">
-
                 {{ person.initials }}
-
               </div>
 
               <strong>
-
                 {{ person.name }}
-
               </strong>
 
             </div>
 
 
             <div class="attendance-time">
-
               {{ person.time }}
-
             </div>
 
 
@@ -1454,6 +1395,16 @@
               ● {{ person.status }}
 
             </span>
+
+          </div>
+
+
+          <div
+            class="no-results"
+            *ngIf="filteredAttendance.length === 0"
+          >
+
+            No matching staff found.
 
           </div>
 

@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -15,36 +19,69 @@ export class Dashboard {
   // CURRENT USER
   // =====================================================
 
-  currentUser: any;
+  currentUser: any = null;
+
 
   // =====================================================
-  // DROPDOWN
+  // DROPDOWNS
   // =====================================================
 
-  profileDropdownOpen = false;
+  profileOpen: boolean = false;
+  notificationOpen: boolean = false;
 
-  notificationDropdownOpen = false;
+
+  // =====================================================
+  // SIDEBAR
+  // =====================================================
+
+  sidebarCollapsed: boolean = false;
+
 
   // =====================================================
   // SEARCH
   // =====================================================
 
-  searchText = '';
+  searchQuery: string = '';
+  searchPerformed: boolean = false;
 
-  searchResults: any[] = [];
+
+  // =====================================================
+  // CALENDAR
+  // =====================================================
+
+  selectedDate: string = '';
+
+
+  // =====================================================
+  // FILTERED DATA
+  // =====================================================
+
+  filteredActivities: any[] = [];
+  filteredRecentTasks: any[] = [];
+  filteredAttendance: any[] = [];
+  filteredCategories: any[] = [];
+
 
   // =====================================================
   // DASHBOARD STATISTICS
   // =====================================================
 
   stats = {
+
     totalStaff: 12,
+
     presentToday: 10,
+
     issuesSolved: 156,
+
     pendingIssues: 38,
+
     escalated: 18,
+
     avgResolution: '24m'
+
   };
+
 
   // =====================================================
   // LIVE ACTIVITY
@@ -126,6 +163,7 @@ export class Dashboard {
 
   ];
 
+
   // =====================================================
   // ISSUE CATEGORIES
   // =====================================================
@@ -169,6 +207,7 @@ export class Dashboard {
 
   ];
 
+
   // =====================================================
   // WEEKLY TREND
   // =====================================================
@@ -211,6 +250,7 @@ export class Dashboard {
     }
 
   ];
+
 
   // =====================================================
   // RECENT TASKS
@@ -283,6 +323,7 @@ export class Dashboard {
 
   ];
 
+
   // =====================================================
   // ATTENDANCE
   // =====================================================
@@ -326,149 +367,292 @@ export class Dashboard {
 
   ];
 
+
+  // =====================================================
+  // NOTIFICATIONS
+  // =====================================================
+
+  notifications = [
+
+    {
+      title: 'New Issue',
+      message: 'New support issue assigned to Rahul Verma',
+      time: '5 min ago',
+      type: 'issue'
+    },
+
+    {
+      title: 'Issue Escalated',
+      message: 'Amit Sharma escalated an issue',
+      time: '15 min ago',
+      type: 'warning'
+    },
+
+    {
+      title: 'Task Resolved',
+      message: 'Sneha Joshi resolved a support task',
+      time: '25 min ago',
+      type: 'success'
+    },
+
+    {
+      title: 'Staff Attendance',
+      message: 'Karan Mehta has not checked in',
+      time: '1 hour ago',
+      type: 'attendance'
+    }
+
+  ];
+
+
   // =====================================================
   // CONSTRUCTOR
   // =====================================================
 
   constructor(private router: Router) {
 
-    const user = sessionStorage.getItem('currentUser');
+    // Get logged-in user
+
+    const user =
+      sessionStorage.getItem('currentUser');
+
 
     if (user) {
-      this.currentUser = JSON.parse(user);
-    }
 
-  }
+      try {
 
-  // =====================================================
-  // CATEGORY BAR WIDTH
-  // =====================================================
+        this.currentUser =
+          JSON.parse(user);
 
-  getCategoryWidth(value: number): string {
+      } catch {
 
-    return `${(value / 60) * 100}%`;
+        this.currentUser = null;
 
-  }
-
-  // =====================================================
-  // NAVIGATION
-  // =====================================================
-
-  goTo(path: string): void {
-
-    this.profileDropdownOpen = false;
-
-    this.notificationDropdownOpen = false;
-
-    this.router.navigate([path]);
-
-  }
-
-  // =====================================================
-  // PROFILE DROPDOWN
-  // =====================================================
-
-  toggleProfileDropdown(): void {
-
-    this.profileDropdownOpen =
-      !this.profileDropdownOpen;
-
-    if (this.profileDropdownOpen) {
-
-      this.notificationDropdownOpen = false;
+      }
 
     }
 
+
+    // ===================================================
+    // SET TODAY'S DATE
+    // ===================================================
+
+    const today = new Date();
+
+    const year =
+      today.getFullYear();
+
+    const month =
+      String(today.getMonth() + 1)
+        .padStart(2, '0');
+
+    const day =
+      String(today.getDate())
+        .padStart(2, '0');
+
+
+    this.selectedDate =
+      `${year}-${month}-${day}`;
+
+
+    // ===================================================
+    // INITIAL DATA
+    // ===================================================
+
+    this.resetFilteredData();
+
   }
 
+
   // =====================================================
-  // NOTIFICATION DROPDOWN
+  // RESET FILTERED DATA
   // =====================================================
 
-  toggleNotificationDropdown(): void {
+  private resetFilteredData(): void {
 
-    this.notificationDropdownOpen =
-      !this.notificationDropdownOpen;
+    this.filteredActivities =
+      [...this.activities];
 
-    if (this.notificationDropdownOpen) {
+    this.filteredRecentTasks =
+      [...this.recentTasks];
 
-      this.profileDropdownOpen = false;
+    this.filteredAttendance =
+      [...this.attendance];
 
-    }
+    this.filteredCategories =
+      [...this.categories];
 
   }
+
 
   // =====================================================
   // SEARCH
   // =====================================================
 
-  searchDashboard(event: Event): void {
+  performSearch(): void {
 
-    const input =
-      event.target as HTMLInputElement;
+    const query =
+      this.searchQuery
+        .trim()
+        .toLowerCase();
 
-    this.searchText =
-      input.value.trim().toLowerCase();
 
-    if (!this.searchText) {
+    // If search box is empty
 
-      this.searchResults = [];
+    if (!query) {
+
+      this.searchPerformed = false;
+
+      this.resetFilteredData();
 
       return;
 
     }
 
-    const activityResults =
-      this.activities.filter(activity =>
 
-        activity.name.toLowerCase().includes(this.searchText) ||
+    this.searchPerformed = true;
 
-        activity.client.toLowerCase().includes(this.searchText) ||
 
-        activity.clientId.toLowerCase().includes(this.searchText) ||
+    // ===================================================
+    // LIVE ACTIVITY SEARCH
+    // ===================================================
 
-        activity.category.toLowerCase().includes(this.searchText) ||
+    this.filteredActivities =
+      this.activities.filter(activity => {
 
-        activity.status.toLowerCase().includes(this.searchText)
+        return (
 
-      );
+          activity.name
+            .toLowerCase()
+            .includes(query)
 
-    const taskResults =
-      this.recentTasks.filter(task =>
+          ||
 
-        task.clientName.toLowerCase().includes(this.searchText) ||
+          activity.client
+            .toLowerCase()
+            .includes(query)
 
-        task.clientId.toLowerCase().includes(this.searchText) ||
+          ||
 
-        task.category.toLowerCase().includes(this.searchText) ||
+          activity.clientId
+            .toLowerCase()
+            .includes(query)
 
-        task.staff.toLowerCase().includes(this.searchText) ||
+          ||
 
-        task.status.toLowerCase().includes(this.searchText)
+          activity.category
+            .toLowerCase()
+            .includes(query)
 
-      );
+          ||
 
-    this.searchResults = [
+          activity.status
+            .toLowerCase()
+            .includes(query)
 
-      ...activityResults.map(item => ({
-        type: 'Activity',
-        title: item.name,
-        description:
-          `${item.client} - ${item.category}`,
-        status: item.status
-      })),
+        );
 
-      ...taskResults.map(item => ({
-        type: 'Task',
-        title: item.clientName,
-        description:
-          `${item.staff} - ${item.category}`,
-        status: item.status
-      }))
+      });
 
-    ];
+
+    // ===================================================
+    // RECENT TASK SEARCH
+    // ===================================================
+
+    this.filteredRecentTasks =
+      this.recentTasks.filter(task => {
+
+        return (
+
+          task.clientId
+            .toLowerCase()
+            .includes(query)
+
+          ||
+
+          task.clientName
+            .toLowerCase()
+            .includes(query)
+
+          ||
+
+          task.category
+            .toLowerCase()
+            .includes(query)
+
+          ||
+
+          task.status
+            .toLowerCase()
+            .includes(query)
+
+          ||
+
+          task.staff
+            .toLowerCase()
+            .includes(query)
+
+        );
+
+      });
+
+
+    // ===================================================
+    // ATTENDANCE SEARCH
+    // ===================================================
+
+    this.filteredAttendance =
+      this.attendance.filter(person => {
+
+        return (
+
+          person.name
+            .toLowerCase()
+            .includes(query)
+
+          ||
+
+          person.status
+            .toLowerCase()
+            .includes(query)
+
+        );
+
+      });
+
+
+    // ===================================================
+    // CATEGORY SEARCH
+    // ===================================================
+
+    this.filteredCategories =
+      this.categories.filter(category => {
+
+        return category.name
+          .toLowerCase()
+          .includes(query);
+
+      });
 
   }
+
+
+  // =====================================================
+  // SEARCH USING ENTER
+  // =====================================================
+
+  onSearchKey(event: KeyboardEvent): void {
+
+    if (event.key === 'Enter') {
+
+      event.preventDefault();
+
+      this.performSearch();
+
+    }
+
+  }
+
 
   // =====================================================
   // CLEAR SEARCH
@@ -476,33 +660,54 @@ export class Dashboard {
 
   clearSearch(): void {
 
-    this.searchText = '';
+    this.searchQuery = '';
 
-    this.searchResults = [];
+    this.searchPerformed = false;
 
-  }
-
-  // =====================================================
-  // LOGOUT
-  // =====================================================
-
-  logout(): void {
-
-    sessionStorage.removeItem('currentUser');
-
-    this.profileDropdownOpen = false;
-
-    this.router.navigate(['/login']);
+    this.resetFilteredData();
 
   }
 
+
   // =====================================================
-  // CURRENT DATE
+  // CALENDAR DATE CHANGE
   // =====================================================
 
-  getCurrentDate(): string {
+ onDateChange(): void {
 
-    return new Date().toLocaleDateString(
+  console.log('Selected date:', this.selectedDate);
+
+  // Reset search when changing date
+  this.searchQuery = '';
+  this.searchPerformed = false;
+
+  // At the moment your sample data is not connected
+  // to actual dates, so the dashboard data remains visible.
+  this.resetFilteredData();
+
+}
+
+
+  // =====================================================
+  // FORMAT SELECTED DATE
+  // =====================================================
+
+  getFormattedDate(): string {
+
+    if (!this.selectedDate) {
+
+      return 'Select Date';
+
+    }
+
+
+    const date =
+      new Date(
+        this.selectedDate + 'T00:00:00'
+      );
+
+
+    return date.toLocaleDateString(
       'en-IN',
       {
         weekday: 'long',
@@ -511,6 +716,131 @@ export class Dashboard {
         year: 'numeric'
       }
     );
+
+  }
+
+
+  // =====================================================
+  // CATEGORY BAR WIDTH
+  // =====================================================
+
+  getCategoryWidth(value: number): string {
+
+    const maximum =
+      Math.max(
+        ...this.categories.map(
+          category => category.value
+        )
+      );
+
+
+    return `${(value / maximum) * 100}%`;
+
+  }
+
+
+  // =====================================================
+  // SIDEBAR
+  // =====================================================
+
+  toggleSidebar(): void {
+
+    this.sidebarCollapsed =
+      !this.sidebarCollapsed;
+
+  }
+
+
+  // =====================================================
+  // PROFILE DROPDOWN
+  // =====================================================
+
+  toggleProfile(): void {
+
+    this.profileOpen =
+      !this.profileOpen;
+
+    this.notificationOpen = false;
+
+  }
+
+
+  // =====================================================
+  // NOTIFICATION DROPDOWN
+  // =====================================================
+
+  toggleNotifications(): void {
+
+    this.notificationOpen =
+      !this.notificationOpen;
+
+    this.profileOpen = false;
+
+  }
+
+
+  // =====================================================
+  // MY PROFILE
+  // =====================================================
+
+  openProfile(): void {
+
+    this.profileOpen = false;
+
+    this.router.navigate([
+      '/admin/profile'
+    ]);
+
+  }
+
+
+  // =====================================================
+  // SETTINGS
+  // =====================================================
+
+  openSettings(): void {
+
+    this.profileOpen = false;
+
+    this.router.navigate([
+      '/admin/setting'
+    ]);
+
+  }
+
+
+  // =====================================================
+  // GENERAL NAVIGATION
+  // =====================================================
+
+  goTo(path: string): void {
+
+    this.router.navigate([
+      path
+    ]);
+
+  }
+
+
+  // =====================================================
+  // LOGOUT
+  // =====================================================
+
+  logout(): void {
+
+    this.profileOpen = false;
+
+    this.notificationOpen = false;
+
+
+    sessionStorage.removeItem(
+      'currentUser'
+    );
+
+
+    this.router.navigate([
+      '/login'
+    ]);
 
   }
 
