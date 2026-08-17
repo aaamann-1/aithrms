@@ -6,6 +6,7 @@ import { Register } from './pages/register/register';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 import { Dashboard } from './admin/dashboard/dashboard';
+import { LiveFeedComponent } from './admin/live-feed/live-feed';
 export const routes: Routes = [
 
   // =========================
@@ -34,6 +35,10 @@ export const routes: Routes = [
    {
   path: 'dashboard',
   component: Dashboard
+},
+{
+  path: 'live-feed',
+  component: LiveFeedComponent
 },
   {
     path: '**',
