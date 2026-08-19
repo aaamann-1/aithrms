@@ -1,1 +1,404 @@
+<div class="dashboard-layout">
 
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo-section">
+      <div class="logo-icon">
+        <span>♢</span>
+      </div>
+
+      <div class="logo-text">
+        <h2>DSR Web Panel</h2>
+        <p>Billing Support</p>
+      </div>
+    </div>
+
+    <div class="navigation-title">
+      NAVIGATION
+    </div>
+
+    <nav class="navigation">
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/dashboard')"
+      >
+        <span class="nav-icon">▦</span>
+        <span>Dashboard</span>
+      </button>
+
+      <button
+        class="nav-item active"
+        type="button"
+        (click)="goTo('/live-feed')"
+      >
+        <span class="nav-icon">〽</span>
+        <span>Live Activity Feed</span>
+        <span class="active-dot">•</span>
+      </button>
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/staff-management')"
+      >
+        <span class="nav-icon">♙</span>
+        <span>Staff Management</span>
+      </button>
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/reports')"
+      >
+        <span class="nav-icon">▥</span>
+        <span>Reports</span>
+      </button>
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/settings')"
+      >
+        <span class="nav-icon">⚙</span>
+        <span>Settings</span>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button
+        class="logout-button"
+        type="button"
+        (click)="logout()"
+      >
+        <span>⇥</span>
+        Logout
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <!-- TOP HEADER -->
+
+    <header class="top-header">
+
+      <button
+        class="menu-button"
+        type="button"
+        (click)="mobileMenuOpen = !mobileMenuOpen"
+      >
+        ☰
+      </button>
+
+      <div class="search-container">
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+
+          <input
+            type="text"
+            placeholder="Search client, staff, issue..."
+            [(ngModel)]="searchText"
+            (ngModelChange)="searchDashboard()"
+          />
+
+          <button
+            *ngIf="searchText"
+            class="clear-search"
+            type="button"
+            (click)="clearSearch()"
+          >
+            ×
+          </button>
+        </div>
+
+        <div
+          class="search-results"
+          *ngIf="searchText"
+        >
+          <div
+            *ngIf="displayedActivities.length === 0"
+            class="no-results"
+          >
+            No results found
+          </div>
+
+          <button
+            *ngFor="let result of displayedActivities"
+            class="search-result-item"
+            type="button"
+          >
+            <div class="result-title">
+              {{ result.name }}
+            </div>
+
+            <div class="result-description">
+              {{ result.client }} - {{ result.category }}
+            </div>
+
+            <span
+              class="result-status"
+              [ngClass]="result.status.toLowerCase()"
+            >
+              {{ result.status }}
+            </span>
+          </button>
+        </div>
+      </div>
+
+
+
+<div
+  class="date-box"
+  (click)="openDatePicker(datePicker)"
+>
+
+  <span class="calendar-icon">
+    📅
+  </span>
+
+  <input
+    #datePicker
+    type="date"
+    [(ngModel)]="selectedDate"
+    class="date-input"
+    (change)="onDateChange()"
+    aria-label="Select date"
+  >
+
+  <span class="selected-date">
+    {{ getFormattedDate() }}
+  </span>
+
+</div>
+
+
+
+
+      <div class="notification-wrapper">
+        <button
+          class="notification-button"
+          type="button"
+          (click)="toggleNotificationDropdown()"
+        >
+          ♧
+          <span class="notification-dot"></span>
+        </button>
+
+        <div
+          class="notification-dropdown"
+          *ngIf="notificationDropdownOpen"
+        >
+          <div class="notification-header">
+            <strong>Notifications</strong>
+            <span>3 new</span>
+          </div>
+
+          <div class="notification-item">
+            <div class="notification-icon red">!</div>
+            <div>
+              <strong>Escalated Issue</strong>
+              <p>Apex Solutions requires attention.</p>
+              <small>5 minutes ago</small>
+            </div>
+          </div>
+
+          <div class="notification-item">
+            <div class="notification-icon orange">!</div>
+            <div>
+              <strong>Pending Issue</strong>
+              <p>Mehta & Sons ticket is pending.</p>
+              <small>15 minutes ago</small>
+            </div>
+          </div>
+
+          <div class="notification-item">
+            <div class="notification-icon green-icon">✓</div>
+            <div>
+              <strong>Issue Resolved</strong>
+              <p>Sharma Enterprises issue resolved.</p>
+              <small>20 minutes ago</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-profile-wrapper">
+        <button
+          class="admin-profile"
+          type="button"
+          (click)="toggleProfileDropdown()"
+        >
+          <div class="profile-avatar">
+            {{ userInitials }}
+          </div>
+
+          <div class="profile-details">
+            <strong>{{ currentUser?.name || 'Dev Sharma' }}</strong>
+            <span>Administrator</span>
+          </div>
+
+          <span
+            class="profile-arrow"
+            [class.rotate]="profileDropdownOpen"
+          >
+            ⌄
+          </span>
+        </button>
+
+        <div
+          class="profile-dropdown"
+          *ngIf="profileDropdownOpen"
+        >
+          <div class="dropdown-user">
+            <div class="dropdown-avatar">
+              {{ userInitials }}
+            </div>
+
+            <div>
+              <strong>{{ currentUser?.name || 'Dev Sharma' }}</strong>
+              <span>Administrator</span>
+            </div>
+          </div>
+
+          <div class="dropdown-divider"></div>
+
+          <button
+            class="dropdown-item"
+            type="button"
+            (click)="goTo('/profile')"
+          >
+            <span class="dropdown-icon">👤</span>
+            <span>My Profile</span>
+          </button>
+
+          <button
+            class="dropdown-item"
+            type="button"
+            (click)="goTo('/settings')"
+          >
+            <span class="dropdown-icon">⚙</span>
+            <span>Settings</span>
+          </button>
+
+          <div class="dropdown-divider"></div>
+
+          <button
+            class="dropdown-item logout-item"
+            type="button"
+            (click)="logout()"
+          >
+            <span class="dropdown-icon">⇥</span>
+            <span>Log Out</span>
+          </button>
+        </div>
+      </div>
+
+    </header>
+
+    <!-- LIVE FEED CONTENT -->
+
+    <section class="page-content">
+
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">MONDAY, 17 AUGUST 2026</p>
+          <h1>Live Activity Feed</h1>
+          <p class="subheading">
+            Stay up to date with your team's latest support activity.
+          </p>
+        </div>
+
+        <div class="live-indicator">
+          <span></span>
+          Live updates
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <div class="filter-tabs">
+          <button
+            *ngFor="let filter of filters"
+            type="button"
+            [class.selected]="activeFilter === filter"
+            (click)="setFilter(filter)"
+          >
+            {{ filter }}
+            <span *ngIf="filter === 'All'">{{ activities.length }}</span>
+          </button>
+        </div>
+
+        <span class="result-count">
+          {{ displayedActivities.length }} activities
+        </span>
+      </div>
+
+      <section class="activity-list">
+
+        <article
+          class="activity-card"
+          *ngFor="let activity of displayedActivities"
+        >
+          <div
+            class="person-avatar"
+            [ngClass]="activity.avatar"
+          >
+            {{ activity.initials }}
+          </div>
+
+          <div class="activity-details">
+            <div class="activity-title">
+              <strong>{{ activity.name }}</strong>
+              <span>worked on a ticket for</span>
+              <strong>{{ activity.client }}</strong>
+              <span class="client-id">{{ activity.clientId }}</span>
+            </div>
+
+            <div class="activity-meta">
+              <span class="category">{{ activity.category }}</span>
+              <span>•</span>
+              <span>Resolution time: {{ activity.duration }}</span>
+            </div>
+          </div>
+
+          <div class="activity-right">
+            <span
+              class="status-badge"
+              [ngClass]="activity.status.toLowerCase()"
+            >
+              {{ activity.status }}
+            </span>
+
+            <time>{{ activity.time }}</time>
+          </div>
+        </article>
+
+        <div
+          class="empty-state"
+          *ngIf="!displayedActivities.length"
+        >
+          <span>⌕</span>
+          <h2>No activity found</h2>
+          <p>Try a different search or filter.</p>
+
+          <button
+            type="button"
+            (click)="clearSearch(); setFilter('All')"
+          >
+            Clear filters
+          </button>
+        </div>
+
+      </section>
+    </section>
+
+  </main>
+
+</div>
