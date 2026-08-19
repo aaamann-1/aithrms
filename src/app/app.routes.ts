@@ -6,6 +6,8 @@ import { Register } from './pages/register/register';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 import { Dashboard } from './admin/dashboard/dashboard';
+import { Attendance } from './admin/Attendance/attendance';
+
 export const routes: Routes = [
 
   // =========================
@@ -31,10 +33,25 @@ export const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPassword
   },
-   {
-  path: 'dashboard',
-  component: Dashboard
-},
+
+  // =========================
+  // ADMIN PAGES
+  // =========================
+
+  {
+    path: 'admin/dashboard',
+    component: Dashboard
+  },
+
+  {
+    path: 'admin/attendance',
+    component: Attendance
+  },
+
+  // =========================
+  // DEFAULT
+  // =========================
+
   {
     path: '**',
     redirectTo: ''
