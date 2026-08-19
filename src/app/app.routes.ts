@@ -7,6 +7,8 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
+import { StaffManagement } from './admin/staff-management/staff-management';
+
 export const routes: Routes = [
 
   // =========================
@@ -32,14 +34,32 @@ export const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPassword
   },
-   {
-  path: 'dashboard',
-  component: Dashboard
-},
-{
-  path: 'live-feed',
-  component: LiveFeedComponent
-},
+
+
+  // =========================
+  // ADMIN PAGES
+  // =========================
+
+  {
+    path: 'admin/dashboard',
+    component: Dashboard
+  },
+
+  {
+    path: 'admin/live-feed',
+    component: LiveFeedComponent
+  },
+
+  {
+    path: 'admin/staff-management',
+    component: StaffManagement
+  },
+
+
+  // =========================
+  // INVALID URL
+  // =========================
+
   {
     path: '**',
     redirectTo: ''
