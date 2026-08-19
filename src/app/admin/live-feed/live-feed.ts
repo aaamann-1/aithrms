@@ -35,6 +35,35 @@ export class LiveFeedComponent  {
   activeFilter: Filter = 'All';
   readonly filters: Filter[] = ['All', 'Resolved', 'Pending', 'Escalated'];
 
+selectedDate = new Date().toISOString().split('T')[0];
+
+onDateChange(): void {
+  // Add date-based filtering here later if needed.
+}
+
+openDatePicker(input: HTMLInputElement): void {
+  input.focus();
+
+  (
+    input as HTMLInputElement & {
+      showPicker?: () => void;
+    }
+  ).showPicker?.();
+}
+
+getFormattedDate(): string {
+  return new Date(`${this.selectedDate}T00:00:00`).toLocaleDateString(
+    'en-IN',
+    {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }
+  );
+}
+
+
   readonly activities: Activity[] = [
     { initials: 'RV', name: 'Rahul Verma', client: 'Sharma Enterprises', clientId: 'CLI-4821', category: 'Licensing', duration: '14m', time: '10:42 AM', status: 'Resolved', avatar: 'green' },
     { initials: 'PN', name: 'Priya Nair', client: 'Mehta & Sons Pvt Ltd', clientId: 'CLI-3309', category: 'Bill Format Modification', duration: '32m', time: '10:28 AM', status: 'Pending', avatar: 'blue' },

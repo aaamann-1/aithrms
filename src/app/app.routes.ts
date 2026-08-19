@@ -8,6 +8,7 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { StaffManagement } from './admin/staff-management/staff-management';
+import { Attendance } from './admin/Attendance/attendance';
 
 export const routes: Routes = [
 
@@ -35,7 +36,6 @@ export const routes: Routes = [
     component: ForgotPassword
   },
 
-
   // =========================
   // ADMIN PAGES
   // =========================
@@ -55,6 +55,10 @@ export const routes: Routes = [
     component: StaffManagement
   },
 
+  {
+    path: 'admin/attendance',
+    component: Attendance
+  },
 
   // =========================
   // INVALID URL
