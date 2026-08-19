@@ -153,10 +153,34 @@
         </div>
       </div>
 
-      <div class="date-box">
-        <span>▣</span>
-        <span>Monday, 17 August 2026</span>
-      </div>
+
+
+<div
+  class="date-box"
+  (click)="openDatePicker(datePicker)"
+>
+
+  <span class="calendar-icon">
+    📅
+  </span>
+
+  <input
+    #datePicker
+    type="date"
+    [(ngModel)]="selectedDate"
+    class="date-input"
+    (change)="onDateChange()"
+    aria-label="Select date"
+  >
+
+  <span class="selected-date">
+    {{ getFormattedDate() }}
+  </span>
+
+</div>
+
+
+
 
       <div class="notification-wrapper">
         <button
