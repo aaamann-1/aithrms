@@ -1,0 +1,75 @@
+.navbar {
+  height: 70px;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Home, About, Contact - CENTER */
+.navigation-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+}
+
+.navigation-links .nav-link {
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+  opacity: 1;
+}
+
+.navigation-links .nav-link:hover {
+  color: white;
+  font-weight: 700;
+}
+
+
+/* Login and Sign In - RIGHT SIDE */
+.login-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Login Button */
+.login-btn {
+  background-color: white;
+  color: #0d6efd;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.login-btn:hover {
+  background-color: #e9ecef;
+  color: #0d6efd;
+}
+
+.signin-btn {
+  background-color: white;
+  color: #0d6efd;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.signin-btn:hover {
+  background-color: #e9ecef;
+  color: #0d6efd;
+}
+
+.signin-btn:hover {
+  background-color: white;
+  color: #0d6efd;
+}

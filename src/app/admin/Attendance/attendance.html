@@ -1,1 +1,616 @@
-<p>attendance works!</p>
+<div
+  class="dashboard-layout"
+  [class.sidebar-collapsed]="sidebarCollapsed">
+
+
+  <!-- ================================================= -->
+  <!-- SIDEBAR -->
+  <!-- ================================================= -->
+
+  <aside class="sidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-section">
+
+      <div class="logo-icon">
+        <span>♢</span>
+      </div>
+
+      <div class="logo-text">
+
+        <h2>
+          DSR Web Panel
+        </h2>
+
+        <p>
+          Billing Support
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION TITLE -->
+
+    <div class="navigation-title">
+      NAVIGATION
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navigation">
+
+
+      <!-- DASHBOARD -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/dashboard')">
+
+        <span class="nav-icon">
+          ▦
+        </span>
+
+        <span class="nav-label">
+          Dashboard
+        </span>
+
+      </button>
+
+
+      <!-- LIVE ACTIVITY -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/live-feed')">
+
+        <span class="nav-icon">
+          〽
+        </span>
+
+        <span class="nav-label">
+          Live Activity Feed
+        </span>
+
+      </button>
+
+
+      <!-- STAFF MANAGEMENT -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/staff-management')">
+
+        <span class="nav-icon">
+          ♙
+        </span>
+
+        <span class="nav-label">
+          Staff Management
+        </span>
+
+      </button>
+
+
+      <!-- ATTENDANCE -->
+
+      <button
+        class="nav-item active"
+        type="button">
+
+        <span class="nav-icon">
+          ◷
+        </span>
+
+        <span class="nav-label">
+          Attendance
+        </span>
+
+        <span class="active-dot">
+          •
+        </span>
+
+      </button>
+
+
+      <!-- REPORTS -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/reports')">
+
+        <span class="nav-icon">
+          ▥
+        </span>
+
+        <span class="nav-label">
+          Reports
+        </span>
+
+      </button>
+
+
+      <!-- SETTINGS -->
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="goTo('/admin/setting')">
+
+        <span class="nav-icon">
+          ⚙
+        </span>
+
+        <span class="nav-label">
+          Settings
+        </span>
+
+      </button>
+
+
+    </nav>
+
+
+    <!-- SIDEBAR BOTTOM -->
+
+    <div class="sidebar-bottom">
+
+      <button
+        class="logout-button"
+        type="button"
+        (click)="logout()">
+
+        <span>
+          ⇥
+        </span>
+
+        <span class="nav-label">
+          Logout
+        </span>
+
+      </button>
+
+    </div>
+
+
+  </aside>
+
+
+  <!-- ================================================= -->
+  <!-- MAIN CONTENT -->
+  <!-- ================================================= -->
+
+  <main class="main-content">
+
+
+    <!-- ================================================= -->
+    <!-- TOP NAVBAR -->
+    <!-- ================================================= -->
+
+    <header class="top-header">
+
+
+      <!-- MENU BUTTON -->
+
+      <button
+        class="menu-button"
+        type="button"
+        (click)="toggleSidebar()"
+        aria-label="Toggle sidebar">
+
+        ☰
+
+      </button>
+
+
+      <!-- SEARCH -->
+
+      <div class="search-box">
+
+        <button
+          type="button"
+          class="search-button">
+
+          🔍
+
+        </button>
+
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="searchAttendance()"
+          placeholder="Search client, staff, issue...">
+
+      </div>
+
+
+      <!-- DATE -->
+
+      <div class="date-box">
+
+        <span class="calendar-icon">
+          📅
+        </span>
+
+        <input
+          type="date"
+          [(ngModel)]="selectedDate"
+          (change)="onDateChange()"
+          class="date-input">
+
+        <span class="selected-date">
+          {{ getFormattedDate() }}
+        </span>
+
+      </div>
+
+
+      <!-- NOTIFICATION -->
+
+      <div class="notification-wrapper">
+
+        <button
+          class="notification-button"
+          type="button"
+          (click)="toggleNotifications()">
+
+          ♧
+
+          <span class="notification-dot"></span>
+
+        </button>
+
+
+        <!-- NOTIFICATION DROPDOWN -->
+
+        <div
+          class="notification-dropdown"
+          *ngIf="showNotifications">
+
+          <div class="notification-header">
+
+            <strong>
+              Notifications
+            </strong>
+
+          </div>
+
+
+          <div class="notification-item">
+
+            <strong>
+              Attendance Update
+            </strong>
+
+            <span>
+              2 staff members are absent today.
+            </span>
+
+          </div>
+
+
+          <div class="notification-item">
+
+            <strong>
+              Support Update
+            </strong>
+
+            <span>
+              3 issues were recently resolved.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROFILE -->
+
+      <div class="profile-wrapper">
+
+        <button
+          class="admin-profile"
+          type="button"
+          (click)="toggleProfile()">
+
+          <div class="profile-avatar">
+            DS
+          </div>
+
+          <div class="profile-details">
+
+            <strong>
+              Dev Sharma
+            </strong>
+
+            <span>
+              Administrator
+            </span>
+
+          </div>
+
+          <span class="profile-arrow">
+            ⌄
+          </span>
+
+        </button>
+
+
+        <!-- PROFILE DROPDOWN -->
+
+        <div
+          class="profile-dropdown"
+          *ngIf="showProfile">
+
+          <div class="profile-dropdown-header">
+
+            <strong>
+              Dev Sharma
+            </strong>
+
+            <span>
+              Administrator
+            </span>
+
+          </div>
+
+
+          <button type="button">
+            Profile
+          </button>
+
+
+          <button
+            type="button"
+            (click)="goTo('/admin/setting')">
+
+            Settings
+
+          </button>
+
+
+          <button
+            type="button"
+            (click)="logout()">
+
+            Logout
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+    </header>
+
+
+    <!-- ================================================= -->
+    <!-- ATTENDANCE CONTENT -->
+    <!-- ================================================= -->
+
+    <div class="attendance-content">
+
+
+      <!-- PAGE TITLE -->
+
+      <div class="page-title">
+
+        <h1>
+          Attendance
+        </h1>
+
+        <p>
+          Daily attendance tracking —
+          {{ getFormattedDate() }}
+        </p>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- STATISTICS -->
+      <!-- ================================================= -->
+
+      <section class="attendance-stats-grid">
+
+
+        <div class="attendance-card">
+
+          <span class="dot blue"></span>
+
+          <h2>
+            12
+          </h2>
+
+          <p>
+            Total Staff
+          </p>
+
+        </div>
+
+
+        <div class="attendance-card">
+
+          <span class="dot green"></span>
+
+          <h2>
+            10
+          </h2>
+
+          <p>
+            Present
+          </p>
+
+        </div>
+
+
+        <div class="attendance-card">
+
+          <span class="dot red"></span>
+
+          <h2>
+            2
+          </h2>
+
+          <p>
+            Absent
+          </p>
+
+        </div>
+
+
+        <div class="attendance-card">
+
+          <span class="dot purple"></span>
+
+          <h2>
+            7h 56m
+          </h2>
+
+          <p>
+            Avg Hours
+          </p>
+
+        </div>
+
+
+      </section>
+
+
+      <!-- ================================================= -->
+      <!-- ATTENDANCE TABLE -->
+      <!-- ================================================= -->
+
+      <section class="attendance-table-card">
+
+        <table>
+
+
+          <thead>
+
+            <tr>
+
+              <th>
+                STAFF NAME
+              </th>
+
+              <th>
+                PUNCH IN
+              </th>
+
+              <th>
+                PUNCH OUT
+              </th>
+
+              <th>
+                WORKING HOURS
+              </th>
+
+              <th>
+                STATUS
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+
+            <!-- STAFF -->
+
+            <tr
+              *ngFor="let person of filteredAttendance">
+
+
+              <td>
+
+                <div class="staff-name">
+
+                  <div class="avatar">
+                    {{ person.initials }}
+                  </div>
+
+                  <span>
+                    {{ person.name }}
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td>
+                {{ person.punchIn }}
+              </td>
+
+
+              <td>
+                {{ person.punchOut }}
+              </td>
+
+
+              <td>
+                {{ person.hours }}
+              </td>
+
+
+              <td>
+
+                <span
+                  class="status"
+                  [class.present]="person.status === 'Present'"
+                  [class.absent]="person.status === 'Absent'">
+
+                  ● {{ person.status }}
+
+                </span>
+
+              </td>
+
+
+            </tr>
+
+
+            <!-- NO RESULTS -->
+
+            <tr
+              *ngIf="filteredAttendance.length === 0">
+
+              <td
+                colspan="5"
+                class="no-results">
+
+                No staff found.
+
+              </td>
+
+            </tr>
+
+
+          </tbody>
+
+
+        </table>
+
+      </section>
+
+
+    </div>
+
+
+  </main>
+
+</div>
