@@ -1,1 +1,531 @@
-<p>individual works!</p>
+<div
+  class="app-layout"
+  [class.sidebar-collapsed]="sidebarCollapsed"
+>
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar">
+
+    <div class="logo-section">
+
+      <div class="logo-icon">
+        ♢
+      </div>
+
+      <div class="logo-text">
+        <strong>DSR Web Panel</strong>
+        <span>Billing Support</span>
+      </div>
+
+    </div>
+
+    <div class="navigation-title">
+      NAVIGATION
+    </div>
+
+    <nav class="navigation">
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/dashboard')"
+      >
+        <span class="nav-icon">▦</span>
+        <span>Dashboard</span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/live-feed')"
+      >
+        <span class="nav-icon">〽</span>
+        <span>Live Activity Feed</span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/staff-management')"
+      >
+        <span class="nav-icon">♧</span>
+        <span>Staff Management</span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/attendance')"
+      >
+        <span class="nav-icon">◷</span>
+        <span>Attendance</span>
+      </button>
+
+      <!-- ACTIVE INDIVIDUAL REPORTS -->
+
+      <button
+        type="button"
+        class="nav-item active"
+      >
+        <span class="nav-icon">▣</span>
+        <span>Individual Reports</span>
+        <span class="active-dot"></span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/team-reports')"
+      >
+        <span class="nav-icon">▥</span>
+        <span>Team Reports</span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/export-reports')"
+      >
+        <span class="nav-icon">⇩</span>
+        <span>Export Reports</span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/issue-categories')"
+      >
+        <span class="nav-icon">◇</span>
+        <span>Issue Categories</span>
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/settings')"
+      >
+        <span class="nav-icon">⚙</span>
+        <span>Settings</span>
+      </button>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- ================= MAIN AREA ================= -->
+
+  <main class="main-area">
+
+
+    <!-- ================= TOP BAR ================= -->
+
+    <header class="topbar">
+
+      <button
+        type="button"
+        class="menu-button"
+        (click)="toggleSidebar()"
+      >
+        ☰
+      </button>
+
+
+      <!-- SEARCH -->
+
+      <div class="search-box">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          placeholder="Search client, staff, issue..."
+        />
+
+        <button
+          *ngIf="searchQuery"
+          type="button"
+          class="clear-search"
+          (click)="searchQuery = ''"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- DATE BESIDE SEARCH -->
+
+      <div class="date-box">
+
+        <span class="calendar-icon">▣</span>
+
+        <input
+          type="date"
+          [(ngModel)]="selectedDate"
+          (change)="onDateChange()"
+        />
+
+      </div>
+
+
+      <!-- NOTIFICATION -->
+
+      <div class="notification-wrapper">
+
+        <button
+          type="button"
+          class="notification-button"
+          (click)="toggleNotifications()"
+        >
+          ♧
+          <span class="notification-dot"></span>
+        </button>
+
+        <div
+          class="notification-dropdown"
+          *ngIf="notificationOpen"
+        >
+          <strong>Notifications</strong>
+          <p>3 new activities available.</p>
+        </div>
+
+      </div>
+
+
+      <!-- PROFILE -->
+
+      <div class="profile-wrapper">
+
+        <button
+          type="button"
+          class="profile-button"
+          (click)="toggleProfile()"
+        >
+
+          <div class="profile-avatar">
+            DS
+          </div>
+
+          <div class="profile-info">
+            <strong>Dev Sharma</strong>
+            <span>Administrator</span>
+          </div>
+
+          <span class="profile-arrow">
+           ⌄
+          </span>
+
+        </button>
+
+
+        <div
+          class="profile-dropdown"
+          *ngIf="profileOpen"
+        >
+
+          <div class="profile-dropdown-name">
+            Dev Sharma
+          </div>
+
+          <div class="profile-dropdown-role">
+            Administrator
+          </div>
+
+          <button
+            type="button"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <section class="content">
+
+
+      <!-- PAGE TITLE -->
+
+      <div class="page-heading">
+
+        <h1>
+          Individual Reports
+        </h1>
+
+        <p>
+          Detailed performance per staff member
+        </p>
+
+      </div>
+
+
+      <!-- ================= STAFF SELECTOR ================= -->
+
+      <section class="staff-card">
+
+        <div class="section-label">
+          SELECT STAFF
+        </div>
+
+
+        <div class="staff-list">
+
+          <button
+            type="button"
+            class="staff-row"
+            *ngFor="let staff of staffList"
+            [class.selected]="selectedStaff === staff"
+            (click)="selectStaff(staff)"
+          >
+
+            <div
+              class="staff-avatar"
+              [ngClass]="staff.color"
+            >
+              {{ staff.initials }}
+
+              <span
+                class="status-dot"
+                [ngClass]="getStatusDot(staff.status)"
+              ></span>
+            </div>
+
+
+            <div class="staff-details">
+
+              <strong>
+                {{ staff.name }}
+              </strong>
+
+              <span>
+                {{ staff.role }}
+              </span>
+
+            </div>
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= SELECTED STAFF ================= -->
+
+      <section class="selected-staff-card">
+
+        <div
+          class="large-avatar"
+          [ngClass]="selectedStaff.color"
+        >
+          {{ selectedStaff.initials }}
+        </div>
+
+        <div class="selected-staff-info">
+
+          <h2>
+            {{ selectedStaff.name }}
+          </h2>
+
+          <p>
+            {{ selectedStaff.role }}
+          </p>
+
+          <span class="online-status">
+
+            <span
+              class="status-circle"
+              [ngClass]="getStatusDot(selectedStaff.status)"
+            ></span>
+
+            {{ selectedStaff.status }}
+
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= STATISTICS ================= -->
+
+      <section class="statistics-grid">
+
+        <div class="stat-card total">
+
+          <strong>
+            {{ selectedStaff.totalTickets }}
+          </strong>
+
+          <span>
+            Total Tickets
+          </span>
+
+        </div>
+
+
+        <div class="stat-card resolved">
+
+          <strong>
+            {{ selectedStaff.resolved }}
+          </strong>
+
+          <span>
+            Resolved
+          </span>
+
+        </div>
+
+
+        <div class="stat-card pending">
+
+          <strong>
+            {{ selectedStaff.pending }}
+          </strong>
+
+          <span>
+            Pending
+          </span>
+
+        </div>
+
+
+        <div class="stat-card escalated">
+
+          <strong>
+            {{ selectedStaff.escalated }}
+          </strong>
+
+          <span>
+            Escalated
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= RECENT ACTIVITY ================= -->
+
+      <section class="activity-card">
+
+        <div class="activity-heading">
+
+          <div>
+
+            <h2>
+              Recent Activity
+            </h2>
+
+            <p>
+              {{ selectedStaff.name }}'s latest tasks
+            </p>
+
+          </div>
+
+          <div class="selected-date-label">
+            {{ formattedDate }}
+          </div>
+
+        </div>
+
+
+        <!-- ACTIVITY LIST -->
+
+        <div
+          class="activity-list"
+          *ngIf="getFilteredActivities().length > 0"
+        >
+
+          <div
+            class="activity-row"
+            *ngFor="let activity of getFilteredActivities()"
+          >
+
+            <div class="activity-info">
+
+              <strong>
+                {{ activity.clientName }}
+              </strong>
+
+              <span>
+                {{ activity.category }}
+                ·
+                {{ activity.clientId }}
+              </span>
+
+            </div>
+
+
+            <div class="activity-right">
+
+              <span class="duration">
+                {{ activity.time }}
+              </span>
+
+              <span
+                class="activity-status"
+                [ngClass]="getStatusClass(activity.status)"
+              >
+
+                <span class="status-small-dot"></span>
+
+                {{ activity.status }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- NO ACTIVITY -->
+
+        <div
+          class="no-activity"
+          *ngIf="getFilteredActivities().length === 0"
+        >
+
+          <div class="no-activity-icon">
+            ◷
+          </div>
+
+          <h3>
+            No activity found
+          </h3>
+
+          <p>
+            No activities are available for
+            {{ formattedDate }}.
+          </p>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <!-- HELP BUTTON -->
+
+  <button
+    type="button"
+    class="help-button"
+  >
+    ?
+  </button>
+
+</div>
