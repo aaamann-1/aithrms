@@ -7,6 +7,7 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
+import { IndividualReports } from './admin/reports/individual/individual';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
 
@@ -44,7 +45,11 @@ export const routes: Routes = [
     path: 'admin/dashboard',
     component: Dashboard
   },
-
+ // INDIVIDUAL REPORTS
+  {
+    path: 'admin/reports/individual',
+    component: IndividualReports
+  },
   {
     path: 'admin/live-feed',
     component: LiveFeedComponent
