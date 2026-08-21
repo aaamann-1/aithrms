@@ -1,4 +1,3 @@
-<p>staff-management works!</p>
 <div class="admin-page">
 
   <!-- ================= SIDEBAR ================= -->
@@ -6,9 +5,7 @@
 
     <!-- Logo -->
     <div class="sidebar-header">
-      <div class="logo-icon">
-        ◇
-      </div>
+      <div class="logo-icon">◇</div>
 
       <div class="logo-text">
         <h2>DSR Web Panel</h2>
@@ -33,7 +30,9 @@
         <span>Live Activity Feed</span>
       </a>
 
-      <a class="active">
+      <a
+        routerLink="/admin/staff-management"
+        class="active">
         <span class="nav-icon">♙</span>
         <span>Staff Management</span>
         <span class="active-dot"></span>
@@ -59,7 +58,7 @@
         <span>Export Reports</span>
       </a>
 
-      <a routerLink="/admin/issue-categories">
+      <a routerLink="/issue-categories">
         <span class="nav-icon">◇</span>
         <span>Issue Categories</span>
       </a>
@@ -89,26 +88,58 @@
     <header class="admin-navbar">
 
       <!-- Hamburger -->
-      <button class="menu-button">
+      <button
+        type="button"
+        class="menu-button">
         ☰
       </button>
 
       <!-- Search -->
       <div class="search-box">
-        <span class="search-icon">⌕</span>
+
+        <button
+          type="button"
+          class="search-button"
+          (click)="performSearch()"
+          title="Search"
+        >
+          🔍
+        </button>
+
         <input
-          type="text"
-          placeholder="Search client, staff, issue..."
-        />
-      </div>
+  type="text"
+  [(ngModel)]="searchQuery"
+  (input)="performSearch()"
+  (keydown)="onSearchKey($event)"
+  placeholder="Search client, staff, issue..."
+>
 
-      <!-- Date -->
+        <button
+          *ngIf="searchQuery"
+          type="button"
+          class="clear-search"
+          (click)="clearSearch()"
+          title="Clear search"
+        >
+          ×
+        </button>
+
+      </div>
       <div class="date-box">
-        <span>▣</span>
-        <span>Monday, 17 August 2026</span>
-      </div>
+  <span>▣</span>
 
-      <!-- Right side -->
+  <input
+    type="date"
+    [(ngModel)]="selectedDate"
+    (change)="onDateChange()"
+  >
+
+  <span>
+    {{ getFormattedDate() }}
+  </span>
+</div>
+
+      <!-- Navbar Right -->
       <div class="navbar-right">
 
         <!-- Notification -->
@@ -129,7 +160,9 @@
             <span>Administrator</span>
           </div>
 
-          <span class="dropdown-arrow">⌄</span>
+          <span class="dropdown-arrow">
+            ⌄
+          </span>
 
         </div>
 
@@ -149,9 +182,14 @@
           <p>Manage your support team</p>
         </div>
 
-        <button class="add-staff-btn" (click)="addStaff()">
+        <button
+          type="button"
+          class="add-staff-btn"
+          (click)="addStaff()">
+
           <span>＋</span>
           Add Staff
+
         </button>
 
       </div>
@@ -160,369 +198,67 @@
       <!-- ================= STAFF GRID ================= -->
       <div class="staff-grid">
 
-        <!-- Rahul Verma -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-green">
-              RV
-              <span class="status-dot online"></span>
-            </div>
-
-            <span class="status-badge online-badge">
-              Online
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Rahul Verma</h3>
-            <p>Senior Support</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>48</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>43</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>3</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Priya Nair -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-blue">
-              PN
-              <span class="status-dot online"></span>
-            </div>
-
-            <span class="status-badge online-badge">
-              Online
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Priya Nair</h3>
-            <p>Support Engineer</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>41</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>38</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>2</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Amit Sharma -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-purple">
-              AS
-              <span class="status-dot away"></span>
-            </div>
-
-            <span class="status-badge away-badge">
-              Away
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Amit Sharma</h3>
-            <p>Support Engineer</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>36</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>30</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>4</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Sneha Joshi -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-orange">
-              SJ
-              <span class="status-dot online"></span>
-            </div>
-
-            <span class="status-badge online-badge">
-              Online
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Sneha Joshi</h3>
-            <p>Junior Support</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>29</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>25</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>3</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Karan Mehta -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-orange">
-              KM
-              <span class="status-dot offline"></span>
-            </div>
-
-            <span class="status-badge offline-badge">
-              Offline
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Karan Mehta</h3>
-            <p>Senior Support</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>22</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>18</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>2</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Divya Pillai -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-pink">
-              DP
-              <span class="status-dot online"></span>
-            </div>
-
-            <span class="status-badge online-badge">
-              Online
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Divya Pillai</h3>
-            <p>Support Engineer</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>31</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>28</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>2</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Rohan Gupta -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-green">
-              RG
-              <span class="status-dot online"></span>
-            </div>
-
-            <span class="status-badge online-badge">
-              Online
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Rohan Gupta</h3>
-            <p>Junior Support</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>19</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>16</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>2</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Ananya Singh -->
-        <div class="staff-card">
-
-          <div class="card-top">
-
-            <div class="staff-avatar avatar-purple">
-              AS
-              <span class="status-dot away"></span>
-            </div>
-
-            <span class="status-badge away-badge">
-              Away
-            </span>
-
-          </div>
-
-          <div class="staff-info">
-            <h3>Ananya Singh</h3>
-            <p>Support Engineer</p>
-          </div>
-
-          <div class="card-divider"></div>
-
-          <div class="staff-stats">
-
-            <div>
-              <strong>25</strong>
-              <span>Tickets</span>
-            </div>
-
-            <div>
-              <strong>21</strong>
-              <span>Resolved</span>
-            </div>
-
-            <div>
-              <strong>3</strong>
-              <span>Pending</span>
-            </div>
-
-          </div>
-
-        </div>
-
+  <div
+    class="staff-card"
+    *ngFor="let staff of filteredStaff"
+  >
+
+    <div class="card-top">
+
+      <div
+        class="staff-avatar"
+        [ngClass]="staff.avatarClass"
+      >
+        {{ staff.initials }}
+
+        <span
+          class="status-dot"
+          [ngClass]="staff.statusClass"
+        ></span>
       </div>
 
-    </main>
+      <span
+        class="status-badge"
+        [ngClass]="staff.badgeClass"
+      >
+        {{ staff.status }}
+      </span>
+
+    </div>
+
+    <div class="staff-info">
+      <h3>{{ staff.name }}</h3>
+      <p>{{ staff.role }}</p>
+    </div>
+
+    <div class="card-divider"></div>
+
+    <div class="staff-stats">
+
+      <div>
+        <strong>{{ staff.tickets }}</strong>
+        <span>Tickets</span>
+      </div>
+
+      <div>
+        <strong>{{ staff.resolved }}</strong>
+        <span>Resolved</span>
+      </div>
+
+      <div>
+        <strong>{{ staff.pending }}</strong>
+        <span>Pending</span>
+      </div>
+
+    </div>
 
   </div>
 
+</div>
+<div
+  class="no-results"
+  *ngIf="filteredStaff.length === 0"
+>
+  <h3>No staff found</h3>
+  <p>No staff member matches "{{ searchQuery }}".</p>
 </div>
