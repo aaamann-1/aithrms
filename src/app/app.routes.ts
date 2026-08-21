@@ -10,7 +10,7 @@ import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { IndividualReports } from './admin/reports/individual/individual';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
-
+import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
 export const routes: Routes = [
 
   // =========================
@@ -64,6 +64,11 @@ export const routes: Routes = [
     path: 'admin/attendance',
     component: Attendance
   },
+  
+  {
+  path: 'admin/issue-categories',
+  component: IssueCategoriesComponent
+},
 
   // =========================
   // INVALID URL
