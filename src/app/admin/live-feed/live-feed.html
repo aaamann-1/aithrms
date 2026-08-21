@@ -1,86 +1,145 @@
 <div class="dashboard-layout">
 
   <!-- SIDEBAR -->
+<aside class="sidebar">
 
-  <aside class="sidebar">
-
-    <div class="logo-section">
-      <div class="logo-icon">
-        <span>♢</span>
-      </div>
-
-      <div class="logo-text">
-        <h2>DSR Web Panel</h2>
-        <p>Billing Support</p>
-      </div>
+  <!-- LOGO -->
+  <div class="logo-section">
+    <div class="logo-icon">
+      ♢
     </div>
 
-    <div class="navigation-title">
-      NAVIGATION
+    <div class="logo-text">
+      <strong>DSR Web Panel<br></strong>
+      <span>Billing Support </span>
     </div>
+  </div>
 
-    <nav class="navigation">
+  <!-- NAVIGATION TITLE -->
+  <div class="navigation-title">
+    NAVIGATION
+  </div>
 
-      <button
-        class="nav-item"
-        type="button"
-        (click)="goTo('/dashboard')"
-      >
-        <span class="nav-icon">▦</span>
-        <span>Dashboard</span>
-      </button>
+  <!-- NAVIGATION -->
+  <nav class="navigation">
 
-      <button
-        class="nav-item active"
-        type="button"
-        (click)="goTo('/live-feed')"
-      >
-        <span class="nav-icon">〽</span>
-        <span>Live Activity Feed</span>
-        <span class="active-dot">•</span>
-      </button>
+    <!-- DASHBOARD -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/dashboard')"
+    >
+      <span class="nav-icon">▦</span>
+      <span>Dashboard</span>
+    </button>
 
-      <button
-        class="nav-item"
-        type="button"
-        (click)="goTo('/staff-management')"
-      >
-        <span class="nav-icon">♙</span>
-        <span>Staff Management</span>
-      </button>
 
-      <button
-        class="nav-item"
-        type="button"
-        (click)="goTo('/reports')"
-      >
-        <span class="nav-icon">▥</span>
-        <span>Reports</span>
-      </button>
+    <!-- LIVE ACTIVITY FEED -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/live-feed')"
+    >
+      <span class="nav-icon">〽</span>
+      <span>Live Activity Feed</span>
+    </button>
 
-      <button
-        class="nav-item"
-        type="button"
-        (click)="goTo('/settings')"
-      >
-        <span class="nav-icon">⚙</span>
-        <span>Settings</span>
-      </button>
 
-    </nav>
+    <!-- STAFF MANAGEMENT -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/staff-management')"
+    >
+      <span class="nav-icon">♧</span>
+      <span>Staff Management</span>
+    </button>
 
-    <div class="sidebar-bottom">
-      <button
-        class="logout-button"
-        type="button"
-        (click)="logout()"
-      >
-        <span>⇥</span>
-        Logout
-      </button>
-    </div>
 
-  </aside>
+    <!-- ATTENDANCE -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/attendance')"
+    >
+      <span class="nav-icon">◷</span>
+      <span>Attendance</span>
+    </button>
+
+
+    <!-- INDIVIDUAL REPORTS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/reports/individual')"
+    >
+      <span class="nav-icon">▣</span>
+      <span>Individual Reports</span>
+    </button>
+
+
+    <!-- TEAM REPORTS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/reports/team')"
+    >
+      <span class="nav-icon">▥</span>
+      <span>Team Reports</span>
+    </button>
+
+
+    <!-- EXPORT REPORTS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/reports/export')"
+    >
+      <span class="nav-icon">⇩</span>
+      <span>Export Reports</span>
+    </button>
+
+
+    <!-- ISSUE CATEGORIES -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/issue-categories')"
+    >
+      <span class="nav-icon">◇</span>
+      <span>Issue Categories</span>
+    </button>
+
+
+    <!-- SETTINGS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/settings')"
+    >
+      <span class="nav-icon">⚙</span>
+      <span>Settings</span>
+    </button>
+
+  </nav>
+
+
+  <!-- LOGOUT -->
+  <div class="sidebar-bottom">
+
+    <button
+      type="button"
+      class="logout-button"
+      (click)="logout()"
+    >
+      <span>⇥</span>
+      <span class="nav-label">Logout</span>
+    </button>
+
+  </div>
+
+</aside>
+
 
   <!-- MAIN CONTENT -->
 
