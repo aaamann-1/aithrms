@@ -26,15 +26,16 @@
   <!-- NAVIGATION -->
   <nav class="navigation">
 
-    <!-- DASHBOARD -->
+   <!--Dasboard-->
     <button
-      type="button"
-      class="nav-item"
-      (click)="goTo('/admin/dashboard')"
-    >
-      <span class="nav-icon">▦</span>
-      <span>Dashboard</span>
-    </button>
+  type="button"
+  class="nav-item active"
+  (click)="goTo('/admin/dashboard')"
+>
+  <span class="nav-icon">▦</span>
+  <span>Dashboard</span>
+  <span class="active-dot"></span>
+</button>
 
 
     <!-- LIVE ACTIVITY FEED -->
@@ -240,7 +241,7 @@
           (click)="toggleNotifications()"
         >
 
-          ♧
+          🔔
 
           <span class="notification-dot"></span>
 

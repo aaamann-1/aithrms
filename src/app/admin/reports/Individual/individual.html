@@ -73,14 +73,15 @@
         <span class="active-dot"></span>
       </button>
 
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/admin/team-reports')"
-      >
-        <span class="nav-icon">▥</span>
-        <span>Team Reports</span>
-      </button>
+     <!-- TEAM REPORTS -->
+<button
+  type="button"
+  class="nav-item"
+  (click)="goTo('/admin/reports/team')"
+>
+  <span class="nav-icon">▥</span>
+  <span>Team Reports</span>
+</button>
 
       <button
         type="button"
@@ -180,7 +181,7 @@
           class="notification-button"
           (click)="toggleNotifications()"
         >
-          ♧
+          🔔
           <span class="notification-dot"></span>
         </button>
 
