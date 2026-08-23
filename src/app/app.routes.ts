@@ -12,6 +12,7 @@ import { TeamReportsComponent } from './admin/reports/team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
+import{ExportReports} from './admin/export-reports/export-reports';
 export const routes: Routes = [
 
   // =========================
@@ -74,6 +75,12 @@ export const routes: Routes = [
   path: 'admin/issue-categories',
   component: IssueCategoriesComponent
 },
+
+{
+  path: 'admin/export-reports',
+  component: ExportReports
+},
+
 
   // =========================
   // INVALID URL

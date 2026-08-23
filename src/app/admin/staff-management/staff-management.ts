@@ -184,7 +184,7 @@ export class StaffManagement {
     );
   }
 
-  onSearchKey(event: KeyboardEvent): void {
+   onSearchKey(event: KeyboardEvent): void {
 
     if (event.key === 'Enter') {
       event.preventDefault();
