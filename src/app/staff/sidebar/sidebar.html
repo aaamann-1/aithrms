@@ -1,0 +1,97 @@
+<aside class="sidebar" [class.collapsed]="collapsed">
+
+  <!-- ================= LOGO ================= -->
+  <div class="sidebar-header">
+
+    <div class="logo-icon">
+      ◇
+    </div>
+
+    <div class="logo-text">
+      <h2>DSR Web Panel</h2>
+      <span>Staff Panel</span>
+    </div>
+
+  </div>
+
+
+  <!-- ================= NAVIGATION ================= -->
+  <div class="navigation-title">
+    NAVIGATION
+  </div>
+
+
+  <nav class="sidebar-nav">
+
+    <!-- Dashboard -->
+    <a
+      href="javascript:void(0)"
+      (click)="goTo('/staff/dashboard')">
+
+      <span class="nav-icon">▦</span>
+      <span class="nav-text">Dashboard</span>
+
+    </a>
+
+
+    <!-- Task Entry -->
+    <a
+      href="javascript:void(0)"
+      (click)="goTo('/staff/task-entry')">
+
+      <span class="nav-icon">＋</span>
+      <span class="nav-text">Task Entry</span>
+
+    </a>
+
+
+    <!-- My Reports -->
+    <a
+      href="javascript:void(0)"
+      (click)="goTo('/staff/my-reports')">
+
+      <span class="nav-icon">▤</span>
+      <span class="nav-text">My Reports</span>
+
+    </a>
+
+
+    <!-- Attendance -->
+    <a
+      href="javascript:void(0)"
+      (click)="goTo('/staff/attendance')">
+
+      <span class="nav-icon">◷</span>
+      <span class="nav-text">Attendance</span>
+
+    </a>
+
+
+    <!-- Profile -->
+    <a
+      href="javascript:void(0)"
+      (click)="goTo('/staff/profile')">
+
+      <span class="nav-icon">♙</span>
+      <span class="nav-text">My Profile</span>
+
+    </a>
+
+  </nav>
+
+
+  <!-- ================= SIDEBAR FOOTER ================= -->
+  <div class="sidebar-footer">
+
+    <a
+      href="javascript:void(0)"
+      (click)="logout()">
+
+      <span class="nav-icon">⇥</span>
+      <span class="nav-text">Logout</span>
+
+    </a>
+
+  </div>
+
+</aside>

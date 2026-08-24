@@ -1,1 +1,243 @@
-<p>attendance works!</p>
+<div class="attendance-page">
+
+  <!-- PAGE HEADER -->
+
+  <div class="page-header">
+
+    <h1>Attendance</h1>
+
+    <p>
+      Track your daily attendance and working hours
+    </p>
+
+  </div>
+
+
+  <!-- TODAY CARD -->
+
+  <section class="today-card">
+
+    <div class="today-header">
+
+      <div>
+
+        <span class="today-label">
+          Today
+        </span>
+
+        <h2>
+          {{ today }}
+        </h2>
+
+        <div class="present-badge">
+
+          <span class="status-dot"></span>
+
+          Present
+
+        </div>
+
+      </div>
+
+
+      <div class="hours-box">
+
+        <span>
+          Hours Worked
+        </span>
+
+        <strong>
+          {{ hoursWorked }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- ATTENDANCE INFORMATION -->
+
+    <div class="attendance-info">
+
+
+      <!-- CHECK IN -->
+
+      <div class="info-box">
+
+        <span>
+          Check In
+        </span>
+
+        <strong>
+          {{ checkInTime }}
+        </strong>
+
+      </div>
+
+
+      <!-- CHECK OUT -->
+
+      <div class="info-box">
+
+        <span>
+          Check Out
+        </span>
+
+        <strong>
+          {{ checkOutTime }}
+        </strong>
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div class="info-box">
+
+        <span>
+          Status
+        </span>
+
+        <strong
+          [class.active-status]="status === 'Active'"
+          [class.completed]="status === 'Completed'">
+
+          {{ status }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="attendance-actions">
+
+
+      <!-- CHECKED IN BUTTON -->
+
+      <button
+        class="check-in-button"
+        [disabled]="checkedIn">
+
+        @if (checkedIn) {
+
+          <span>
+            ✓ Checked In
+          </span>
+
+        } @else {
+
+          <span>
+            Check In
+          </span>
+
+        }
+
+      </button>
+
+
+      <!-- CHECK OUT BUTTON -->
+
+      <button
+        class="check-out-button"
+        [disabled]="!checkedIn"
+        (click)="checkOut()">
+
+        Check Out
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- WEEKLY ATTENDANCE -->
+
+  <section class="weekly-card">
+
+
+    <div class="card-title">
+      This Week's Attendance
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>DAY</th>
+
+            <th>DATE</th>
+
+            <th>STATUS</th>
+
+            <th>CHECK IN</th>
+
+            <th>CHECK OUT</th>
+
+            <th>TOTAL HOURS</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          @for (record of attendanceRecords; track record.date) {
+
+            <tr>
+
+              <td class="day">
+                {{ record.day }}
+              </td>
+
+              <td>
+                {{ record.date }}
+              </td>
+
+              <td>
+
+                <span
+                  class="table-status"
+                  [class.live-status]="record.checkOut === '—'">
+
+                  {{ record.status }}
+
+                </span>
+
+              </td>
+
+              <td>
+                {{ record.checkIn }}
+              </td>
+
+              <td>
+                {{ record.checkOut }}
+              </td>
+
+              <td class="hours">
+                {{ record.totalHours }}
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,1 +1,289 @@
-<p>task-entry works!</p>
+<div class="staff-page">
+
+  <!-- ================= SIDEBAR ================= -->
+  <app-staff-sidebar></app-staff-sidebar>
+
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <div class="main-content">
+
+    <!-- ================= NAVBAR ================= -->
+    <app-staff-navbar></app-staff-navbar>
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+    <main class="page-content">
+
+      <!-- ================= PAGE HEADER ================= -->
+      <div class="page-header">
+
+        <div>
+          <h1>Add Task / Submit Report</h1>
+          <p>Log a new client support case for today.</p>
+        </div>
+
+      </div>
+
+
+      <!-- ================= TASK FORM ================= -->
+      <div class="task-form-card">
+
+        <form (ngSubmit)="submitTask()">
+
+          <!-- ================= CLIENT DETAILS ================= -->
+          <div class="form-row">
+
+            <!-- Client Name -->
+            <div class="form-group">
+
+              <label for="clientName">
+                Client Name
+              </label>
+
+              <input
+                id="clientName"
+                name="clientName"
+                type="text"
+                [(ngModel)]="clientName"
+                placeholder="e.g. Arjun Mehta"
+              >
+
+            </div>
+
+
+            <!-- Client ID -->
+            <div class="form-group">
+
+              <label for="clientId">
+                Client ID
+              </label>
+
+              <input
+                id="clientId"
+                name="clientId"
+                type="text"
+                [(ngModel)]="clientId"
+                placeholder="e.g. CL-1042"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- ================= CATEGORY & PRIORITY ================= -->
+          <div class="form-row">
+
+            <!-- Issue Category -->
+            <div class="form-group">
+
+              <label for="issueCategory">
+                Issue Category
+              </label>
+
+              <select
+                id="issueCategory"
+                name="issueCategory"
+                [(ngModel)]="issueCategory">
+
+                <option value="">
+                  Select category
+                </option>
+
+                <option value="billing">
+                  Billing
+                </option>
+
+                <option value="technical">
+                  Technical Support
+                </option>
+
+                <option value="account">
+                  Account
+                </option>
+
+                <option value="payment">
+                  Payment
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- Priority -->
+            <div class="form-group">
+
+              <label for="priority">
+                Priority
+              </label>
+
+              <select
+                id="priority"
+                name="priority"
+                [(ngModel)]="priority">
+
+                <option value="">
+                  Select priority
+                </option>
+
+                <option value="low">
+                  Low
+                </option>
+
+                <option value="medium">
+                  Medium
+                </option>
+
+                <option value="high">
+                  High
+                </option>
+
+                <option value="urgent">
+                  Urgent
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- ================= ISSUE DESCRIPTION ================= -->
+          <div class="form-group full-width">
+
+            <label for="issueDescription">
+              Issue Description
+            </label>
+
+            <textarea
+              id="issueDescription"
+              name="issueDescription"
+              [(ngModel)]="issueDescription"
+              placeholder="Describe the client's issue in detail...">
+            </textarea>
+
+          </div>
+
+
+          <!-- ================= TIME ================= -->
+          <div class="form-row">
+
+            <!-- Start Time -->
+            <div class="form-group">
+
+              <label for="startTime">
+                Start Time
+              </label>
+
+              <input
+                id="startTime"
+                name="startTime"
+                type="time"
+                [(ngModel)]="startTime"
+              >
+
+            </div>
+
+
+            <!-- End Time -->
+            <div class="form-group">
+
+              <label for="endTime">
+                End Time
+              </label>
+
+              <input
+                id="endTime"
+                name="endTime"
+                type="time"
+                [(ngModel)]="endTime"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- ================= RESOLUTION NOTES ================= -->
+          <div class="form-group full-width">
+
+            <label for="resolutionNotes">
+              Resolution Notes
+            </label>
+
+            <textarea
+              id="resolutionNotes"
+              name="resolutionNotes"
+              [(ngModel)]="resolutionNotes"
+              placeholder="Steps taken to resolve the issue...">
+            </textarea>
+
+          </div>
+
+
+          <!-- ================= STATUS ================= -->
+          <div class="form-group status-group">
+
+            <label for="status">
+              Status
+            </label>
+
+            <select
+              id="status"
+              name="status"
+              [(ngModel)]="status">
+
+              <option value="">
+                Select status
+              </option>
+
+              <option value="open">
+                Open
+              </option>
+
+              <option value="in-progress">
+                In Progress
+              </option>
+
+              <option value="resolved">
+                Resolved
+              </option>
+
+              <option value="pending">
+                Pending
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- ================= BUTTONS ================= -->
+          <div class="form-actions">
+
+            <button
+              type="submit"
+              class="submit-btn">
+              Submit Task
+            </button>
+
+            <button
+              type="button"
+              class="clear-btn"
+              (click)="clearForm()">
+              Clear Form
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
