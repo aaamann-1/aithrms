@@ -1,1 +1,307 @@
-<p>issue-categories works!</p>
+<div
+  class="dashboard-layout"
+  [class.sidebar-collapsed]="sidebarCollapsed"
+>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <!-- LOGO -->
+  <div class="logo-section">
+    <div class="logo-icon">
+      ♢
+    </div>
+
+    <div class="logo-text">
+      <strong>DSR Web Panel<br></strong>
+      <span>Billing Support </span>
+    </div>
+  </div>
+
+  <!-- NAVIGATION TITLE -->
+  <div class="navigation-title">
+    NAVIGATION
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navigation">
+
+    <!-- DASHBOARD -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/dashboard')"
+    >
+      <span class="nav-icon">▦</span>
+      <span>Dashboard</span>
+    </button>
+
+
+    <!-- LIVE ACTIVITY FEED -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/live-feed')"
+    >
+      <span class="nav-icon">〽</span>
+      <span>Live Activity Feed</span>
+    </button>
+
+
+    <!-- STAFF MANAGEMENT -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/staff-management')"
+    >
+      <span class="nav-icon">♧</span>
+      <span>Staff Management</span>
+    </button>
+
+
+    <!-- ATTENDANCE -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/attendance')"
+    >
+      <span class="nav-icon">◷</span>
+      <span>Attendance</span>
+    </button>
+
+
+    <!-- INDIVIDUAL REPORTS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/reports/individual')"
+    >
+      <span class="nav-icon">▣</span>
+      <span>Individual Reports</span>
+    </button>
+
+
+    <!-- TEAM REPORTS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/reports/team')"
+    >
+      <span class="nav-icon">▥</span>
+      <span>Team Reports</span>
+    </button>
+
+
+    <!-- EXPORT REPORTS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/reports/export')"
+    >
+      <span class="nav-icon">⇩</span>
+      <span>Export Reports</span>
+    </button>
+
+
+    <!-- ISSUE CATEGORIES -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/issue-categories')"
+    >
+      <span class="nav-icon">◇</span>
+      <span>Issue Categories</span>
+    </button>
+
+
+    <!-- SETTINGS -->
+    <button
+      type="button"
+      class="nav-item"
+      (click)="goTo('/admin/settings')"
+    >
+      <span class="nav-icon">⚙</span>
+      <span>Settings</span>
+    </button>
+
+  </nav>
+
+
+  <!-- LOGOUT -->
+  <div class="sidebar-bottom">
+
+    <button
+      type="button"
+      class="logout-button"
+      (click)="logout()"
+    >
+      <span>⇥</span>
+      <span class="nav-label">Logout</span>
+    </button>
+
+  </div>
+
+</aside>
+
+  <main class="main-content">
+
+
+
+
+    <header class="top-header">
+     <button
+  class="menu-button"
+  type="button"
+  (click)="toggleSidebar()"
+>
+  ☰
+</button>
+
+
+      <div class="search-container">
+        <span class="search-icon">⌕</span>
+
+        <input
+          type="text"
+          [(ngModel)]="searchText"
+          placeholder="Search client, staff, issue..."
+        >
+      </div>
+
+      <div class="date-box">
+        <span>▣</span>
+
+        <input
+          type="date"
+          [(ngModel)]="selectedDate"
+          class="date-input"
+          aria-label="Select date"
+        >
+
+        <span>{{ formattedDate }}</span>
+      </div>
+
+      <div class="notification-wrapper">
+        <button
+          class="notification-button"
+          type="button"
+          (click)="toggleNotificationDropdown()"
+        >
+          ♧
+          <span class="notification-dot"></span>
+        </button>
+
+        <div class="notification-dropdown" *ngIf="notificationDropdownOpen">
+          <strong>Notifications</strong>
+          <p>3 new support updates need attention.</p>
+        </div>
+      </div>
+
+      <div class="admin-profile-wrapper">
+        <button
+          class="admin-profile"
+          type="button"
+          (click)="toggleProfileDropdown()"
+        >
+          <span class="profile-avatar">{{ userInitials }}</span>
+
+          <span class="profile-details">
+            <strong>{{ currentUser?.name || 'Dev Sharma' }}</strong>
+            <small>Administrator</small>
+          </span>
+
+          <span class="profile-arrow">⌄</span>
+        </button>
+
+        <div class="profile-dropdown" *ngIf="profileDropdownOpen">
+          <button type="button" (click)="goTo('/profile')">My Profile</button>
+          <button type="button" (click)="goTo('/settings')">Settings</button>
+          <button class="logout-item" type="button" (click)="logout()">Log Out</button>
+        </div>
+      </div>
+    </header>
+
+
+    
+    <section class="page-content">
+      <div class="page-heading">
+        <div>
+          <h1>Issue Categories</h1>
+          <p>Manage support issue classifications</p>
+        </div>
+
+        <button class="add-category-button" type="button" (click)="addCategory()">
+          <span>＋</span>
+          Add Category
+        </button>
+      </div>
+
+      <section class="categories-grid">
+        <article
+          class="category-card"
+          *ngFor="let category of filteredCategories"
+        >
+          <div class="category-card-top">
+            <div
+              class="category-icon"
+              [style.color]="category.color"
+              [style.background]="category.background"
+            >
+              ◇
+            </div>
+
+            <div class="card-actions">
+              <button type="button" (click)="editCategory(category)">♢</button>
+              <button type="button" (click)="deleteCategory(category)">♧</button>
+            </div>
+          </div>
+
+          <h2>{{ category.name }}</h2>
+          <p>{{ category.description }}</p>
+
+          <div class="category-total">
+            <span>Total Issues</span>
+            <strong [style.color]="category.color">{{ category.total }}</strong>
+          </div>
+        </article>
+      </section>
+
+      <section class="analytics-card">
+        <div class="analytics-header">
+          <h2>Category Analytics</h2>
+          <p>Issue distribution by category</p>
+        </div>
+
+        <div class="chart">
+          <div class="chart-y-axis">
+            <span>60</span>
+            <span>45</span>
+            <span>30</span>
+            <span>15</span>
+            <span>0</span>
+          </div>
+
+          <div class="chart-area">
+            <div class="grid-line line-1"></div>
+            <div class="grid-line line-2"></div>
+            <div class="grid-line line-3"></div>
+            <div class="grid-line line-4"></div>
+            <div class="grid-line line-5"></div>
+
+            <div class="bars">
+              <div class="bar-column" *ngFor="let category of categories">
+                <div
+                  class="bar"
+                  [style.height]="getBarHeight(category.total)"
+                  [style.background]="category.color"
+                ></div>
+
+                <span>{{ category.shortName }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+  </main>
+</div>

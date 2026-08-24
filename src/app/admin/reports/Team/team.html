@@ -1,1 +1,969 @@
-<p>team works!</p>
+<div
+  class="dashboard-layout"
+  [class.sidebar-collapsed]="sidebarCollapsed"
+>
+
+  <!-- =====================================================
+       SIDEBAR
+  ====================================================== -->
+
+  <aside class="sidebar">
+
+    <!-- LOGO -->
+
+    <div class="logo-section">
+
+      <div class="logo-icon">
+        ♢
+      </div>
+
+      <div class="logo-text">
+
+        <strong>
+          DSR Web Panel
+        </strong>
+
+        <span>
+          Billing Support
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION TITLE -->
+
+    <div class="navigation-title">
+      NAVIGATION
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navigation">
+
+
+      <!-- DASHBOARD -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/dashboard')"
+      >
+
+        <span class="nav-icon">
+          ▦
+        </span>
+
+        <span class="nav-label">
+          Dashboard
+        </span>
+
+      </button>
+
+
+      <!-- LIVE ACTIVITY -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/live-feed')"
+      >
+
+        <span class="nav-icon">
+          〽
+        </span>
+
+        <span class="nav-label">
+          Live Activity Feed
+        </span>
+
+      </button>
+
+
+      <!-- STAFF MANAGEMENT -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/staff-management')"
+      >
+
+        <span class="nav-icon">
+          ♧
+        </span>
+
+        <span class="nav-label">
+          Staff Management
+        </span>
+
+      </button>
+
+
+      <!-- ATTENDANCE -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/attendance')"
+      >
+
+        <span class="nav-icon">
+          ◷
+        </span>
+
+        <span class="nav-label">
+          Attendance
+        </span>
+
+      </button>
+
+
+      <!-- INDIVIDUAL REPORTS -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/reports/individual')"
+      >
+
+        <span class="nav-icon">
+          ▣
+        </span>
+
+        <span class="nav-label">
+          Individual Reports
+        </span>
+
+      </button>
+
+
+      <!-- TEAM REPORTS -->
+
+      <button
+        type="button"
+        class="nav-item active"
+        (click)="goTo('/admin/reports/team')"
+      >
+
+        <span class="nav-icon">
+          ▥
+        </span>
+
+        <span class="nav-label">
+          Team Reports
+        </span>
+
+        <span class="active-dot"></span>
+
+      </button>
+
+
+      <!-- EXPORT REPORTS -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/reports/export')"
+      >
+
+        <span class="nav-icon">
+          ⇩
+        </span>
+
+        <span class="nav-label">
+          Export Reports
+        </span>
+
+      </button>
+
+
+      <!-- ISSUE CATEGORIES -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/issue-categories')"
+      >
+
+        <span class="nav-icon">
+          ◇
+        </span>
+
+        <span class="nav-label">
+          Issue Categories
+        </span>
+
+      </button>
+
+
+      <!-- SETTINGS -->
+
+      <button
+        type="button"
+        class="nav-item"
+        (click)="goTo('/admin/settings')"
+      >
+
+        <span class="nav-icon">
+          ⚙
+        </span>
+
+        <span class="nav-label">
+          Settings
+        </span>
+
+      </button>
+
+    </nav>
+
+
+    <!-- LOGOUT -->
+
+    <div class="sidebar-bottom">
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="logout()"
+      >
+
+        <span>
+          ⇥
+        </span>
+
+        <span class="nav-label">
+          Logout
+        </span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+  ====================================================== -->
+
+  <main class="main-content">
+
+
+    <!-- =================================================
+         TOP HEADER
+    ================================================== -->
+
+    <header class="top-header">
+
+
+      <!-- SIDEBAR TOGGLE -->
+
+      <button
+        class="menu-button"
+        type="button"
+        (click)="toggleSidebar()"
+      >
+
+        ☰
+
+      </button>
+
+
+      <!-- SEARCH -->
+
+      <div class="search-box">
+
+        <span class="search-icon">
+          🔍
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="searchText"
+          placeholder="Search client, staff, issue..."
+        >
+
+        <button
+          *ngIf="searchText"
+          type="button"
+          class="clear-search"
+          (click)="clearSearch()"
+        >
+
+          ×
+
+        </button>
+
+      </div>
+
+
+      <!-- CALENDAR -->
+
+      <div class="date-box">
+
+        <span class="calendar-icon">
+          📅
+        </span>
+
+        <input
+          type="date"
+          [(ngModel)]="selectedDate"
+          class="date-input"
+          (change)="onDateChange()"
+          aria-label="Select date"
+        >
+
+      </div>
+
+
+      <!-- NOTIFICATIONS -->
+
+      <div class="notification-wrapper">
+
+        <button
+          class="notification-button"
+          type="button"
+          (click)="toggleNotifications()"
+        >
+
+          🔔
+
+          <span class="notification-dot"></span>
+
+        </button>
+
+
+        <!-- NOTIFICATION DROPDOWN -->
+
+        <div
+          class="notification-dropdown"
+          *ngIf="notificationOpen"
+        >
+
+          <div class="dropdown-header">
+
+            <strong>
+              Notifications
+            </strong>
+
+            <span>
+              {{ notifications.length }}
+            </span>
+
+          </div>
+
+
+          <div
+            class="notification-item"
+            *ngFor="let notification of notifications"
+          >
+
+            <div class="notification-icon">
+              ●
+            </div>
+
+            <div class="notification-content">
+
+              <strong>
+                {{ notification.title }}
+              </strong>
+
+              <p>
+                {{ notification.message }}
+              </p>
+
+              <small>
+                {{ notification.time }}
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ADMIN PROFILE -->
+
+      <div class="profile-wrapper">
+
+        <button
+          class="admin-profile"
+          type="button"
+          (click)="toggleProfile()"
+        >
+
+          <div class="profile-avatar">
+            DS
+          </div>
+
+          <div class="profile-details">
+
+            <strong>
+              Dev Sharma
+            </strong>
+
+            <span>
+              Administrator
+            </span>
+
+          </div>
+
+          <span class="profile-arrow">
+            ⌄
+          </span>
+
+        </button>
+
+
+        <!-- PROFILE DROPDOWN -->
+
+        <div
+          class="profile-dropdown"
+          *ngIf="profileOpen"
+        >
+
+          <div class="profile-dropdown-header">
+
+            <div class="profile-avatar large">
+              DS
+            </div>
+
+            <div>
+
+              <strong>
+                Dev Sharma
+              </strong>
+
+              <span>
+                Administrator
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="dropdown-divider"></div>
+
+
+          <button
+            type="button"
+            class="dropdown-item"
+            (click)="openProfile()"
+          >
+
+            <span>
+              👤
+            </span>
+
+            <span>
+              My Profile
+            </span>
+
+          </button>
+
+
+          <button
+            type="button"
+            class="dropdown-item"
+            (click)="openSettings()"
+          >
+
+            <span>
+              ⚙
+            </span>
+
+            <span>
+              Settings
+            </span>
+
+          </button>
+
+
+          <div class="dropdown-divider"></div>
+
+
+          <button
+            type="button"
+            class="dropdown-item logout-item"
+            (click)="logout()"
+          >
+
+            <span>
+              ⇥
+            </span>
+
+            <span>
+              Log Out
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
+
+    <div class="content">
+
+
+      <!-- PAGE TITLE -->
+
+      <div class="page-heading">
+
+        <h1>
+          Team Reports
+        </h1>
+
+        <p>
+          Overall team performance metrics
+        </p>
+
+      </div>
+
+
+      <!-- SELECTED DATE -->
+
+      <div class="selected-date">
+
+        <span>
+          Reports for:
+        </span>
+
+        <strong>
+          {{ getFormattedDate() }}
+        </strong>
+
+      </div>
+
+
+      <!-- =================================================
+           STAFF PERFORMANCE
+      ================================================== -->
+
+      <section class="report-card">
+
+        <div class="card-heading">
+
+          <h2>
+            Staff Performance Leaderboard
+          </h2>
+
+          <p>
+            Ranked by resolved tickets today
+          </p>
+
+        </div>
+
+
+        <!-- HEADER -->
+
+        <div class="table-header">
+
+          <div>RANK</div>
+
+          <div>STAFF NAME</div>
+
+          <div>TOTAL TICKETS</div>
+
+          <div>RESOLVED</div>
+
+          <div>PENDING</div>
+
+          <div>ESCALATED</div>
+
+          <div>WORKING HOURS</div>
+
+        </div>
+
+
+        <!-- ROWS -->
+
+        <div
+          class="staff-row"
+          *ngFor="let staff of filteredStaff"
+          [class.highlight-row]="staff.rank === 3"
+        >
+
+          <div class="rank">
+
+            <span
+              *ngIf="staff.rank === 1"
+              class="medal gold"
+            >
+              🥇
+            </span>
+
+            <span
+              *ngIf="staff.rank === 2"
+              class="medal silver"
+            >
+              🥈
+            </span>
+
+            <span
+              *ngIf="staff.rank === 3"
+              class="medal bronze"
+            >
+              🥉
+            </span>
+
+            <span
+              *ngIf="staff.rank > 3"
+              class="rank-number"
+            >
+              {{ staff.rank }}
+            </span>
+
+          </div>
+
+
+          <div class="staff-name">
+
+            <div
+              class="avatar"
+              [attr.data-rank]="staff.rank"
+            >
+              {{ staff.initials }}
+            </div>
+
+            <div>
+
+              <strong>
+                {{ staff.name }}
+              </strong>
+
+              <span>
+                {{ staff.role }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="total-tickets">
+            {{ staff.totalTickets }}
+          </div>
+
+          <div class="resolved">
+            {{ staff.resolved }}
+          </div>
+
+          <div class="pending">
+            {{ staff.pending }}
+          </div>
+
+          <div class="escalated">
+            {{ staff.escalated }}
+          </div>
+
+          <div class="working-hours">
+            {{ staff.workingHours }}
+          </div>
+
+        </div>
+
+
+        <div
+          class="no-result"
+          *ngIf="filteredStaff.length === 0"
+        >
+
+          No staff found for
+          "{{ searchText }}"
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           TICKET VOLUME
+      ================================================== -->
+
+      <section class="report-card chart-card">
+
+        <div class="card-heading">
+
+          <h2>
+            Ticket Volume by Staff
+          </h2>
+
+          <p>
+            Today's workload distribution
+          </p>
+
+        </div>
+
+
+        <div class="chart-container">
+
+          <div class="y-axis">
+
+            <span>60</span>
+            <span>45</span>
+            <span>30</span>
+            <span>15</span>
+            <span>0</span>
+
+          </div>
+
+
+          <div class="chart">
+
+            <div
+              class="bar-column"
+              *ngFor="let staff of filteredStaff"
+            >
+
+              <div class="bar-wrapper">
+
+                <div
+                  class="bar resolved-bar"
+                  [style.height.%]="getBarHeight(staff.resolved)"
+                  title="Resolved"
+                ></div>
+
+                <div
+                  class="bar pending-bar"
+                  [style.height.%]="getBarHeight(staff.pending)"
+                  title="Pending"
+                ></div>
+
+                <div
+                  class="bar escalated-bar"
+                  [style.height.%]="getBarHeight(staff.escalated)"
+                  title="Escalated"
+                ></div>
+
+              </div>
+
+
+              <span class="bar-name">
+                {{ staff.name.split(' ')[0] }}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="chart-legend">
+
+          <span>
+            <i class="legend resolved-dot"></i>
+            Resolved
+          </span>
+
+          <span>
+            <i class="legend pending-dot"></i>
+            Pending
+          </span>
+
+          <span>
+            <i class="legend escalated-dot"></i>
+            Escalated
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           STATUS SUMMARY
+      ================================================== -->
+
+      <section class="report-card">
+
+        <div class="card-heading">
+
+          <h2>
+            Ticket Status Summary
+          </h2>
+
+          <p>
+            Current team ticket status
+          </p>
+
+        </div>
+
+
+        <div class="status-grid">
+
+          <div class="status-box resolved-status">
+
+            <div class="status-icon">
+              ✓
+            </div>
+
+            <div>
+
+              <span>Resolved</span>
+
+              <strong>
+                {{ totalResolved }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="status-box pending-status">
+
+            <div class="status-icon">
+              !
+            </div>
+
+            <div>
+
+              <span>Pending</span>
+
+              <strong>
+                {{ totalPending }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="status-box escalated-status">
+
+            <div class="status-icon">
+              ↑
+            </div>
+
+            <div>
+
+              <span>Escalated</span>
+
+              <strong>
+                {{ totalEscalated }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           RESOLUTION RATE
+      ================================================== -->
+
+      <section class="report-card">
+
+        <div class="card-heading">
+
+          <h2>
+            Resolution Rate
+          </h2>
+
+          <p>
+            % of tickets resolved per staff
+          </p>
+
+        </div>
+
+
+        <div class="resolution-list">
+
+          <div
+            class="resolution-item"
+            *ngFor="let staff of filteredStaff"
+          >
+
+            <div class="resolution-info">
+
+              <strong>
+                {{ staff.name }}
+              </strong>
+
+            </div>
+
+
+            <div class="progress-container">
+
+              <div
+                class="progress-bar"
+                [style.width.%]="getResolutionRate(staff)"
+              ></div>
+
+            </div>
+
+
+            <div class="percentage">
+
+              {{ getResolutionRate(staff) }}%
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TEAM RATE -->
+
+        <div class="team-rate">
+
+          <div>
+
+            <span>
+              Overall Team Resolution Rate
+            </span>
+
+            <strong>
+              {{ teamResolutionRate }}%
+            </strong>
+
+          </div>
+
+
+          <div class="team-progress">
+
+            <div
+              class="team-progress-bar"
+              [style.width.%]="teamResolutionRate"
+            ></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- HELP -->
+
+  <button
+    class="help-button"
+    type="button"
+  >
+    ?
+  </button>
+
+</div>

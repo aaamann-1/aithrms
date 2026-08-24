@@ -1,1 +1,401 @@
-<p>export-reports works!</p>
+<div class="admin-page">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+
+    <!-- Logo -->
+    <div class="sidebar-header">
+      <div class="logo-icon">◇</div>
+
+      <div class="logo-text">
+        <h2>DSR Web Panel</h2>
+        <span>Billing Support</span>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation-title">
+      NAVIGATION
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <!-- Dashboard -->
+      <a routerLink="/admin/dashboard">
+        <span class="nav-icon">▦</span>
+        <span>Dashboard</span>
+      </a>
+
+      <!-- Live Activity Feed -->
+      <a routerLink="/admin/live-feed">
+        <span class="nav-icon">⌁</span>
+        <span>Live Activity Feed</span>
+      </a>
+
+      <!-- Staff Management -->
+      <a routerLink="/admin/staff-management">
+        <span class="nav-icon">♙</span>
+        <span>Staff Management</span>
+      </a>
+
+      <!-- Attendance -->
+      <a routerLink="/admin/attendance">
+        <span class="nav-icon">◷</span>
+        <span>Attendance</span>
+      </a>
+
+      <!-- Individual Reports -->
+      <a routerLink="/admin/reports/individual">
+        <span class="nav-icon">▤</span>
+        <span>Individual Reports</span>
+      </a>
+
+      <!-- Team Reports -->
+      <a routerLink="/admin/reports/team">
+        <span class="nav-icon">▥</span>
+        <span>Team Reports</span>
+      </a>
+
+      <!-- Export Reports - CURRENT PAGE -->
+      <a
+        routerLink="/admin/export-reports"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+
+        <span class="nav-icon">⇩</span>
+        <span>Export Reports</span>
+        <span class="active-dot"></span>
+
+      </a>
+
+      <!-- Issue Categories -->
+      <a routerLink="admin/issue-categories">
+        <span class="nav-icon">◇</span>
+        <span>IssueCategoriesComponent</span>
+      </a>
+
+      <!-- Settings -->
+      <a routerLink="/admin/settings">
+        <span class="nav-icon">⚙</span>
+        <span>Settings</span>
+      </a>
+
+    </nav>
+
+    <!-- Logout -->
+    <div class="sidebar-footer">
+
+      <a routerLink="/login">
+        <span class="nav-icon">⇥</span>
+        <span>Logout</span>
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <div class="main-content">
+
+    <!-- ================= ADMIN NAVBAR ================= -->
+    <header class="admin-navbar">
+
+      <!-- Hamburger -->
+      <button
+        type="button"
+        class="menu-button">
+        ☰
+      </button>
+
+
+      <!-- Search -->
+      <div class="search-box">
+
+        <button
+          type="button"
+          class="search-button"
+          title="Search">
+          🔍
+        </button>
+
+        <input
+          type="text"
+          placeholder="Search client, staff, issue..."
+        >
+
+      </div>
+
+
+      <!-- Date -->
+      <div class="date-box">
+        <span>▣</span>
+        <span>Sunday, 23 August 2026</span>
+      </div>
+
+
+      <!-- Navbar Right -->
+      <div class="navbar-right">
+
+        <!-- Notification -->
+        <div class="notification">
+          ♧
+          <span class="notification-dot"></span>
+        </div>
+
+
+        <!-- Profile -->
+        <div class="profile">
+
+          <div class="profile-circle">
+            DS
+          </div>
+
+          <div class="profile-info">
+            <strong>Dev Sharma</strong>
+            <span>Administrator</span>
+          </div>
+
+          <span class="dropdown-arrow">
+            ⌄
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+    <main class="page-content">
+
+      <!-- Page Header -->
+      <div class="page-header">
+
+        <div>
+          <h1>Export Reports</h1>
+          <p>Download reports in various formats</p>
+        </div>
+
+      </div>
+
+
+      <!-- ================= REPORT GRID ================= -->
+      <div class="report-grid">
+
+
+        <!-- ================= DAILY SUMMARY ================= -->
+        <div class="report-card">
+
+          <div class="report-icon pdf-icon">
+            ⇩
+          </div>
+
+          <h3>Daily Summary Report</h3>
+
+          <p>
+            Complete daily support activity overview
+          </p>
+
+          <div class="report-buttons">
+
+            <button type="button" class="pdf-button">
+              ⇩ PDF
+            </button>
+
+            <button type="button" class="excel-button">
+              ▧ Excel
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= STAFF PERFORMANCE ================= -->
+        <div class="report-card">
+
+          <div class="report-icon excel-icon">
+            ▤
+          </div>
+
+          <h3>Staff Performance Report</h3>
+
+          <p>
+            Individual and team performance metrics
+          </p>
+
+          <div class="report-buttons">
+
+            <button type="button" class="pdf-button">
+              ⇩ PDF
+            </button>
+
+            <button type="button" class="excel-button">
+              ▧ Excel
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= ISSUE CATEGORY ================= -->
+        <div class="report-card">
+
+          <div class="report-icon pdf-icon">
+            ▥
+          </div>
+
+          <h3>Issue Category Report</h3>
+
+          <p>
+            Breakdown by issue type and resolution
+          </p>
+
+          <div class="report-buttons">
+
+            <button type="button" class="pdf-button">
+              ⇩ PDF
+            </button>
+
+            <button type="button" class="excel-button">
+              ▧ Excel
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= ATTENDANCE ================= -->
+        <div class="report-card">
+
+          <div class="report-icon excel-icon">
+            ♙
+          </div>
+
+          <h3>Attendance Report</h3>
+
+          <p>
+            Staff attendance and working hours log
+          </p>
+
+          <div class="report-buttons">
+
+            <button type="button" class="pdf-button">
+              ⇩ PDF
+            </button>
+
+            <button type="button" class="excel-button">
+              ▧ Excel
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= CLIENT SUPPORT HISTORY ================= -->
+        <div class="report-card">
+
+          <div class="report-icon pdf-icon">
+            ▤
+          </div>
+
+          <h3>Client Support History</h3>
+
+          <p>
+            All client interactions and resolutions
+          </p>
+
+          <div class="report-buttons">
+
+            <button type="button" class="pdf-button">
+              ⇩ PDF
+            </button>
+
+            <button type="button" class="excel-button">
+              ▧ Excel
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= MONTHLY ANALYTICS ================= -->
+        <div class="report-card">
+
+          <div class="report-icon excel-icon">
+            ↗
+          </div>
+
+          <h3>Monthly Analytics Report</h3>
+
+          <p>
+            Trends, KPIs, and performance analytics
+          </p>
+
+          <div class="report-buttons">
+
+            <button type="button" class="pdf-button">
+              ⇩ PDF
+            </button>
+
+            <button type="button" class="excel-button">
+              ▧ Excel
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= QUICK EXPORT ================= -->
+      <div class="quick-export">
+
+        <div class="quick-export-header">
+
+          <h2>Quick Export</h2>
+
+          <p>
+            One-click downloads for today's data
+          </p>
+
+        </div>
+
+
+        <div class="quick-export-buttons">
+
+          <button
+            type="button"
+            class="quick-excel-button">
+
+            ▧
+            Download Today's Excel Report
+
+          </button>
+
+
+          <button
+            type="button"
+            class="quick-pdf-button">
+
+            ⇩
+            Download Today's PDF Report
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>

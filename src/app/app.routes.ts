@@ -11,8 +11,12 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
+import { IndividualReports } from './admin/reports/individual/individual';
+import { TeamReportsComponent } from './admin/reports/team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
+import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
+import { ExportReports } from './admin/export-reports/export-reports';
 
 // =========================
 // STAFF
@@ -69,6 +73,34 @@ export const routes: Routes = [
   {
     path: 'admin/attendance',
     component: Attendance
+  },
+
+  // =========================
+  // ADMIN REPORTS
+  // =========================
+
+  {
+    path: 'admin/reports/individual',
+    component: IndividualReports
+  },
+
+  {
+    path: 'admin/reports/team',
+    component: TeamReportsComponent
+  },
+
+  // =========================
+  // ADMIN OTHER PAGES
+  // =========================
+
+  {
+    path: 'admin/issue-categories',
+    component: IssueCategoriesComponent
+  },
+
+  {
+    path: 'admin/export-reports',
+    component: ExportReports
   },
 
 
