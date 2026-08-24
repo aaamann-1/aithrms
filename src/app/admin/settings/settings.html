@@ -1,1 +1,510 @@
-<p>settings works!</p>
+<div class="settings-page">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- LOGO / BRAND -->
+    <div class="sidebar-brand">
+
+      <div class="brand-icon">
+        ♢
+      </div>
+
+      <div class="brand-text">
+        <strong>DSR Web Panel</strong>
+        <span>Billing Support</span>
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+    <div class="navigation-title">
+      NAVIGATION
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+      <!-- DASHBOARD -->
+      <a
+        routerLink="/"
+        class="sidebar-link">
+
+        <span class="nav-icon">▦</span>
+        <span>Dashboard</span>
+
+      </a>
+
+
+      <!-- LIVE ACTIVITY -->
+      <a
+        routerLink="/live-activity"
+        class="sidebar-link">
+
+        <span class="nav-icon">⌁</span>
+        <span>Live Activity Feed</span>
+
+      </a>
+
+
+      <!-- STAFF MANAGEMENT -->
+      <a
+        routerLink="/staff-management"
+        class="sidebar-link">
+
+        <span class="nav-icon">♙</span>
+        <span>Staff Management</span>
+
+      </a>
+
+
+      <!-- ATTENDANCE -->
+      <a
+        routerLink="/attendance"
+        class="sidebar-link">
+
+        <span class="nav-icon">◷</span>
+        <span>Attendance</span>
+
+      </a>
+
+
+      <!-- INDIVIDUAL REPORTS -->
+      <a
+        routerLink="/individual-reports"
+        class="sidebar-link">
+
+        <span class="nav-icon">▤</span>
+        <span>Individual Reports</span>
+
+      </a>
+
+
+      <!-- TEAM REPORTS -->
+      <a
+        routerLink="/team-reports"
+        class="sidebar-link">
+
+        <span class="nav-icon">▥</span>
+        <span>Team Reports</span>
+
+      </a>
+
+
+      <!-- EXPORT REPORTS -->
+      <a
+        routerLink="/export-reports"
+        class="sidebar-link">
+
+        <span class="nav-icon">⇩</span>
+        <span>Export Reports</span>
+
+      </a>
+
+
+      <!-- ISSUE CATEGORIES -->
+      <a
+        routerLink="/issue-categories"
+        class="sidebar-link">
+
+        <span class="nav-icon">◇</span>
+        <span>Issue Categories</span>
+
+      </a>
+
+
+      <!-- SETTINGS -->
+      <a
+        routerLink="/settings"
+        class="sidebar-link active">
+
+        <span class="nav-icon">⚙</span>
+        <span>Settings</span>
+
+        <span class="active-dot"></span>
+
+      </a>
+
+    </nav>
+
+
+    <!-- BOTTOM -->
+    <div class="sidebar-bottom">
+      Manage cookies or opt out
+    </div>
+
+  </aside>
+
+
+  <!-- RIGHT SIDE / MAIN CONTENT -->
+  <main class="settings-main">
+
+    <!-- YOUR EXISTING SETTINGS CONTENT -->
+
+    <!-- PROFILE CARD -->
+    <div class="settings-card profile-card">
+
+      <div class="profile-header">
+
+        <div class="profile-image">
+          DS
+        </div>
+
+        <div class="profile-info">
+
+          <h2>{{ fullName }}</h2>
+
+          <p>
+            {{ role }} · DSR Web Panel
+          </p>
+
+          <button
+            class="change-photo"
+            (click)="changePhoto()">
+            Change Photo
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROFILE FORM -->
+      <div class="profile-form">
+
+        <div class="form-group">
+
+          <label>FULL NAME</label>
+
+          <input
+            type="text"
+            [(ngModel)]="fullName">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>EMAIL</label>
+
+          <input
+            type="email"
+            [(ngModel)]="email">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>PHONE</label>
+
+          <input
+            type="text"
+            [(ngModel)]="phone">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>ROLE</label>
+
+          <input
+            type="text"
+            [(ngModel)]="role">
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="save-btn"
+        (click)="saveChanges()">
+
+        Save Changes
+
+      </button>
+
+    </div>
+
+
+
+    <!-- PREFERENCES -->
+    <div class="settings-card">
+
+      <h3 class="section-title">
+        Preferences
+      </h3>
+
+
+      <!-- PUSH NOTIFICATIONS -->
+      <div class="preference-row">
+
+        <div class="preference-info">
+
+          <h4>
+            Push Notifications
+          </h4>
+
+          <p>
+            Receive alerts for escalated issues
+          </p>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="pushNotifications">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <!-- AUTO EXPORT -->
+      <div class="preference-row">
+
+        <div class="preference-info">
+
+          <h4>
+            Auto Export Daily Report
+          </h4>
+
+          <p>
+            Automatically export at end of day
+          </p>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="autoExport">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <!-- LIVE ACTIVITY -->
+      <div class="preference-row">
+
+        <div class="preference-info">
+
+          <h4>
+            Live Activity Updates
+          </h4>
+
+          <p>
+            Real-time feed refresh every 30 seconds
+          </p>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="liveActivity">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <!-- DARK MODE -->
+      <div class="preference-row">
+
+        <div class="preference-info">
+
+          <h4>
+            Dark Mode
+          </h4>
+
+          <p>
+            Switch to dark color scheme
+          </p>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="darkMode">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- SECURITY -->
+    <div class="settings-card">
+
+      <h3 class="section-title">
+        Security
+      </h3>
+
+
+      <button
+        class="security-item"
+        (click)="changePassword()">
+
+        <div>
+
+          <h4>
+            Change Password
+          </h4>
+
+          <p>
+            Update your account password
+          </p>
+
+        </div>
+
+        <span class="arrow">
+          ›
+        </span>
+
+      </button>
+
+
+      <button
+        class="security-item"
+        (click)="twoFactorAuthentication()">
+
+        <div>
+
+          <h4>
+            Two-Factor Authentication
+          </h4>
+
+          <p>
+            Add an extra layer of security
+          </p>
+
+        </div>
+
+        <span class="arrow">
+          ›
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- RIGHT SIDEBAR INFORMATION -->
+    <div class="right-sidebar">
+
+      <!-- COMPANY INFORMATION -->
+      <div class="side-card">
+
+        <div class="info-row">
+
+          <div class="info-icon">
+            ▣
+          </div>
+
+          <div>
+            <strong>DSR Web Panel</strong>
+            <small>Company Name</small>
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-icon">
+            ✉
+          </div>
+
+          <div>
+            <strong>support@dsrpanel.com</strong>
+            <small>Support Email</small>
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-icon">
+            ☎
+          </div>
+
+          <div>
+            <strong>+91 22 4000 1234</strong>
+            <small>Office Phone</small>
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-icon">
+            ⌖
+          </div>
+
+          <div>
+            <strong>Mumbai, Maharashtra</strong>
+            <small>Location</small>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SYSTEM INFO -->
+      <div class="side-card system-card">
+
+        <h3>
+          System Info
+        </h3>
+
+        <div class="system-row">
+          <span>Version</span>
+          <strong>v2.4.1</strong>
+        </div>
+
+        <div class="system-row">
+          <span>Last Backup</span>
+          <strong>Today, 06:00 AM</strong>
+        </div>
+
+        <div class="system-row">
+          <span>Uptime</span>
+          <strong>99.98%</strong>
+        </div>
+
+        <div class="system-row">
+          <span>Data Region</span>
+          <strong>Asia-South1</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
