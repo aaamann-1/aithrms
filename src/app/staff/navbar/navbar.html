@@ -1,0 +1,143 @@
+<header class="staff-navbar">
+
+  <!-- MENU -->
+  <button
+    type="button"
+    class="menu-button"
+    (click)="toggleMenu()">
+
+    ☰
+
+  </button>
+
+
+  <!-- SEARCH -->
+  <div class="search-box">
+
+    <span class="search-icon">
+      🔍
+    </span>
+
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search tasks, reports...">
+
+  </div>
+
+
+  <!-- DATE -->
+  <div class="date-section">
+
+    <span class="date-text">
+      {{ getFormattedDate() }}
+    </span>
+
+  </div>
+
+
+  <!-- NOTIFICATION -->
+  <div class="notification-wrapper">
+
+    <button
+      type="button"
+      class="notification-button"
+      (click)="toggleNotifications()">
+
+      🔔
+
+      <span class="notification-count">
+        3
+      </span>
+
+    </button>
+
+
+    <div
+      class="notification-dropdown"
+      *ngIf="showNotifications">
+
+      <div class="dropdown-title">
+        Notifications
+      </div>
+
+      <div class="notification-item">
+        <strong>Task Update</strong>
+        <span>2 tasks are pending.</span>
+      </div>
+
+      <div class="notification-item">
+        <strong>Report Update</strong>
+        <span>Today's report is ready.</span>
+      </div>
+
+      <div class="notification-item">
+        <strong>Support Alert</strong>
+        <span>1 issue needs attention.</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SEPARATOR -->
+  <div class="profile-separator"></div>
+
+
+  <!-- PROFILE -->
+  <div class="profile-wrapper">
+
+    <button
+      type="button"
+      class="profile-button"
+      (click)="toggleProfile()">
+
+      <div class="profile-avatar">
+        R
+      </div>
+
+      <div class="profile-info">
+
+        <strong>
+          Rahul Sharma
+        </strong>
+
+        <span>
+          Support Executive
+        </span>
+
+      </div>
+
+      <span class="profile-arrow">
+        ▾
+      </span>
+
+    </button>
+
+
+    <div
+      class="profile-dropdown"
+      *ngIf="showProfile">
+
+      <div class="profile-dropdown-header">
+
+        <strong>Rahul Sharma</strong>
+
+        <span>Support Executive</span>
+
+      </div>
+
+      <button type="button">
+        My Profile
+      </button>
+
+      <button type="button">
+        Settings
+      </button>
+
+    </div>
+
+  </div>
+
+</header>

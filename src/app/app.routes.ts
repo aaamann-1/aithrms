@@ -5,10 +5,20 @@ import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
+// =========================
+// ADMIN
+// =========================
+
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
+
+// =========================
+// STAFF
+// =========================
+
+import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
 
 export const routes: Routes = [
 
@@ -36,6 +46,7 @@ export const routes: Routes = [
     component: ForgotPassword
   },
 
+
   // =========================
   // ADMIN PAGES
   // =========================
@@ -59,6 +70,17 @@ export const routes: Routes = [
     path: 'admin/attendance',
     component: Attendance
   },
+
+
+  // =========================
+  // STAFF DASHBOARD
+  // =========================
+
+  {
+    path: 'staff/dashboard',
+    component: StaffDashboard
+  },
+
 
   // =========================
   // INVALID URL

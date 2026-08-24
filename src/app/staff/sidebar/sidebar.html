@@ -1,0 +1,101 @@
+<aside
+  class="staff-sidebar"
+  [class.collapsed]="collapsed">
+
+  <!-- LOGO -->
+  <div class="sidebar-logo">
+
+    <div class="logo-icon">
+      ↗
+    </div>
+
+    <div class="logo-text">
+      <h2>DSR Web Panel</h2>
+      <span>Billing Support</span>
+    </div>
+
+  </div>
+
+
+  <!-- MENU TITLE -->
+  <div class="menu-title">
+    MENU
+  </div>
+
+
+  <!-- MENU -->
+  <nav class="sidebar-menu">
+
+    <button
+      class="menu-item active"
+      type="button"
+      (click)="goTo('/staff/dashboard')">
+
+      <span class="menu-icon">▦</span>
+      <span class="menu-label">Dashboard</span>
+
+    </button>
+
+
+    <button
+      class="menu-item"
+      type="button"
+      (click)="goTo('/staff/task-entry')">
+
+      <span class="menu-icon">＋</span>
+      <span class="menu-label">Task Entry</span>
+
+    </button>
+
+
+    <button
+      class="menu-item"
+      type="button"
+      (click)="goTo('/staff/my-reports')">
+
+      <span class="menu-icon">▣</span>
+      <span class="menu-label">My Reports</span>
+
+    </button>
+
+
+    <button
+      class="menu-item"
+      type="button"
+      (click)="goTo('/staff/attendance')">
+
+      <span class="menu-icon">◷</span>
+      <span class="menu-label">Attendance</span>
+
+    </button>
+
+
+    <button
+      class="menu-item"
+      type="button"
+      (click)="goTo('/staff/profile')">
+
+      <span class="menu-icon">♙</span>
+      <span class="menu-label">My Profile</span>
+
+    </button>
+
+  </nav>
+
+
+  <!-- LOGOUT -->
+  <div class="sidebar-bottom">
+
+    <button
+      class="logout-button"
+      type="button"
+      (click)="logout()">
+
+      <span class="logout-icon">⇥</span>
+      <span class="logout-label">Logout</span>
+
+    </button>
+
+  </div>
+
+</aside>
