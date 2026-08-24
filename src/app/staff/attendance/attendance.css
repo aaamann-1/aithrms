@@ -1,0 +1,491 @@
+/* =========================
+   PAGE
+========================= */
+
+.attendance-page {
+  min-height: calc(100vh - 82px);
+
+  background: #f1f5fa;
+
+  padding: 28px 25px 50px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header {
+  margin-bottom: 25px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  color: #243044;
+
+  font-size: 23px;
+
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 5px 0 0;
+
+  color: #778397;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   TODAY CARD
+========================= */
+
+.today-card {
+  max-width: 800px;
+
+  min-height: 312px;
+
+  background: linear-gradient(
+    135deg,
+    #294db9,
+    #2764e9
+  );
+
+  border-radius: 17px;
+
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  color: white;
+
+  box-shadow:
+    0 10px 25px rgba(35, 88, 210, 0.20);
+
+  margin-bottom: 25px;
+}
+
+
+/* =========================
+   TODAY HEADER
+========================= */
+
+.today-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+}
+
+.today-label {
+  display: block;
+
+  color: #b9c9f1;
+
+  font-size: 14px;
+
+  margin-bottom: 4px;
+}
+
+.today-header h2 {
+  margin: 0;
+
+  font-size: 31px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+}
+
+
+/* =========================
+   PRESENT BADGE
+========================= */
+
+.present-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  background: rgba(38, 197, 144, 0.25);
+
+  color: #a5f2d3;
+
+  padding: 7px 13px;
+
+  border-radius: 18px;
+
+  margin-top: 13px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  background: #32d29c;
+
+  border-radius: 50%;
+}
+
+
+/* =========================
+   HOURS
+========================= */
+
+.hours-box {
+  text-align: right;
+
+  padding-top: 2px;
+}
+
+.hours-box span {
+  display: block;
+
+  color: #afc3ee;
+
+  font-size: 13px;
+
+  margin-bottom: 3px;
+}
+
+.hours-box strong {
+  display: block;
+
+  font-size: 27px;
+
+  color: white;
+}
+
+
+/* =========================
+   INFORMATION BOXES
+========================= */
+
+.attendance-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 16px;
+
+  margin-top: 20px;
+}
+
+.info-box {
+  background: rgba(255, 255, 255, 0.13);
+
+  border-radius: 12px;
+
+  padding: 13px 14px;
+
+  min-height: 72px;
+
+  box-sizing: border-box;
+}
+
+.info-box span {
+  display: block;
+
+  color: #bdccef;
+
+  font-size: 13px;
+
+  margin-bottom: 4px;
+}
+
+.info-box strong {
+  display: block;
+
+  color: white;
+
+  font-size: 18px;
+}
+
+.info-box strong.active-status {
+  color: #45e0a9;
+}
+
+.info-box strong.completed {
+  color: #a9d1ff;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.attendance-actions {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.attendance-actions button {
+  height: 44px;
+
+  border-radius: 11px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+/* Checked in */
+
+.check-in-button {
+  border: none;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  color: rgba(255, 255, 255, 0.55);
+
+  cursor: not-allowed !important;
+}
+
+
+/* Check out */
+
+.check-out-button {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  background: rgba(255, 255, 255, 0.17);
+
+  color: white;
+}
+
+.check-out-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.check-out-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   WEEKLY CARD
+========================= */
+
+.weekly-card {
+  max-width: 800px;
+
+  background: white;
+
+  border-radius: 17px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 2px 7px rgba(30, 50, 80, 0.05);
+
+  border: 1px solid #e9edf3;
+}
+
+
+/* =========================
+   CARD TITLE
+========================= */
+
+.card-title {
+  height: 55px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 20px;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid #edf0f4;
+
+  color: #263344;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 720px;
+}
+
+thead th {
+  height: 42px;
+
+  text-align: left;
+
+  padding: 0 20px;
+
+  color: #99a4b4;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+tbody td {
+  height: 50px;
+
+  padding: 0 20px;
+
+  color: #697588;
+
+  font-size: 13px;
+
+  border-bottom: 1px solid #f0f2f5;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #fafcff;
+}
+
+
+/* =========================
+   DAY
+========================= */
+
+td.day {
+  color: #273445;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.table-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 66px;
+
+  padding: 5px 10px;
+
+  border-radius: 14px;
+
+  background: #d4f8e9;
+
+  color: #19835e;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.table-status.live-status {
+  background: #dce9ff;
+
+  color: #2d64c8;
+}
+
+
+/* =========================
+   HOURS
+========================= */
+
+td.hours {
+  color: #293547;
+
+  font-weight: 600;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .attendance-page {
+    padding: 25px 18px 40px;
+  }
+
+  .today-card,
+  .weekly-card {
+    max-width: 100%;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .attendance-page {
+    padding: 20px 13px 35px;
+  }
+
+  .today-header {
+    flex-direction: column;
+  }
+
+  .hours-box {
+    text-align: left;
+
+    margin-top: 15px;
+  }
+
+  .attendance-info {
+    grid-template-columns: 1fr;
+  }
+
+  .attendance-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .today-header h2 {
+    font-size: 26px;
+  }
+
+}

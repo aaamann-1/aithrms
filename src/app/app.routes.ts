@@ -16,6 +16,7 @@ import { TeamReportsComponent } from './admin/reports/team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
+<<<<<<< HEAD
 import { ExportReports } from './admin/export-reports/export-reports';
 
 // =========================
@@ -23,7 +24,21 @@ import { ExportReports } from './admin/export-reports/export-reports';
 // =========================
 
 import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
+<<<<<<< HEAD
 import { TaskEntry } from './staff/task-entry/task-entry';
+=======
+=======
+
+
+
+//====================
+//Staff imports
+//========================
+
+import { StaffNavigationComponent } from './staff/navigation/navigation';
+import { AttendanceComponent } from './staff/attendance/attendance';
+>>>>>>> 4c979d2 (Save local changes before pulling)
+>>>>>>> 564ec9c3413476dac749072c5fcd850371bf930a
 
 export const routes: Routes = [
 
@@ -120,6 +135,25 @@ export const routes: Routes = [
 },
 
 
+
+// ==================================================
+  // STAFF PAGES
+  // ==================================================
+
+  {
+    path: 'staff',
+    component: StaffNavigationComponent,
+
+    children: [
+
+      {
+        path: 'attendance',
+        component: AttendanceComponent
+      }
+
+    ]
+  },
+  
   // =========================
   // INVALID URL
   // =========================

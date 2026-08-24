@@ -127,6 +127,39 @@
   margin-left: auto;
 }
 
+.logout-button {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 10px;
+
+  background: rgba(255,255,255,.05);
+
+  color: #aab8d0;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.logout-button:hover {
+  background: rgba(255,255,255,.1);
+
+  color: white;
+}
+
+
 
 /* ================================================= */
 /* SIDEBAR COLLAPSE */
