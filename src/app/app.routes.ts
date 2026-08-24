@@ -23,6 +23,7 @@ import { ExportReports } from './admin/export-reports/export-reports';
 // =========================
 
 import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
+import { TaskEntry } from './staff/task-entry/task-entry';
 
 export const routes: Routes = [
 
@@ -112,6 +113,11 @@ export const routes: Routes = [
     path: 'staff/dashboard',
     component: StaffDashboard
   },
+
+  {
+  path: 'staff/task-entry',
+  component: TaskEntry
+},
 
 
   // =========================

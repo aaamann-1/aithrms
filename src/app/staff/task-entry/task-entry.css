@@ -1,0 +1,300 @@
+/* =====================================================
+   PAGE LAYOUT
+   ===================================================== */
+
+.staff-page {
+  min-height: 100vh;
+  display: flex;
+  background: #f3f6fa;
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  margin-left: 250px;
+}
+
+
+/* =====================================================
+   PAGE CONTENT
+   ===================================================== */
+
+.page-content {
+  padding: 28px 26px 40px;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+   ===================================================== */
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #172033;
+}
+
+.page-header p {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: #718096;
+}
+
+
+/* =====================================================
+   FORM CARD
+   ===================================================== */
+
+.task-form-card {
+  width: 100%;
+  max-width: 810px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 26px 26px 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   FORM ROW
+   ===================================================== */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   FORM GROUP
+   ===================================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+
+/* =====================================================
+   INPUTS / SELECTS
+   ===================================================== */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #dce3eb;
+  background: #f8fafc;
+
+  border-radius: 11px;
+
+  font-family: inherit;
+  font-size: 14px;
+  color: #273244;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+/* Text inputs */
+
+.form-group input,
+.form-group select {
+  height: 43px;
+  padding: 0 14px;
+}
+
+
+/* Textareas */
+
+.form-group textarea {
+  min-height: 84px;
+  padding: 13px 14px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a0a8b4;
+}
+
+
+/* Select */
+
+.form-group select {
+  cursor: pointer;
+}
+
+
+/* Focus */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #2f67df;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(47, 103, 223, 0.10);
+}
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+.status-group {
+  width: calc(50% - 9px);
+}
+
+
+/* =====================================================
+   FORM BUTTONS
+   ===================================================== */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+
+/* Submit */
+
+.submit-btn {
+  height: 44px;
+  padding: 0 26px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #2864df;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.submit-btn:hover {
+  background: #1f56c5;
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+
+
+/* Clear */
+
+.clear-btn {
+  height: 44px;
+  padding: 0 25px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #edf1f6;
+  color: #526071;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.clear-btn:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .page-content {
+    padding: 22px 18px 30px;
+  }
+
+  .task-form-card {
+    max-width: 100%;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .status-group {
+    width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .submit-btn,
+  .clear-btn {
+    width: 100%;
+  }
+
+}
