@@ -1,370 +1,297 @@
-<div
-  class="staff-dashboard-layout"
-  [class.sidebar-collapsed]="sidebarCollapsed">
+<section class="dashboard-content">
+
+  <!-- WELCOME -->
+
+  <div class="welcome-card">
+
+    <h1>
+      Good Morning, Rahul! 👋
+    </h1>
+
+    <p>
+      Here's your support activity for today.
+    </p>
+
+    <div class="welcome-badges">
+
+      <span>
+        Support Executive
+      </span>
+
+      <span>
+        EMP-0072
+      </span>
+
+    </div>
+
+  </div>
 
 
-  <!-- =========================
-       SIDEBAR
-  ========================== -->
+  <!-- STATS -->
 
-  <app-staff-sidebar
-    [collapsed]="sidebarCollapsed">
-  </app-staff-sidebar>
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-icon">📋</div>
+      <h2>8</h2>
+      <p>Today's Tasks</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">✓</div>
+      <h2>5</h2>
+      <p>Completed</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">◷</div>
+      <h2>3</h2>
+      <p>Pending</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">◷</div>
+      <h2>6h 20m</h2>
+      <p>Hours Worked</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">✓</div>
+      <h2>12</h2>
+      <p>Issues Resolved</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">♙</div>
+      <h2>Present</h2>
+      <p>Attendance</p>
+    </div>
+
+  </div>
 
 
-  <!-- =========================
-       MAIN
-  ========================== -->
+  <!-- TASKS -->
 
-  <main class="staff-main-content">
+  <div class="tasks-card">
 
+    <div class="tasks-header">
 
-    <!-- NAVBAR -->
+      <div>
 
-    <app-staff-navbar
-      (menuToggle)="toggleSidebar()">
-    </app-staff-navbar>
-
-
-    <!-- DASHBOARD -->
-
-    <section class="dashboard-content">
-
-
-      <!-- WELCOME -->
-
-      <div class="welcome-card">
-
-        <h1>
-          Good Morning, Rahul! 👋
-        </h1>
+        <h2>
+          My Tasks Today
+        </h2>
 
         <p>
-          Here's your support activity for today.
+          Assigned billing support cases
         </p>
 
-        <div class="welcome-badges">
-
-          <span>
-            Support Executive
-          </span>
-
-          <span>
-            EMP-0072
-          </span>
-
-        </div>
-
       </div>
 
+      <button
+        type="button"
+        class="add-task-button">
 
-      <!-- STATS -->
+        + Add Task
 
-      <div class="stats-grid">
+      </button>
 
+    </div>
 
-        <div class="stat-card">
-          <div class="stat-icon">📋</div>
 
-          <h2>8</h2>
+    <div class="table-wrapper">
 
-          <p>
-            Today's Tasks
-          </p>
-        </div>
+      <table>
 
+        <thead>
 
-        <div class="stat-card">
-          <div class="stat-icon">✓</div>
+          <tr>
+            <th>CLIENT</th>
+            <th>ISSUE</th>
+            <th>CATEGORY</th>
+            <th>PRIORITY</th>
+            <th>STATUS</th>
+            <th>TIME</th>
+            <th>ACTION</th>
+          </tr>
 
-          <h2>5</h2>
+        </thead>
 
-          <p>
-            Completed
-          </p>
-        </div>
+        <tbody>
 
+          <tr>
 
-        <div class="stat-card">
-          <div class="stat-icon">◷</div>
+            <td>
+              <strong>Arjun Mehta</strong>
+              <small>CL-1042</small>
+            </td>
 
-          <h2>3</h2>
+            <td>
+              Invoice not received for March
+            </td>
 
-          <p>
-            Pending
-          </p>
-        </div>
+            <td>
+              <span class="category">
+                Invoice
+              </span>
+            </td>
 
+            <td class="high">
+              High
+            </td>
 
-        <div class="stat-card">
-          <div class="stat-icon">◷</div>
+            <td>
+              <span class="status resolved">
+                Resolved
+              </span>
+            </td>
 
-          <h2>6h 20m</h2>
+            <td>
+              09:15 AM
+            </td>
 
-          <p>
-            Hours Worked
-          </p>
-        </div>
+            <td>
+              <button
+                type="button"
+                class="view-button">
+                View
+              </button>
+            </td>
 
+          </tr>
 
-        <div class="stat-card">
-          <div class="stat-icon">✓</div>
 
-          <h2>12</h2>
+          <tr>
 
-          <p>
-            Issues Resolved
-          </p>
-        </div>
+            <td>
+              <strong>Priya Sharma</strong>
+              <small>CL-2187</small>
+            </td>
 
+            <td>
+              Double charge on credit card
+            </td>
 
-        <div class="stat-card">
-          <div class="stat-icon">♙</div>
+            <td>
+              <span class="category">
+                Payment
+              </span>
+            </td>
 
-          <h2>Present</h2>
+            <td class="critical">
+              Critical
+            </td>
+
+            <td>
+              <span class="status escalated">
+                Escalated
+              </span>
+            </td>
 
-          <p>
-            Attendance
-          </p>
-        </div>
+            <td>
+              09:48 AM
+            </td>
+
+            <td>
+              <button
+                type="button"
+                class="view-button">
+                View
+              </button>
+            </td>
 
-      </div>
+          </tr>
 
 
-      <!-- TASKS -->
+          <tr>
 
-      <div class="tasks-card">
+            <td>
+              <strong>Kiran Patel</strong>
+              <small>CL-3301</small>
+            </td>
 
+            <td>
+              GST number update on account
+            </td>
 
-        <div class="tasks-header">
+            <td>
+              <span class="category">
+                Account
+              </span>
+            </td>
 
-          <div>
+            <td class="medium">
+              Medium
+            </td>
 
-            <h2>
-              My Tasks Today
-            </h2>
+            <td>
+              <span class="status progress">
+                In Progress
+              </span>
+            </td>
 
-            <p>
-              Assigned billing support cases
-            </p>
+            <td>
+              10:30 AM
+            </td>
 
-          </div>
+            <td>
+              <button
+                type="button"
+                class="view-button">
+                View
+              </button>
+            </td>
 
+          </tr>
 
-          <button
-            type="button"
-            class="add-task-button">
 
-            + Add Task
+          <tr>
 
-          </button>
+            <td>
+              <strong>Sunita Verma</strong>
+              <small>CL-0894</small>
+            </td>
 
-        </div>
+            <td>
+              Refund not credited after 7 days
+            </td>
 
+            <td>
+              <span class="category">
+                Refund
+              </span>
+            </td>
 
-        <div class="table-wrapper">
+            <td class="high">
+              High
+            </td>
 
-          <table>
+            <td>
+              <span class="status pending">
+                Pending
+              </span>
+            </td>
 
-            <thead>
+            <td>
+              11:05 AM
+            </td>
 
-              <tr>
+            <td>
+              <button
+                type="button"
+                class="view-button">
+                View
+              </button>
+            </td>
 
-                <th>CLIENT</th>
-                <th>ISSUE</th>
-                <th>CATEGORY</th>
-                <th>PRIORITY</th>
-                <th>STATUS</th>
-                <th>TIME</th>
-                <th>ACTION</th>
+          </tr>
 
-              </tr>
+        </tbody>
 
-            </thead>
+      </table>
 
+    </div>
 
-            <tbody>
+  </div>
 
-
-              <tr>
-
-                <td>
-                  <strong>Arjun Mehta</strong>
-                  <small>CL-1042</small>
-                </td>
-
-                <td>
-                  Invoice not received for March
-                </td>
-
-                <td>
-                  <span class="category">
-                    Invoice
-                  </span>
-                </td>
-
-                <td class="high">
-                  High
-                </td>
-
-                <td>
-                  <span class="status resolved">
-                    Resolved
-                  </span>
-                </td>
-
-                <td>
-                  09:15 AM
-                </td>
-
-                <td>
-                  <button
-                    type="button"
-                    class="view-button">
-                    View
-                  </button>
-                </td>
-
-              </tr>
-
-
-              <tr>
-
-                <td>
-                  <strong>Priya Sharma</strong>
-                  <small>CL-2187</small>
-                </td>
-
-                <td>
-                  Double charge on credit card
-                </td>
-
-                <td>
-                  <span class="category">
-                    Payment
-                  </span>
-                </td>
-
-                <td class="critical">
-                  Critical
-                </td>
-
-                <td>
-                  <span class="status escalated">
-                    Escalated
-                  </span>
-                </td>
-
-                <td>
-                  09:48 AM
-                </td>
-
-                <td>
-                  <button
-                    type="button"
-                    class="view-button">
-                    View
-                  </button>
-                </td>
-
-              </tr>
-
-
-              <tr>
-
-                <td>
-                  <strong>Kiran Patel</strong>
-                  <small>CL-3301</small>
-                </td>
-
-                <td>
-                  GST number update on account
-                </td>
-
-                <td>
-                  <span class="category">
-                    Account
-                  </span>
-                </td>
-
-                <td class="medium">
-                  Medium
-                </td>
-
-                <td>
-                  <span class="status progress">
-                    In Progress
-                  </span>
-                </td>
-
-                <td>
-                  10:30 AM
-                </td>
-
-                <td>
-                  <button
-                    type="button"
-                    class="view-button">
-                    View
-                  </button>
-                </td>
-
-              </tr>
-
-
-              <tr>
-
-                <td>
-                  <strong>Sunita Verma</strong>
-                  <small>CL-0894</small>
-                </td>
-
-                <td>
-                  Refund not credited after 7 days
-                </td>
-
-                <td>
-                  <span class="category">
-                    Refund
-                  </span>
-                </td>
-
-                <td class="high">
-                  High
-                </td>
-
-                <td>
-                  <span class="status pending">
-                    Pending
-                  </span>
-                </td>
-
-                <td>
-                  11:05 AM
-                </td>
-
-                <td>
-                  <button
-                    type="button"
-                    class="view-button">
-                    View
-                  </button>
-                </td>
-
-              </tr>
-
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-
-    </section>
-
-  </main>
-
-</div>
+</section>

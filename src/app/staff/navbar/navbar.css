@@ -132,22 +132,37 @@
 ================================= */
 
 .date-section {
-
   margin-left: auto;
-
-  white-space: nowrap;
-
+  display: flex;
+  align-items: center;
 }
 
+.date-picker {
+  height: 42px;
 
-.date-text {
+  border: 1px solid #dbe3ef;
 
-  color: #60728e;
+  border-radius: 9px;
 
-  font-size: 16px;
+  background: #f9fbfd;
 
+  color: #52627a;
+
+  padding: 0 10px;
+
+  font-size: 14px;
+
+  font-family: inherit;
+
+  outline: none;
+
+  cursor: pointer;
 }
 
+.date-picker:focus {
+  border-color: #2868ed;
+  box-shadow: 0 0 0 2px rgba(40, 104, 237, 0.1);
+}
 
 /* =================================
    NOTIFICATION

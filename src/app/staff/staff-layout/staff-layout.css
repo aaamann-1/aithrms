@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+.staff-layout {
+  width: 100%;
+  min-height: 100vh;
+  background: #f3f6fb;
+}
+
+/* MAIN AREA */
+
+.staff-main {
+  margin-left: 240px;
+  min-height: 100vh;
+  background: #f3f6fb;
+
+  transition: margin-left 0.25s ease;
+}
+
+/* COLLAPSED SIDEBAR */
+
+.staff-layout.sidebar-collapsed .staff-main {
+  margin-left: 70px;
+}
+
+/* PAGE CONTENT */
+
+.staff-page-content {
+  min-height: calc(100vh - 74px);
+  background: #f3f6fb;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+
+  .staff-main {
+    margin-left: 70px;
+  }
+
+}

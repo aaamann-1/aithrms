@@ -18,7 +18,8 @@ export class Navbar {
 
   searchQuery = '';
 
-  selectedDate = '2026-08-19';
+  // Today's date by default
+  selectedDate = this.getTodayDate();
 
   showNotifications = false;
 
@@ -48,19 +49,17 @@ export class Navbar {
   }
 
 
-  getFormattedDate(): string {
+  getTodayDate(): string {
 
-    if (!this.selectedDate) {
-      return '';
-    }
+    const today = new Date();
 
-    const date = new Date(this.selectedDate + 'T00:00:00');
+    const year = today.getFullYear();
 
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
+
 }

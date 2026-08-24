@@ -16,29 +16,17 @@ import { TeamReportsComponent } from './admin/reports/team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
-<<<<<<< HEAD
 import { ExportReports } from './admin/export-reports/export-reports';
 
 // =========================
 // STAFF
 // =========================
 
+import { StaffLayout } from './staff/staff-layout/staff-layout';
 import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
-<<<<<<< HEAD
-import { TaskEntry } from './staff/task-entry/task-entry';
-=======
-=======
-
-
-
-//====================
-//Staff imports
-//========================
-
-import { StaffNavigationComponent } from './staff/navigation/navigation';
 import { AttendanceComponent } from './staff/attendance/attendance';
->>>>>>> 4c979d2 (Save local changes before pulling)
->>>>>>> 564ec9c3413476dac749072c5fcd850371bf930a
+import { TaskEntryComponent } from './staff/task-entry/task-entry';
+import { ProfileComponent } from './staff/profile/profile';
 
 export const routes: Routes = [
 
@@ -65,7 +53,6 @@ export const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPassword
   },
-
 
   // =========================
   // ADMIN PAGES
@@ -119,41 +106,45 @@ export const routes: Routes = [
     component: ExportReports
   },
 
-
   // =========================
-  // STAFF DASHBOARD
+  // STAFF
   // =========================
-
-  {
-    path: 'staff/dashboard',
-    component: StaffDashboard
-  },
-
-  {
-  path: 'staff/task-entry',
-  component: TaskEntry
-},
-
-
-
-// ==================================================
-  // STAFF PAGES
-  // ==================================================
 
   {
     path: 'staff',
-    component: StaffNavigationComponent,
+    component: StaffLayout,
 
     children: [
 
       {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+
+      {
+        path: 'dashboard',
+        component: StaffDashboard
+      },
+
+      {
+        path: 'task-entry',
+        component: TaskEntryComponent
+      },
+
+      {
         path: 'attendance',
         component: AttendanceComponent
+      },
+
+      {
+        path: 'profile',
+        component: ProfileComponent
       }
 
     ]
   },
-  
+
   // =========================
   // INVALID URL
   // =========================
