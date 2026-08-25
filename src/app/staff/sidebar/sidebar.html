@@ -1,97 +1,72 @@
-<aside class="sidebar" [class.collapsed]="collapsed">
+<aside class="staff-sidebar" [class.collapsed]="collapsed">
 
-  <!-- ================= LOGO ================= -->
-  <div class="sidebar-header">
-
-    <div class="logo-icon">
-      ◇
-    </div>
+  <!-- LOGO -->
+  <div class="sidebar-logo">
+    <div class="logo-icon">◇</div>
 
     <div class="logo-text">
       <h2>DSR Web Panel</h2>
-      <span>Staff Panel</span>
+      <span>Billing Support</span>
     </div>
-
   </div>
 
+  <!-- MENU TITLE -->
+  <div class="menu-title">MENU</div>
 
-  <!-- ================= NAVIGATION ================= -->
-  <div class="navigation-title">
-    NAVIGATION
-  </div>
+  <!-- MENU -->
+  <nav class="sidebar-menu">
 
-
-  <nav class="sidebar-nav">
-
-    <!-- Dashboard -->
-    <a
-      href="javascript:void(0)"
+    <button
+      type="button"
+      class="menu-item"
       (click)="goTo('/staff/dashboard')">
+      <span class="menu-icon">▦</span>
+      <span class="menu-label">Dashboard</span>
+    </button>
 
-      <span class="nav-icon">▦</span>
-      <span class="nav-text">Dashboard</span>
-
-    </a>
-
-
-    <!-- Task Entry -->
-    <a
-      href="javascript:void(0)"
+    <button
+      type="button"
+      class="menu-item"
       (click)="goTo('/staff/task-entry')">
+      <span class="menu-icon">＋</span>
+      <span class="menu-label">Task Entry</span>
+    </button>
 
-      <span class="nav-icon">＋</span>
-      <span class="nav-text">Task Entry</span>
-
-    </a>
-
-
-    <!-- My Reports -->
-    <a
-      href="javascript:void(0)"
+    <button
+      type="button"
+      class="menu-item"
       (click)="goTo('/staff/my-reports')">
+      <span class="menu-icon">▤</span>
+      <span class="menu-label">My Reports</span>
+    </button>
 
-      <span class="nav-icon">▤</span>
-      <span class="nav-text">My Reports</span>
-
-    </a>
-
-
-    <!-- Attendance -->
-    <a
-      href="javascript:void(0)"
+    <button
+      type="button"
+      class="menu-item"
       (click)="goTo('/staff/attendance')">
+      <span class="menu-icon">◷</span>
+      <span class="menu-label">Attendance</span>
+    </button>
 
-      <span class="nav-icon">◷</span>
-      <span class="nav-text">Attendance</span>
-
-    </a>
-
-
-    <!-- Profile -->
-    <a
-      href="javascript:void(0)"
+    <button
+      type="button"
+      class="menu-item active"
       (click)="goTo('/staff/profile')">
-
-      <span class="nav-icon">♙</span>
-      <span class="nav-text">My Profile</span>
-
-    </a>
+      <span class="menu-icon">♙</span>
+      <span class="menu-label">My Profile</span>
+    </button>
 
   </nav>
 
-
-  <!-- ================= SIDEBAR FOOTER ================= -->
-  <div class="sidebar-footer">
-
-    <a
-      href="javascript:void(0)"
+  <!-- LOGOUT -->
+  <div class="sidebar-bottom">
+    <button
+      type="button"
+      class="logout-button"
       (click)="logout()">
-
-      <span class="nav-icon">⇥</span>
-      <span class="nav-text">Logout</span>
-
-    </a>
-
+      <span class="logout-icon">⇥</span>
+      <span class="logout-label">Logout</span>
+    </button>
   </div>
 
 </aside>

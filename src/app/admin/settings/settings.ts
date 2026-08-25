@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-
+import { AdminNavbar } from '../admin-navbar/admin-navbar';
 @Component({
   selector: 'app-settings',
   standalone: true,
   imports: [
-    FormsModule,
-    RouterLink
-  ],
+  FormsModule,
+  RouterLink,
+  AdminNavbar
+],
   templateUrl: './settings.html',
   styleUrl: './settings.css'
 })

@@ -1,1 +1,111 @@
-<p>profile works!</p>
+<div
+  class="profile-layout"
+  [class.sidebar-collapsed]="sidebarCollapsed">
+
+  <app-staff-sidebar
+    [collapsed]="sidebarCollapsed">
+  </app-staff-sidebar>
+
+  <main class="profile-main">
+    <app-staff-navbar
+      (menuToggle)="toggleSidebar()">
+    </app-staff-navbar>
+
+    <section class="profile-content">
+      <h1>My Profile</h1>
+      <p class="page-subtitle">
+        Your personal information and account settings
+      </p>
+
+      <section class="profile-summary">
+        <div class="summary-left">
+          <div class="avatar-box">
+            R
+            <span class="online-dot"></span>
+          </div>
+
+          <div>
+            <h2>{{ fullName }}</h2>
+            <p>{{ designation }} · {{ department }}</p>
+
+            <div class="badges">
+              <span class="employee-badge">{{ employeeId }}</span>
+              <span class="status-badge">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-actions">
+          <button
+            class="primary-button"
+            type="button"
+            (click)="isEditing ? saveProfile() : editProfile()">
+            {{ isEditing ? 'Save Profile' : 'Edit Profile' }}
+          </button>
+
+          <button
+            class="secondary-button"
+            type="button"
+            (click)="changePassword()">
+            Change Password
+          </button>
+        </div>
+      </section>
+
+      <section class="information-card">
+        <h3>Personal Information</h3>
+
+        <div class="information-grid">
+          <label class="field">
+            <span>👤 Full Name</span>
+            <input
+              [(ngModel)]="fullName"
+              [readonly]="!isEditing">
+          </label>
+
+          <label class="field">
+            <span>🔑 Employee ID</span>
+            <input
+              [(ngModel)]="employeeId"
+              readonly>
+          </label>
+
+          <label class="field">
+            <span>📱 Contact Number</span>
+            <input
+              [(ngModel)]="phone"
+              [readonly]="!isEditing">
+          </label>
+
+          <label class="field">
+            <span>✉️ Email Address</span>
+            <input
+              [(ngModel)]="email"
+              [readonly]="!isEditing">
+          </label>
+
+          <label class="field">
+            <span>🏢 Department</span>
+            <input
+              [(ngModel)]="department"
+              [readonly]="!isEditing">
+          </label>
+
+          <label class="field">
+            <span>💼 Designation</span>
+            <input
+              [(ngModel)]="designation"
+              [readonly]="!isEditing">
+          </label>
+
+          <label class="field">
+            <span>🗓️ Joining Date</span>
+            <input
+              [(ngModel)]="joiningDate"
+              readonly>
+          </label>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>

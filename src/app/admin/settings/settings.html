@@ -27,20 +27,13 @@
     <nav class="sidebar-nav">
 
       <!-- DASHBOARD -->
-      <a
-        routerLink="/"
-        class="sidebar-link">
-
-        <span class="nav-icon">▦</span>
-        <span>Dashboard</span>
-
-      </a>
+      <a routerLink="/admin/dashboard" class="sidebar-link">
+  <span>Dashboard</span>
+</a>
 
 
       <!-- LIVE ACTIVITY -->
-      <a
-        routerLink="/live-activity"
-        class="sidebar-link">
+     <a routerLink="/admin/live-feed" class="sidebar-link">
 
         <span class="nav-icon">⌁</span>
         <span>Live Activity Feed</span>
@@ -70,21 +63,18 @@
       </a>
 
 
-      <!-- INDIVIDUAL REPORTS -->
-      <a
-        routerLink="/individual-reports"
-        class="sidebar-link">
-
+    
+      <!-- Individual Reports -->
+<a routerLink="/admin/reports/individual" class="sidebar-link">
         <span class="nav-icon">▤</span>
         <span>Individual Reports</span>
 
       </a>
 
 
-      <!-- TEAM REPORTS -->
-      <a
-        routerLink="/team-reports"
-        class="sidebar-link">
+      
+     <!-- Team Reports -->
+<a routerLink="/admin/reports/team" class="sidebar-link">
 
         <span class="nav-icon">▥</span>
         <span>Team Reports</span>
@@ -92,10 +82,8 @@
       </a>
 
 
-      <!-- EXPORT REPORTS -->
-      <a
-        routerLink="/export-reports"
-        class="sidebar-link">
+      <!-- Export Reports -->
+<a routerLink="/admin/export-reports" class="sidebar-link">
 
         <span class="nav-icon">⇩</span>
         <span>Export Reports</span>
@@ -103,11 +91,8 @@
       </a>
 
 
-      <!-- ISSUE CATEGORIES -->
-      <a
-        routerLink="/issue-categories"
-        class="sidebar-link">
-
+     <!-- Issue Categories -->
+<a routerLink="/admin/issue-categories" class="sidebar-link">
         <span class="nav-icon">◇</span>
         <span>Issue Categories</span>
 
@@ -115,9 +100,7 @@
 
 
       <!-- SETTINGS -->
-      <a
-        routerLink="/settings"
-        class="sidebar-link active">
+      <a routerLink="/admin/settings" class="sidebar-link active">
 
         <span class="nav-icon">⚙</span>
         <span>Settings</span>
@@ -129,16 +112,17 @@
     </nav>
 
 
-    <!-- BOTTOM -->
-    <div class="sidebar-bottom">
+        <div class="sidebar-bottom">
       Manage cookies or opt out
     </div>
 
   </aside>
 
+  <div class="admin-content">
+    <app-admin-navbar></app-admin-navbar>
 
-  <!-- RIGHT SIDE / MAIN CONTENT -->
-  <main class="settings-main">
+    <!-- RIGHT SIDE / MAIN CONTENT -->
+    <main class="settings-main">
 
     <!-- YOUR EXISTING SETTINGS CONTENT -->
 
@@ -505,6 +489,7 @@
 
     </div>
 
-  </main>
+      </main>
+  </div>
 
 </div>

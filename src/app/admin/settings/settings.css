@@ -196,19 +196,19 @@
 /* MAIN CONTENT */
 /* ============================= */
 
-.settings-main {
+.admin-content {
   margin-left: 205px;
-
   width: calc(100% - 205px);
+  min-height: 100vh;
+}
 
+.settings-main {
+  width: 100%;
   padding: 25px;
-
+  box-sizing: border-box;
   display: grid;
-
   grid-template-columns: minmax(0, 1fr) 320px;
-
   gap: 20px;
-
   align-items: start;
 }
 
