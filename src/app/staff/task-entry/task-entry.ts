@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { Sidebar } from '../sidebar/sidebar';
-import { Navbar } from '../navbar/navbar';
-
 @Component({
   selector: 'app-task-entry',
   standalone: true,
   imports: [
-    FormsModule,
-    Sidebar,
-    Navbar
+    FormsModule
   ],
   templateUrl: './task-entry.html',
   styleUrl: './task-entry.css'
@@ -28,6 +23,7 @@ export class TaskEntry {
   status = '';
 
   submitTask(): void {
+
     console.log('Task submitted:', {
       clientName: this.clientName,
       clientId: this.clientId,
@@ -39,9 +35,11 @@ export class TaskEntry {
       resolutionNotes: this.resolutionNotes,
       status: this.status
     });
+
   }
 
   clearForm(): void {
+
     this.clientName = '';
     this.clientId = '';
     this.issueCategory = '';
@@ -51,5 +49,7 @@ export class TaskEntry {
     this.endTime = '';
     this.resolutionNotes = '';
     this.status = '';
+
   }
+
 }

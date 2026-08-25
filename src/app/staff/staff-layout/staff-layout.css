@@ -8,30 +8,41 @@
   background: #f3f6fb;
 }
 
-/* MAIN AREA */
+/* =========================
+   MAIN AREA
+========================= */
 
 .staff-main {
   margin-left: 240px;
   min-height: 100vh;
+
   background: #f3f6fb;
 
   transition: margin-left 0.25s ease;
 }
 
-/* COLLAPSED SIDEBAR */
+/* =========================
+   COLLAPSED SIDEBAR
+========================= */
 
 .staff-layout.sidebar-collapsed .staff-main {
   margin-left: 70px;
 }
 
-/* PAGE CONTENT */
+/* =========================
+   PAGE CONTENT
+========================= */
 
 .staff-page-content {
+  width: 100%;
   min-height: calc(100vh - 74px);
+
   background: #f3f6fb;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 800px) {
 

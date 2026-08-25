@@ -25,8 +25,8 @@ import { ExportReports } from './admin/export-reports/export-reports';
 import { StaffLayout } from './staff/staff-layout/staff-layout';
 import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
 import { AttendanceComponent } from './staff/attendance/attendance';
-import { TaskEntryComponent } from './staff/task-entry/task-entry';
-import { ProfileComponent } from './staff/profile/profile';
+import { TaskEntry } from './staff/task-entry/task-entry';
+import { Profile } from './staff/profile/profile';
 
 export const routes: Routes = [
 
@@ -129,7 +129,7 @@ export const routes: Routes = [
 
       {
         path: 'task-entry',
-        component: TaskEntryComponent
+        component: TaskEntry
       },
 
       {
@@ -139,7 +139,7 @@ export const routes: Routes = [
 
       {
         path: 'profile',
-        component: ProfileComponent
+        component: Profile
       }
 
     ]

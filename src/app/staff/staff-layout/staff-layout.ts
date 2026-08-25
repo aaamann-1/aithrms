@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 import { Sidebar } from '../sidebar/sidebar';
@@ -9,7 +8,6 @@ import { Navbar } from '../navbar/navbar';
   selector: 'app-staff-layout',
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
     Sidebar,
     Navbar
