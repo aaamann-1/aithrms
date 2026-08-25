@@ -1,37 +1,15 @@
-/* =====================================================
-   PAGE LAYOUT
-   ===================================================== */
+/* Main Task Entry Page */
 
-.staff-page {
-  min-height: 100vh;
-  display: flex;
-  background: #f3f6fa;
+.task-entry-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 36px 50px;
+  box-sizing: border-box;
 }
 
 
-/* =====================================================
-   MAIN CONTENT
-   ===================================================== */
-
-.main-content {
-  flex: 1;
-  min-width: 0;
-  margin-left: 250px;
-}
-
-
-/* =====================================================
-   PAGE CONTENT
-   ===================================================== */
-
-.page-content {
-  padding: 28px 26px 40px;
-}
-
-
-/* =====================================================
-   PAGE HEADER
-   ===================================================== */
+/* Page Header */
 
 .page-header {
   margin-bottom: 24px;
@@ -39,70 +17,68 @@
 
 .page-header h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
-  color: #172033;
+  color: #10213f;
 }
 
 .page-header p {
-  margin: 6px 0 0;
+  margin: 7px 0 0;
+  color: #70809a;
   font-size: 15px;
-  color: #718096;
 }
 
 
-/* =====================================================
-   FORM CARD
-   ===================================================== */
+/* Main Card */
 
-.task-form-card {
+.task-card {
   width: 100%;
-  max-width: 810px;
   background: #ffffff;
   border-radius: 18px;
-  padding: 26px 26px 24px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 30px;
   box-sizing: border-box;
+  box-shadow: 0 3px 12px rgba(20, 40, 80, 0.08);
 }
 
 
-/* =====================================================
-   FORM ROW
-   ===================================================== */
+/* Form Row */
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-bottom: 18px;
+  gap: 20px;
+  margin-bottom: 22px;
 }
 
 
-/* =====================================================
-   FORM GROUP
-   ===================================================== */
+/* Form Group */
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 18px;
+  width: 100%;
+  margin-bottom: 22px;
 }
 
-.form-group.full-width {
+.form-row .form-group {
+  margin-bottom: 0;
+}
+
+.full-width {
   width: 100%;
 }
 
+
+/* Labels */
+
 .form-group label {
+  display: block;
   margin-bottom: 8px;
   font-size: 13px;
   font-weight: 600;
-  color: #4a5568;
+  color: #233552;
 }
 
 
-/* =====================================================
-   INPUTS / SELECTS
-   ===================================================== */
+/* Inputs / Selects / Textareas */
 
 .form-group input,
 .form-group select,
@@ -110,14 +86,15 @@
   width: 100%;
   box-sizing: border-box;
 
-  border: 1px solid #dce3eb;
+  border: 1px solid #d8e1ef;
+  border-radius: 10px;
+
   background: #f8fafc;
 
-  border-radius: 11px;
+  color: #172b4d;
 
   font-family: inherit;
   font-size: 14px;
-  color: #273244;
 
   outline: none;
 
@@ -128,22 +105,21 @@
 }
 
 
-/* Text inputs */
+/* Input and Select */
 
 .form-group input,
 .form-group select {
-  height: 43px;
-  padding: 0 14px;
+  height: 44px;
+  padding: 0 13px;
 }
 
 
-/* Textareas */
+/* Textarea */
 
 .form-group textarea {
-  min-height: 84px;
-  padding: 13px 14px;
+  padding: 12px 13px;
   resize: vertical;
-  line-height: 1.5;
+  min-height: 100px;
 }
 
 
@@ -151,14 +127,7 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #a0a8b4;
-}
-
-
-/* Select */
-
-.form-group select {
-  cursor: pointer;
+  color: #98a6ba;
 }
 
 
@@ -167,46 +136,54 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #2f67df;
+  border-color: #2864e8;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(47, 103, 223, 0.10);
+  box-shadow: 0 0 0 3px rgba(40, 100, 232, 0.10);
 }
 
 
-/* =====================================================
-   STATUS
-   ===================================================== */
+/* Conditional Fields */
 
-.status-group {
-  width: calc(50% - 9px);
+.conditional-field {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #f5f8ff;
+  border: 1px solid #dce7ff;
+}
+
+.conditional-field .form-group {
+  margin-bottom: 0;
+}
+
+.conditional-field label {
+  margin-bottom: 7px;
 }
 
 
-/* =====================================================
-   FORM BUTTONS
-   ===================================================== */
+/* Buttons */
 
 .form-actions {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-top: 4px;
+
+  margin-top: 10px;
+  padding-top: 8px;
 }
 
 
 /* Submit */
 
-.submit-btn {
-  height: 44px;
-  padding: 0 26px;
-
+.btn-submit {
   border: none;
   border-radius: 10px;
 
-  background: #2864df;
+  background: #2864e8;
   color: #ffffff;
 
-  font-family: inherit;
+  padding: 12px 25px;
+
   font-size: 14px;
   font-weight: 600;
 
@@ -214,33 +191,31 @@
 
   transition:
     background 0.2s ease,
-    transform 0.15s ease;
+    transform 0.2s ease;
 }
 
-.submit-btn:hover {
-  background: #1f56c5;
+.btn-submit:hover {
+  background: #1d55ce;
 }
 
-.submit-btn:active {
+.btn-submit:active {
   transform: translateY(1px);
 }
 
 
 /* Clear */
 
-.clear-btn {
-  height: 44px;
-  padding: 0 25px;
-
+.btn-clear {
   border: none;
   border-radius: 10px;
 
-  background: #edf1f6;
-  color: #526071;
+  background: #eef2f7;
+  color: #53647c;
 
-  font-family: inherit;
+  padding: 12px 25px;
+
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
 
   cursor: pointer;
 
@@ -249,42 +224,47 @@
     color 0.2s ease;
 }
 
-.clear-btn:hover {
+.btn-clear:hover {
   background: #e2e8f0;
-  color: #334155;
+  color: #26364f;
 }
 
 
-/* =====================================================
-   RESPONSIVE
-   ===================================================== */
+/* Tablet */
 
 @media (max-width: 900px) {
 
-  .main-content {
-    margin-left: 0;
+  .task-entry-page {
+    padding: 24px;
   }
-
-  .page-content {
-    padding: 22px 18px 30px;
-  }
-
-  .task-form-card {
-    max-width: 100%;
-  }
-
-}
-
-
-@media (max-width: 650px) {
 
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;
   }
 
-  .status-group {
-    width: 100%;
+  .form-row .form-group {
+    margin-bottom: 22px;
+  }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .task-entry-page {
+    padding: 18px 14px 35px;
+  }
+
+  .task-card {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
   }
 
   .form-actions {
@@ -292,8 +272,8 @@
     align-items: stretch;
   }
 
-  .submit-btn,
-  .clear-btn {
+  .btn-submit,
+  .btn-clear {
     width: 100%;
   }
 
