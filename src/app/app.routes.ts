@@ -31,7 +31,7 @@ import { Profile } from './staff/profile/profile';
 export const routes: Routes = [
 
   // =========================
-  // PUBLIC PAGES
+  // PUBLIC PAGES - HRMS
   // =========================
 
   {
@@ -54,8 +54,9 @@ export const routes: Routes = [
     component: ForgotPassword
   },
 
+
   // =========================
-  // ADMIN PAGES
+  // ADMIN
   // =========================
 
   {
@@ -78,6 +79,7 @@ export const routes: Routes = [
     component: Attendance
   },
 
+
   // =========================
   // ADMIN REPORTS
   // =========================
@@ -92,8 +94,9 @@ export const routes: Routes = [
     component: TeamReportsComponent
   },
 
+
   // =========================
-  // ADMIN OTHER PAGES
+  // ADMIN OTHER
   // =========================
 
   {
@@ -105,6 +108,7 @@ export const routes: Routes = [
     path: 'admin/export-reports',
     component: ExportReports
   },
+
 
   // =========================
   // STAFF
