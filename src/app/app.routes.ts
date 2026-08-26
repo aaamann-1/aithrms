@@ -10,6 +10,7 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 // =========================
 
 import { Dashboard } from './admin/dashboard/dashboard';
+<<<<<<< Updated upstream
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { IndividualReports } from './admin/reports/individual/individual';
 import { TeamReportsComponent } from './admin/reports/team/team';
@@ -33,6 +34,12 @@ export const routes: Routes = [
   // =========================
   // PUBLIC PAGES - HRMS
   // =========================
+=======
+import { LiveFeedComponent} from './admin/live-feed/live-feed';
+import { IndividualReports } from './admin/reports/individual/individual';
+
+export const routes: Routes = [
+>>>>>>> Stashed changes
 
   {
     path: '',
@@ -54,15 +61,20 @@ export const routes: Routes = [
     component: ForgotPassword
   },
 
+<<<<<<< Updated upstream
 
   // =========================
   // ADMIN
   // =========================
 
+=======
+  // ADMIN DASHBOARD
+>>>>>>> Stashed changes
   {
     path: 'admin/dashboard',
     component: Dashboard
   },
+<<<<<<< Updated upstream
 
   {
     path: 'admin/live-feed',
@@ -84,11 +96,19 @@ export const routes: Routes = [
   // ADMIN REPORTS
   // =========================
 
+=======
+{
+  path: 'live-feed',
+  component: LiveFeedComponent
+},
+  // INDIVIDUAL REPORTS
+>>>>>>> Stashed changes
   {
     path: 'admin/reports/individual',
     component: IndividualReports
   },
 
+<<<<<<< Updated upstream
   {
     path: 'admin/reports/team',
     component: TeamReportsComponent
@@ -153,6 +173,21 @@ export const routes: Routes = [
   // INVALID URL
   // =========================
 
+=======
+  // Redirect old dashboard URL if needed
+  {
+    path: 'dashboard',
+    redirectTo: 'admin/dashboard',
+    pathMatch: 'full'
+  },
+
+  {
+    path: 'reports',
+    redirectTo: 'admin/reports/individual',
+    pathMatch: 'full'
+  },
+
+>>>>>>> Stashed changes
   {
     path: '**',
     redirectTo: ''
