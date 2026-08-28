@@ -1,1 +1,224 @@
-<p>my-reports works!</p>
+<div class="reports-page">
+
+  <!-- HEADER -->
+ 
+
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- TITLE -->
+    <div class="page-heading">
+
+      <div>
+        <h1>My Reports</h1>
+        <p>Your personal performance summary</p>
+      </div>
+
+      <div class="period-toggle">
+
+        <button
+          [class.active]="selectedPeriod === 'Daily'"
+          (click)="setPeriod('Daily')">
+          Daily
+        </button>
+
+        <button
+          [class.active]="selectedPeriod === 'Weekly'"
+          (click)="setPeriod('Weekly')">
+          Weekly
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+    <section class="summary-grid">
+
+      <div class="summary-card">
+
+        <div class="card-top">
+          <div class="card-icon tasks-icon">📋</div>
+
+          <span class="week-label blue">
+            This Week
+          </span>
+        </div>
+
+        <div class="card-value">53</div>
+
+        <div class="card-title">
+          Total Tasks
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <div class="card-top">
+          <div class="card-icon resolved-icon">✓</div>
+
+          <span class="week-label green">
+            This Week
+          </span>
+        </div>
+
+        <div class="card-value">40</div>
+
+        <div class="card-title">
+          Resolved
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <div class="card-top">
+          <div class="card-icon pending-icon">⏳</div>
+
+          <span class="week-label orange">
+            This Week
+          </span>
+        </div>
+
+        <div class="card-value">11</div>
+
+        <div class="card-title">
+          Pending
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <div class="card-top">
+          <div class="card-icon time-icon">⚡</div>
+
+          <span class="week-label purple">
+            This Week
+          </span>
+        </div>
+
+        <div class="card-value">19 min</div>
+
+        <div class="card-title">
+          Avg Resolution Time
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FILTERS -->
+    <section class="filters-card">
+
+      <h2>Filters</h2>
+
+      <div class="filters-row">
+
+        <input
+          type="date"
+          class="filter-input"
+        />
+
+        <select class="filter-input">
+          <option>All</option>
+          <option>Submitted</option>
+          <option>Pending</option>
+          <option>Draft</option>
+        </select>
+
+        <input
+          type="text"
+          class="filter-input"
+          placeholder="Client Name"
+        />
+
+        <select class="filter-input">
+          <option>All</option>
+          <option>Resolved</option>
+          <option>Pending</option>
+          <option>Escalated</option>
+        </select>
+
+      </div>
+
+    </section>
+
+
+    <!-- TABLE -->
+    <section class="reports-card">
+
+      <div class="reports-title">
+        Daily Reports
+      </div>
+
+      <div class="table-container">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>TOTAL TASKS</th>
+              <th>RESOLVED</th>
+              <th>PENDING</th>
+              <th>ESCALATED</th>
+              <th>AVG TIME</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let report of reports">
+
+              <td class="date-column">
+                {{ report.date }}
+              </td>
+
+              <td class="total-column">
+                {{ report.totalTasks }}
+              </td>
+
+              <td class="resolved-column">
+                {{ report.resolved }}
+              </td>
+
+              <td class="pending-column">
+                {{ report.pending }}
+              </td>
+
+              <td class="escalated-column">
+                {{ report.escalated }}
+              </td>
+
+              <td class="time-column">
+                {{ report.avgTime }}
+              </td>
+
+              <td>
+                <span class="status-badge">
+                  {{ report.status }}
+                </span>
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

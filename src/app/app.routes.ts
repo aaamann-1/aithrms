@@ -27,6 +27,7 @@ import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
 import { AttendanceComponent } from './staff/attendance/attendance';
 import { TaskEntry } from './staff/task-entry/task-entry';
 import { Profile } from './staff/profile/profile';
+import { MyReports } from './staff/my-reports/my-reports';
 
 export const routes: Routes = [
 
@@ -122,7 +123,11 @@ export const routes: Routes = [
       { path: 'dashboard', component: StaffDashboard },
       { path: 'task-entry', component: TaskEntry },
       { path: 'attendance', component: AttendanceComponent },
-      { path: 'profile', component: Profile }
+      { path: 'profile', component: Profile },
+        {
+    path: 'my-reports',
+    component: MyReports
+  }
     ]
   },
 
