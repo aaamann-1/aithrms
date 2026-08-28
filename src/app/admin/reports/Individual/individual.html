@@ -3,21 +3,10 @@
   [class.sidebar-collapsed]="sidebarCollapsed"
 >
 
-<<<<<<< Updated upstream
   <!-- ================= SIDEBAR ================= -->
 
   <aside class="sidebar">
 
-=======
-  <!-- ================================================= -->
-  <!-- SIDEBAR -->
-  <!-- ================================================= -->
-
-  <aside class="sidebar">
-
-    <!-- LOGO -->
-
->>>>>>> Stashed changes
     <div class="logo-section">
 
       <div class="logo-icon">
@@ -25,40 +14,21 @@
       </div>
 
       <div class="logo-text">
-<<<<<<< Updated upstream
         <strong>DSR Web Panel</strong>
         <span>Billing Support</span>
-=======
-
-        <strong>DSR Web Panel</strong>
-
-        <span>Billing Support</span>
-
->>>>>>> Stashed changes
       </div>
 
     </div>
 
-<<<<<<< Updated upstream
-=======
-
-    <!-- NAVIGATION -->
-
->>>>>>> Stashed changes
     <div class="navigation-title">
       NAVIGATION
     </div>
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     <nav class="navigation">
 
       <button
         type="button"
         class="nav-item"
-<<<<<<< Updated upstream
         (click)="goTo('/admin/dashboard')"
       >
         <span class="nav-icon">▦</span>
@@ -154,139 +124,15 @@
     </button>
 
   </div>
-=======
-        (click)="goTo('/dashboard')"
-      >
-
-        <span class="nav-icon">▦</span>
-
-        <span>Dashboard</span>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/live-activity')"
-      >
-
-        <span class="nav-icon">〽</span>
-
-        <span>Live Activity Feed</span>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/staff-management')"
-      >
-
-        <span class="nav-icon">♧</span>
-
-        <span>Staff Management</span>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/attendance')"
-      >
-
-        <span class="nav-icon">◷</span>
-
-        <span>Attendance</span>
-
-      </button>
-
-
-      <!-- ACTIVE -->
-
-     <!-- INDIVIDUAL REPORTS -->
-
-<button
-  type="button"
-  class="nav-item"
-  (click)="goTo('/admin/reports/individual')"
->
-  <span class="nav-icon">▣</span>
-  <span>Individual Reports</span>
-</button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/team-reports')"
-      >
-
-        <span class="nav-icon">▥</span>
-
-        <span>Team Reports</span>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/export-reports')"
-      >
-
-        <span class="nav-icon">⇩</span>
-
-        <span>Export Reports</span>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/issue-categories')"
-      >
-
-        <span class="nav-icon">◇</span>
-
-        <span>Issue Categories</span>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        (click)="goTo('/settings')"
-      >
-
-        <span class="nav-icon">⚙</span>
-
-        <span>Settings</span>
-
-      </button>
-
-    </nav>
->>>>>>> Stashed changes
 
   </aside>
 
 
-<<<<<<< Updated upstream
   <!-- ================= MAIN AREA ================= -->
-=======
-  <!-- ================================================= -->
-  <!-- MAIN AREA -->
-  <!-- ================================================= -->
->>>>>>> Stashed changes
 
   <main class="main-area">
 
 
-<<<<<<< Updated upstream
     <!-- ================= TOP BAR ================= -->
 
     <header class="topbar">
@@ -294,20 +140,6 @@
       <button
         type="button"
         class="menu-button"
-=======
-    <!-- ================================================= -->
-    <!-- TOP BAR -->
-    <!-- ================================================= -->
-
-    <header class="topbar">
-
-
-      <!-- MENU -->
-
-      <button
-        class="menu-button"
-        type="button"
->>>>>>> Stashed changes
         (click)="toggleSidebar()"
       >
         ☰
@@ -316,38 +148,21 @@
 
       <!-- SEARCH -->
 
-<<<<<<< Updated upstream
       <div class="search-box">
 
         <span class="search-icon">⌕</span>
-=======
-      <div class="top-search">
-
-        <span class="search-icon">
-          ⌕
-        </span>
->>>>>>> Stashed changes
 
         <input
           type="text"
           [(ngModel)]="searchQuery"
-<<<<<<< Updated upstream
-=======
-          (input)="onSearch()"
->>>>>>> Stashed changes
           placeholder="Search client, staff, issue..."
         />
 
         <button
           *ngIf="searchQuery"
           type="button"
-<<<<<<< Updated upstream
           class="clear-search"
           (click)="searchQuery = ''"
-=======
-          class="search-clear"
-          (click)="clearSearch()"
->>>>>>> Stashed changes
         >
           ×
         </button>
@@ -355,37 +170,18 @@
       </div>
 
 
-<<<<<<< Updated upstream
       <!-- DATE BESIDE SEARCH -->
 
       <div class="date-box">
 
         <span class="calendar-icon">▣</span>
-=======
-      <!-- DATE -->
-
-      <div class="top-date">
-
-        <span class="calendar-icon">
-          ▣
-        </span>
->>>>>>> Stashed changes
 
         <input
           type="date"
           [(ngModel)]="selectedDate"
-<<<<<<< Updated upstream
           (change)="onDateChange()"
         />
 
-=======
-        />
-
-        <span class="formatted-date">
-          {{ getFormattedDate() }}
-        </span>
-
->>>>>>> Stashed changes
       </div>
 
 
@@ -398,41 +194,16 @@
           class="notification-button"
           (click)="toggleNotifications()"
         >
-<<<<<<< Updated upstream
           🔔
           <span class="notification-dot"></span>
         </button>
 
-=======
-
-          ♧
-
-          <span class="notification-dot"></span>
-
-        </button>
-
-
->>>>>>> Stashed changes
         <div
           class="notification-dropdown"
           *ngIf="notificationOpen"
         >
-<<<<<<< Updated upstream
           <strong>Notifications</strong>
           <p>3 new activities available.</p>
-=======
-
-          <strong>Notifications</strong>
-
-          <p>
-            New support issue assigned.
-          </p>
-
-          <p>
-            Rahul Verma resolved a task.
-          </p>
-
->>>>>>> Stashed changes
         </div>
 
       </div>
@@ -453,20 +224,8 @@
           </div>
 
           <div class="profile-info">
-<<<<<<< Updated upstream
             <strong>Dev Sharma</strong>
             <span>Administrator</span>
-=======
-
-            <strong>
-              Dev Sharma
-            </strong>
-
-            <span>
-              Administrator
-            </span>
-
->>>>>>> Stashed changes
           </div>
 
           <span class="profile-arrow">
@@ -481,7 +240,6 @@
           *ngIf="profileOpen"
         >
 
-<<<<<<< Updated upstream
           <div class="profile-dropdown-name">
             Dev Sharma
           </div>
@@ -492,25 +250,6 @@
 
           <button
             type="button"
-=======
-          <button
-            type="button"
-            (click)="goTo('/admin/profile')"
-          >
-            My Profile
-          </button>
-
-          <button
-            type="button"
-            (click)="goTo('/settings')"
-          >
-            Settings
-          </button>
-
-          <button
-            type="button"
-            class="logout"
->>>>>>> Stashed changes
             (click)="logout()"
           >
             Logout
@@ -523,22 +262,13 @@
     </header>
 
 
-<<<<<<< Updated upstream
     <!-- ================= CONTENT ================= -->
 
     <section class="content">
-=======
-    <!-- ================================================= -->
-    <!-- PAGE CONTENT -->
-    <!-- ================================================= -->
-
-    <section class="page-content">
->>>>>>> Stashed changes
 
 
       <!-- PAGE TITLE -->
 
-<<<<<<< Updated upstream
       <div class="page-heading">
 
         <h1>
@@ -548,36 +278,13 @@
         <p>
           Detailed performance per staff member
         </p>
-=======
-      <div class="page-title">
-
-        <div>
-
-          <h1>
-            Individual Reports
-          </h1>
-
-          <p>
-            Detailed performance per staff member
-          </p>
-
-        </div>
->>>>>>> Stashed changes
 
       </div>
 
 
-<<<<<<< Updated upstream
       <!-- ================= STAFF SELECTOR ================= -->
 
       <section class="staff-card">
-=======
-      <!-- ================================================= -->
-      <!-- STAFF SELECTION -->
-      <!-- ================================================= -->
-
-      <div class="staff-selection-card">
->>>>>>> Stashed changes
 
         <div class="section-label">
           SELECT STAFF
@@ -588,15 +295,9 @@
 
           <button
             type="button"
-<<<<<<< Updated upstream
             class="staff-row"
             *ngFor="let staff of staffList"
             [class.selected]="selectedStaff === staff"
-=======
-            class="staff-item"
-            *ngFor="let staff of staffList"
-            [class.selected]="selectedStaff.name === staff.name"
->>>>>>> Stashed changes
             (click)="selectStaff(staff)"
           >
 
@@ -604,24 +305,12 @@
               class="staff-avatar"
               [ngClass]="staff.color"
             >
-<<<<<<< Updated upstream
               {{ staff.initials }}
 
               <span
                 class="status-dot"
                 [ngClass]="getStatusDot(staff.status)"
               ></span>
-=======
-
-              {{ staff.initials }}
-
-              <span
-                class="online-indicator"
-                [class.offline]="staff.status === 'Offline'"
-                [class.busy]="staff.status === 'Busy'"
-              ></span>
-
->>>>>>> Stashed changes
             </div>
 
 
@@ -641,23 +330,12 @@
 
         </div>
 
-<<<<<<< Updated upstream
       </section>
 
 
       <!-- ================= SELECTED STAFF ================= -->
 
       <section class="selected-staff-card">
-=======
-      </div>
-
-
-      <!-- ================================================= -->
-      <!-- SELECTED STAFF -->
-      <!-- ================================================= -->
-
-      <div class="selected-staff-card">
->>>>>>> Stashed changes
 
         <div
           class="large-avatar"
@@ -666,10 +344,6 @@
           {{ selectedStaff.initials }}
         </div>
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         <div class="selected-staff-info">
 
           <h2>
@@ -680,20 +354,11 @@
             {{ selectedStaff.role }}
           </p>
 
-<<<<<<< Updated upstream
           <span class="online-status">
 
             <span
               class="status-circle"
               [ngClass]="getStatusDot(selectedStaff.status)"
-=======
-          <span class="staff-status">
-
-            <span
-              class="status-dot"
-              [class.offline]="selectedStaff.status === 'Offline'"
-              [class.busy]="selectedStaff.status === 'Busy'"
->>>>>>> Stashed changes
             ></span>
 
             {{ selectedStaff.status }}
@@ -702,7 +367,6 @@
 
         </div>
 
-<<<<<<< Updated upstream
       </section>
 
 
@@ -713,21 +377,6 @@
         <div class="stat-card total">
 
           <strong>
-=======
-      </div>
-
-
-      <!-- ================================================= -->
-      <!-- STATISTICS -->
-      <!-- ================================================= -->
-
-      <div class="stats-grid">
-
-
-        <div class="stat-card">
-
-          <strong class="blue-number">
->>>>>>> Stashed changes
             {{ selectedStaff.totalTickets }}
           </strong>
 
@@ -738,15 +387,9 @@
         </div>
 
 
-<<<<<<< Updated upstream
         <div class="stat-card resolved">
 
           <strong>
-=======
-        <div class="stat-card">
-
-          <strong class="green-number">
->>>>>>> Stashed changes
             {{ selectedStaff.resolved }}
           </strong>
 
@@ -757,15 +400,9 @@
         </div>
 
 
-<<<<<<< Updated upstream
         <div class="stat-card pending">
 
           <strong>
-=======
-        <div class="stat-card">
-
-          <strong class="orange-number">
->>>>>>> Stashed changes
             {{ selectedStaff.pending }}
           </strong>
 
@@ -776,15 +413,9 @@
         </div>
 
 
-<<<<<<< Updated upstream
         <div class="stat-card escalated">
 
           <strong>
-=======
-        <div class="stat-card">
-
-          <strong class="red-number">
->>>>>>> Stashed changes
             {{ selectedStaff.escalated }}
           </strong>
 
@@ -794,7 +425,6 @@
 
         </div>
 
-<<<<<<< Updated upstream
       </section>
 
 
@@ -803,19 +433,6 @@
       <section class="activity-card">
 
         <div class="activity-heading">
-=======
-      </div>
-
-
-      <!-- ================================================= -->
-      <!-- RECENT ACTIVITY -->
-      <!-- ================================================= -->
-
-      <div class="activity-card">
-
-
-        <div class="activity-header">
->>>>>>> Stashed changes
 
           <div>
 
@@ -829,27 +446,14 @@
 
           </div>
 
-<<<<<<< Updated upstream
           <div class="selected-date-label">
             {{ formattedDate }}
           </div>
-=======
-          <span class="activity-count">
-
-            {{ getFilteredActivities().length }}
-            activities
-
-          </span>
->>>>>>> Stashed changes
 
         </div>
 
 
-<<<<<<< Updated upstream
         <!-- ACTIVITY LIST -->
-=======
-        <!-- ACTIVITIES -->
->>>>>>> Stashed changes
 
         <div
           class="activity-list"
@@ -857,19 +461,11 @@
         >
 
           <div
-<<<<<<< Updated upstream
             class="activity-row"
             *ngFor="let activity of getFilteredActivities()"
           >
 
             <div class="activity-info">
-=======
-            class="activity-item"
-            *ngFor="let activity of getFilteredActivities()"
-          >
-
-            <div class="activity-information">
->>>>>>> Stashed changes
 
               <strong>
                 {{ activity.clientName }}
@@ -886,18 +482,10 @@
 
             <div class="activity-right">
 
-<<<<<<< Updated upstream
               <span class="duration">
                 {{ activity.time }}
               </span>
 
-=======
-              <span class="activity-time">
-                {{ activity.time }}
-              </span>
-
-
->>>>>>> Stashed changes
               <span
                 class="activity-status"
                 [ngClass]="getStatusClass(activity.status)"
@@ -924,7 +512,6 @@
         >
 
           <div class="no-activity-icon">
-<<<<<<< Updated upstream
             ◷
           </div>
 
@@ -935,27 +522,11 @@
           <p>
             No activities are available for
             {{ formattedDate }}.
-=======
-            ○
-          </div>
-
-          <strong>
-            No activity found
-          </strong>
-
-          <p>
-            No reports match the selected date or search.
->>>>>>> Stashed changes
           </p>
 
         </div>
 
-<<<<<<< Updated upstream
       </section>
-=======
-      </div>
-
->>>>>>> Stashed changes
 
     </section>
 
@@ -965,13 +536,8 @@
   <!-- HELP BUTTON -->
 
   <button
-<<<<<<< Updated upstream
     type="button"
     class="help-button"
-=======
-    class="help-button"
-    type="button"
->>>>>>> Stashed changes
   >
     ?
   </button>
