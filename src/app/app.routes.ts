@@ -11,7 +11,11 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
+<<<<<<< Updated upstream
 import { IndividualReports } from './admin/reports/individual/individual';
+=======
+import { Reports } from './admin/reports/reports';
+>>>>>>> Stashed changes
 import { TeamReportsComponent } from './admin/reports/Team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
@@ -29,6 +33,7 @@ import { TaskEntry } from './staff/task-entry/task-entry';
 import { Profile } from './staff/profile/profile';
 
 export const routes: Routes = [
+<<<<<<< Updated upstream
 
   // =========================
   // PUBLIC PAGES - HRMS
@@ -114,40 +119,32 @@ export const routes: Routes = [
   // STAFF
   // =========================
 
+=======
+  { path: '', component: Home },
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
+  { path: 'forgot-password', component: ForgotPassword },
+  { path: 'admin/dashboard', component: Dashboard },
+  { path: 'admin/live-feed', component: LiveFeedComponent },
+  { path: 'admin/staff-management', component: StaffManagement },
+  { path: 'admin/attendance', component: Attendance },
+  { path: 'admin/reports/individual', component: Reports },
+  { path: 'admin/reports/team', component: TeamReportsComponent },
+  { path: 'admin/issue-categories', component: IssueCategoriesComponent },
+  { path: 'admin/export-reports', component: ExportReports },
+>>>>>>> Stashed changes
   {
     path: 'staff',
     component: StaffLayout,
-
     children: [
-
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      },
-
-      {
-        path: 'dashboard',
-        component: StaffDashboard
-      },
-
-      {
-        path: 'task-entry',
-        component: TaskEntry
-      },
-
-      {
-        path: 'attendance',
-        component: AttendanceComponent
-      },
-
-      {
-        path: 'profile',
-        component: Profile
-      }
-
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: StaffDashboard },
+      { path: 'task-entry', component: TaskEntry },
+      { path: 'attendance', component: AttendanceComponent },
+      { path: 'profile', component: Profile }
     ]
   },
+<<<<<<< Updated upstream
 
   // =========================
   // INVALID URL
@@ -158,4 +155,9 @@ export const routes: Routes = [
     redirectTo: ''
   }
 
+=======
+  { path: 'dashboard', redirectTo: 'admin/dashboard', pathMatch: 'full' },
+  { path: 'reports', redirectTo: 'admin/reports/individual', pathMatch: 'full' },
+  { path: '**', redirectTo: '' }
+>>>>>>> Stashed changes
 ];
