@@ -11,7 +11,7 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
-import { IndividualReports } from './admin/reports/individual/individual';
+import { IndividualReports } from './admin/reports/Individual/individual';
 import { TeamReportsComponent } from './admin/reports/Team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
