@@ -19,31 +19,23 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-/* ================================
-   MAIN
-================================ */
+/* MAIN */
 
 .main-content {
   padding: 30px 24px 40px;
 }
 
-
-/* ================================
-   PAGE HEADING
-================================ */
+/* PAGE HEADING*/
 
 .page-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-bottom: 25px;
 }
 
 .page-heading h1 {
   margin: 0 0 5px;
-
   font-size: 21px;
   font-weight: 700;
 
@@ -52,57 +44,38 @@
 
 .page-heading p {
   margin: 0;
-
   font-size: 14px;
-
   color: #728092;
 }
 
-
-/* ================================
-   DAILY / WEEKLY
-================================ */
+/* DAILY / WEEKLY */
 
 .period-toggle {
   display: flex;
-
   background: white;
-
   border-radius: 13px;
-
   padding: 0;
-
   overflow: hidden;
-
   border: 1px solid #e5e9ef;
 }
 
 .period-toggle button {
   height: 40px;
   min-width: 78px;
-
   border: none;
-
   background: white;
-
   color: #6e7b89;
-
   font-size: 14px;
-
   cursor: pointer;
 }
 
 .period-toggle button.active {
   background: #2864dc;
   color: white;
-
   font-weight: 600;
 }
 
-
-/* ================================
-   SUMMARY CARDS
-================================ */
+/*   SUMMARY CARDS */
 
 .summary-grid {
   display: grid;
@@ -111,19 +84,14 @@
     repeat(4, minmax(0, 1fr));
 
   gap: 17px;
-
   margin-bottom: 24px;
 }
 
 .summary-card {
   background: white;
-
   border-radius: 16px;
-
   min-height: 130px;
-
   padding: 20px 17px;
-
   box-shadow:
     0 2px 7px rgba(40, 55, 70, 0.04);
 }
@@ -132,17 +100,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-bottom: 12px;
 }
-
 
 /* Icons */
 
 .card-icon {
   width: 23px;
   height: 23px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,27 +268,19 @@
 
 .reports-card {
   background: white;
-
   border-radius: 16px;
-
   overflow: hidden;
-
   box-shadow:
     0 2px 7px rgba(40, 55, 70, 0.03);
 }
 
 .reports-title {
   padding: 20px 22px;
-
   font-size: 15px;
-
   font-weight: 600;
-
   color: #2d4054;
-
   border-bottom: 1px solid #edf0f3;
 }
-
 
 /* Table */
 
@@ -334,12 +291,9 @@
 
 table {
   width: 100%;
-
   border-collapse: collapse;
-
   min-width: 850px;
 }
-
 
 /* Header */
 
@@ -349,32 +303,21 @@ thead {
 
 th {
   text-align: left;
-
   padding: 14px 22px;
-
   font-size: 12px;
-
   color: #9aa7b5;
-
   font-weight: 600;
-
   letter-spacing: 0.2px;
-
   border-bottom: 1px solid #edf0f3;
-
   white-space: nowrap;
 }
-
 
 /* Rows */
 
 td {
   padding: 17px 22px;
-
   font-size: 14px;
-
   border-bottom: 1px solid #f0f2f4;
-
   white-space: nowrap;
 }
 
@@ -385,7 +328,6 @@ tbody tr:last-child td {
 tbody tr:hover {
   background: #fafbfd;
 }
-
 
 /* Columns */
 
@@ -418,32 +360,20 @@ tbody tr:hover {
   color: #758393;
 }
 
-
 /* Status */
 
 .status-badge {
   display: inline-flex;
-
   align-items: center;
-
   padding: 5px 12px;
-
   border-radius: 15px;
-
   background: #d9f8ea;
-
   color: #2ca878;
-
   font-size: 12px;
-
   font-weight: 600;
 }
 
-
-/* ================================
-   RESPONSIVE
-================================ */
-
+/* ====RESPONSIVE========== */
 
 @media (max-width: 850px) {
 
@@ -462,7 +392,6 @@ tbody tr:hover {
   }
 
 }
-
 
 @media (max-width: 600px) {
 
@@ -487,17 +416,13 @@ tbody tr:hover {
     gap: 15px;
     flex-direction: column;
   }
-
   .summary-grid {
     grid-template-columns: 1fr;
   }
-
   .filters-row {
     grid-template-columns: 1fr;
   }
-
   .header-right {
     gap: 8px;
   }
-
 }
