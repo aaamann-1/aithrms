@@ -1,1 +1,343 @@
-<p>profile works!</p>
+<div class="profile-page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>My Profile</h1>
+    <p>Your personal information and account settings</p>
+  </div>
+
+
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+
+    <div class="profile-left">
+
+      <!-- AVATAR -->
+      <div class="avatar">
+        R
+        <span class="online-dot"></span>
+      </div>
+
+      <!-- PROFILE DETAILS -->
+      <div class="profile-details">
+
+        <h2>{{ fullName }}</h2>
+
+        <p class="designation">
+          {{ designation }}
+          <span>•</span>
+          {{ department }}
+        </p>
+
+        <div class="badges">
+          <span class="employee-id">
+            {{ employeeId }}
+          </span>
+
+          <span class="active">
+            Active
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+    <div class="profile-buttons">
+
+      <button
+        class="edit-button"
+        type="button"
+        (click)="editProfile()">
+        Edit Profile
+      </button>
+
+      <button
+        class="password-button"
+        type="button"
+        (click)="changePassword()">
+        Change Password
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- PERSONAL INFORMATION -->
+  <div class="personal-card">
+
+    <h3>Personal Information</h3>
+
+    <div class="info-grid">
+
+      <div class="info-item">
+        <label>👤 &nbsp; Full Name</label>
+        <div class="info-box">
+          {{ fullName }}
+        </div>
+      </div>
+
+
+      <div class="info-item">
+        <label>🔑 &nbsp; Employee ID</label>
+        <div class="info-box">
+          {{ employeeId }}
+        </div>
+      </div>
+
+
+      <div class="info-item">
+        <label>📱 &nbsp; Contact Number</label>
+        <div class="info-box">
+          {{ contactNumber }}
+        </div>
+      </div>
+
+
+      <div class="info-item">
+        <label>✉️ &nbsp; Email Address</label>
+        <div class="info-box">
+          {{ email }}
+        </div>
+      </div>
+
+
+      <div class="info-item">
+        <label>🏢 &nbsp; Department</label>
+        <div class="info-box">
+          {{ department }}
+        </div>
+      </div>
+
+
+      <div class="info-item">
+        <label>💼 &nbsp; Designation</label>
+        <div class="info-box">
+          {{ designation }}
+        </div>
+      </div>
+
+
+      <div class="info-item">
+        <label>📅 &nbsp; Joining Date</label>
+        <div class="info-box">
+          {{ joiningDate }}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- EDIT PROFILE POPUP -->
+<!-- ================================================= -->
+
+@if (showEditProfile) {
+
+  <div class="form-overlay">
+
+    <div class="form-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <h2>Edit Profile</h2>
+          <p>Update your personal information</p>
+        </div>
+
+        <button
+          class="close-button"
+          type="button"
+          (click)="closeForms()">
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Full Name</label>
+
+          <input
+            type="text"
+            [(ngModel)]="fullName">
+        </div>
+
+
+        <div class="form-group">
+          <label>Employee ID</label>
+
+          <input
+            type="text"
+            [(ngModel)]="employeeId"
+            disabled>
+        </div>
+
+
+        <div class="form-group">
+          <label>Contact Number</label>
+
+          <input
+            type="text"
+            [(ngModel)]="contactNumber">
+        </div>
+
+
+        <div class="form-group">
+          <label>Email Address</label>
+
+          <input
+            type="email"
+            [(ngModel)]="email">
+        </div>
+
+
+        <div class="form-group">
+          <label>Department</label>
+
+          <input
+            type="text"
+            [(ngModel)]="department">
+        </div>
+
+
+        <div class="form-group">
+          <label>Designation</label>
+
+          <input
+            type="text"
+            [(ngModel)]="designation">
+        </div>
+
+
+        <div class="form-group">
+          <label>Joining Date</label>
+
+          <input
+            type="text"
+            [(ngModel)]="joiningDate">
+        </div>
+
+      </div>
+
+
+      <div class="modal-buttons">
+
+        <button
+          class="cancel-button"
+          type="button"
+          (click)="closeForms()">
+          Cancel
+        </button>
+
+        <button
+          class="save-button"
+          type="button"
+          (click)="saveProfile()">
+          Save Changes
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
+
+
+<!-- ================================================= -->
+<!-- CHANGE PASSWORD POPUP -->
+<!-- ================================================= -->
+
+@if (showChangePassword) {
+
+  <div class="form-overlay">
+
+    <div class="form-modal password-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <h2>Change Password</h2>
+          <p>Update your account password</p>
+        </div>
+
+        <button
+          class="close-button"
+          type="button"
+          (click)="closeForms()">
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Current Password</label>
+
+        <input
+          type="password"
+          placeholder="Enter current password"
+          [(ngModel)]="currentPassword">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>New Password</label>
+
+        <input
+          type="password"
+          placeholder="Enter new password"
+          [(ngModel)]="newPassword">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Confirm New Password</label>
+
+        <input
+          type="password"
+          placeholder="Confirm new password"
+          [(ngModel)]="confirmPassword">
+
+      </div>
+
+
+      <div class="modal-buttons">
+
+        <button
+          class="cancel-button"
+          type="button"
+          (click)="closeForms()">
+          Cancel
+        </button>
+
+        <button
+          class="save-button"
+          type="button"
+          (click)="updatePassword()">
+          Change Password
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}

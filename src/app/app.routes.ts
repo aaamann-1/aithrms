@@ -17,7 +17,7 @@ import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
 import { ExportReports } from './admin/export-reports/export-reports';
-
+import { Settings } from './admin/settings/settings';
 // =========================
 // STAFF
 // =========================
@@ -110,7 +110,10 @@ export const routes: Routes = [
     component: ExportReports
   },
 
-
+{
+  path: 'admin/settings',
+  component: Settings
+},
   // =========================
   // STAFF
   // =========================
