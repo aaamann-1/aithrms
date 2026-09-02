@@ -1,0 +1,20 @@
+.admin-layout {
+  min-height: 100vh;
+  display: flex;
+  background: #f6f7fb;
+}
+
+.main-area {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+}
