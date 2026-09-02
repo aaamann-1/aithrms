@@ -1,0 +1,173 @@
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #171b2e;
+  color: #ffffff;
+
+  padding: 20px 14px;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  z-index: 1000;
+}
+
+
+/* LOGO */
+
+.logo-section {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 10px 12px 25px;
+}
+
+.logo-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #6c5ce7;
+
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.logo-text strong {
+  font-size: 15px;
+}
+
+.logo-text span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 11px;
+
+  color: #aeb4ce;
+}
+
+
+/* NAVIGATION TITLE */
+
+.navigation-title {
+  padding: 10px 14px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: #777e9e;
+}
+
+
+/* NAVIGATION */
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-top: 5px;
+}
+
+
+/* NAV ITEM */
+
+.nav-item {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 12px 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: #bfc4d8;
+
+  font-size: 13px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #252a43;
+  color: #ffffff;
+}
+
+.nav-item.active {
+  background: #6c5ce7;
+  color: #ffffff;
+
+  box-shadow: 0 5px 15px rgba(108, 92, 231, 0.25);
+}
+
+.nav-icon {
+  width: 22px;
+
+  text-align: center;
+
+  font-size: 17px;
+}
+
+
+/* LOGOUT */
+
+.sidebar-bottom {
+  margin-top: auto;
+
+  padding-top: 20px;
+}
+
+.logout-button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 12px 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: #ff8b8b;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #30243a;
+}

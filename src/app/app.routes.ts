@@ -5,18 +5,22 @@ import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
+
 // =========================
 // ADMIN
 // =========================
 
+import { AdminLayout } from './admin/admin-layout/admin-layout';
+
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { IndividualReports } from './admin/reports/individual/individual';
-import { TeamReportsComponent } from './admin/reports/Team/team';
+import { TeamReportsComponent } from './admin/reports/team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
 import { ExportReports } from './admin/export-reports/export-reports';
+
 
 // =========================
 // STAFF
@@ -28,6 +32,7 @@ import { AttendanceComponent } from './staff/attendance/attendance';
 import { TaskEntry } from './staff/task-entry/task-entry';
 import { Profile } from './staff/profile/profile';
 import { MyReports } from './staff/my-reports/my-reports';
+
 
 export const routes: Routes = [
 
@@ -61,53 +66,75 @@ export const routes: Routes = [
   // =========================
 
   {
-    path: 'admin/dashboard',
-    component: Dashboard
-  },
+    path: 'admin',
 
-  {
-    path: 'admin/live-feed',
-    component: LiveFeedComponent
-  },
+    component: AdminLayout,
 
-  {
-    path: 'admin/staff-management',
-    component: StaffManagement
-  },
+    children: [
 
-  {
-    path: 'admin/attendance',
-    component: Attendance
-  },
+      // DASHBOARD
+      {
+        path: 'dashboard',
+        component: Dashboard
+      },
 
+      // LIVE ACTIVITY FEED
+      {
+        path: 'live-feed',
+        component: LiveFeedComponent
+      },
 
-  // =========================
-  // ADMIN REPORTS
-  // =========================
+      // STAFF MANAGEMENT
+      {
+        path: 'staff-management',
+        component: StaffManagement
+      },
 
-  {
-    path: 'admin/reports/individual',
-    component: IndividualReports
-  },
-
-  {
-    path: 'admin/reports/team',
-    component: TeamReportsComponent
-  },
+      // ATTENDANCE
+      {
+        path: 'attendance',
+        component: Attendance
+      },
 
 
-  // =========================
-  // ADMIN OTHER
-  // =========================
+      // =========================
+      // ADMIN REPORTS
+      // =========================
 
-  {
-    path: 'admin/issue-categories',
-    component: IssueCategoriesComponent
-  },
+      {
+        path: 'reports/individual',
+        component: IndividualReports
+      },
 
-  {
-    path: 'admin/export-reports',
-    component: ExportReports
+      {
+        path: 'reports/team',
+        component: TeamReportsComponent
+      },
+
+
+      // =========================
+      // ADMIN OTHER
+      // =========================
+
+      {
+        path: 'issue-categories',
+        component: IssueCategoriesComponent
+      },
+
+      {
+        path: 'export-reports',
+        component: ExportReports
+      },
+
+
+      // DEFAULT ADMIN PAGE
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+
+    ]
   },
 
 
@@ -117,19 +144,45 @@ export const routes: Routes = [
 
   {
     path: 'staff',
+
     component: StaffLayout,
+
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: StaffDashboard },
-      { path: 'task-entry', component: TaskEntry },
-      { path: 'attendance', component: AttendanceComponent },
-      { path: 'profile', component: Profile },
-        {
-    path: 'my-reports',
-    component: MyReports
-  }
+
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+
+      {
+        path: 'dashboard',
+        component: StaffDashboard
+      },
+
+      {
+        path: 'task-entry',
+        component: TaskEntry
+      },
+
+      {
+        path: 'attendance',
+        component: AttendanceComponent
+      },
+
+      {
+        path: 'profile',
+        component: Profile
+      },
+
+      {
+        path: 'my-reports',
+        component: MyReports
+      }
+
     ]
   },
+
 
   // =========================
   // INVALID URL

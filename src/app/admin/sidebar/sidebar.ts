@@ -1,10 +1,26 @@
 import { Component } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
-export class Sidebar {}
+export class SidebarComponent {
+
+  constructor(private router: Router) {}
+
+  logout(): void {
+
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+
+    this.router.navigate(['/login']);
+  }
+
+}

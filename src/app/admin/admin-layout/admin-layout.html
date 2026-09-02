@@ -1,0 +1,17 @@
+<div class="admin-layout">
+
+  <app-sidebar></app-sidebar>
+
+  <div class="main-area">
+
+    <app-admin-navbar
+      (searchEvent)="onSearch($event)">
+    </app-admin-navbar>
+
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>

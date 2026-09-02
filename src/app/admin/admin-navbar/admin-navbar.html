@@ -1,1 +1,259 @@
-<p>admin-navbar works!</p>
+<header class="top-header">
+
+
+  <!-- ================= SEARCH ================= -->
+
+  <div class="search-box">
+
+    <button
+      type="button"
+      class="search-button"
+      (click)="performSearch()"
+      title="Search"
+    >
+      🔍
+    </button>
+
+
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (keydown)="onSearchKey($event)"
+      placeholder="Search client, staff, issue..."
+    >
+
+
+    <button
+      *ngIf="searchQuery"
+      type="button"
+      class="clear-search"
+      (click)="clearSearch()"
+      title="Clear search"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+
+  <!-- ================= DATE ================= -->
+
+  <div class="date-box">
+
+    <span class="calendar-icon">
+      📅
+    </span>
+
+
+    <input
+      type="date"
+      [(ngModel)]="selectedDate"
+      class="date-input"
+      (change)="onDateChange()"
+      aria-label="Select date"
+    >
+
+
+    <span class="selected-date">
+      {{ getFormattedDate() }}
+    </span>
+
+  </div>
+
+
+
+  <!-- ================= NOTIFICATION ================= -->
+
+  <div class="notification-wrapper">
+
+    <button
+      class="notification-button"
+      type="button"
+      (click)="toggleNotifications()"
+    >
+
+      🔔
+
+      <span class="notification-dot"></span>
+
+    </button>
+
+
+    <!-- DROPDOWN -->
+
+    <div
+      class="notification-dropdown"
+      *ngIf="notificationOpen"
+    >
+
+      <div class="dropdown-header">
+
+        <strong>
+          Notifications
+        </strong>
+
+        <span>
+          {{ notifications.length }}
+        </span>
+
+      </div>
+
+
+      <div
+        class="notification-item"
+        *ngFor="let notification of notifications"
+      >
+
+        <div class="notification-icon">
+          ●
+        </div>
+
+
+        <div class="notification-content">
+
+          <strong>
+            {{ notification.title }}
+          </strong>
+
+          <p>
+            {{ notification.message }}
+          </p>
+
+          <small>
+            {{ notification.time }}
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ================= PROFILE ================= -->
+
+  <div class="profile-wrapper">
+
+    <button
+      class="admin-profile"
+      type="button"
+      (click)="toggleProfile()"
+    >
+
+      <div class="profile-avatar">
+        DS
+      </div>
+
+
+      <div class="profile-details">
+
+        <strong>
+          {{ currentUser?.name || 'Dev Sharma' }}
+        </strong>
+
+        <span>
+          Administrator
+        </span>
+
+      </div>
+
+
+      <span class="profile-arrow">
+        ⌄
+      </span>
+
+    </button>
+
+
+
+    <!-- PROFILE DROPDOWN -->
+
+    <div
+      class="profile-dropdown"
+      *ngIf="profileOpen"
+    >
+
+      <div class="profile-dropdown-header">
+
+        <div class="profile-avatar large">
+          DS
+        </div>
+
+
+        <div>
+
+          <strong>
+            {{ currentUser?.name || 'Dev Sharma' }}
+          </strong>
+
+          <span>
+            Administrator
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="dropdown-divider"></div>
+
+
+      <!-- PROFILE -->
+
+      <button
+        type="button"
+        class="dropdown-item"
+        (click)="openProfile()"
+      >
+
+        <span>👤</span>
+
+        <span>
+          My Profile
+        </span>
+
+      </button>
+
+
+      <!-- SETTINGS -->
+
+      <button
+        type="button"
+        class="dropdown-item"
+        (click)="openSettings()"
+      >
+
+        <span>⚙</span>
+
+        <span>
+          Settings
+        </span>
+
+      </button>
+
+
+      <!-- LOGOUT -->
+
+      <button
+        type="button"
+        class="dropdown-item logout-item"
+        (click)="logout()"
+      >
+
+        <span>⇥</span>
+
+        <span>
+          Log Out
+        </span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
