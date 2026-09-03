@@ -20,8 +20,7 @@ import { Employee } from './admin/employee/employee';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
 import { ExportReports } from './admin/export-reports/export-reports';
-
-
+import { Settings } from './admin/settings/settings';
 // =========================
 // STAFF
 // =========================
@@ -142,7 +141,10 @@ export const routes: Routes = [
     ]
   },
 
-
+{
+  path: 'admin/settings',
+  component: Settings
+},
   // =========================
   // STAFF
   // =========================
