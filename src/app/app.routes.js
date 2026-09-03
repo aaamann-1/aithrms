@@ -10,6 +10,7 @@ import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { IndividualReports } from './admin/reports/Individual/individual';
 import { TeamReportsComponent } from './admin/reports/Team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
+import { Employee } from './admin/employee/employee';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
 import { ExportReports } from './admin/export-reports/export-reports';
@@ -56,6 +57,12 @@ export const routes = [
         path: 'admin/staff-management',
         component: StaffManagement
     },
+
+    {
+  path: 'admin/employee',
+  component: Employee
+},
+
     {
         path: 'admin/attendance',
         component: Attendance
