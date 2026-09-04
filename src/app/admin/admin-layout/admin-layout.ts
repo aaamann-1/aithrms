@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { SidebarComponent } from '../sidebar/sidebar';
@@ -17,14 +17,10 @@ import { AdminNavbarComponent } from '../admin-navbar/admin-navbar';
 })
 export class AdminLayout {
 
-  @ViewChild(RouterOutlet)
-  routerOutlet!: RouterOutlet;
+  sidebarCollapsed = false;
 
-  onSearch(query: string): void {
-    const currentPage: any = this.routerOutlet.component;
-
-    if (currentPage && typeof currentPage.search === 'function') {
-      currentPage.search(query);
-    }
+  toggleSidebar(): void {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
   }
+
 }

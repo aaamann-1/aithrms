@@ -136,7 +136,10 @@ export const routes: Routes = [
         path: 'export-reports',
         component: ExportReports
       },
-
+{
+  path: 'settings',
+  component: Settings
+},
 
       // DEFAULT ADMIN PAGE
       {
@@ -148,10 +151,6 @@ export const routes: Routes = [
     ]
   },
 
-{
-  path: 'admin/settings',
-  component: Settings
-},
   // =========================
   // STAFF
   // =========================

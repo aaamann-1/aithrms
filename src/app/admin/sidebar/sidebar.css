@@ -171,3 +171,58 @@
 .logout-button:hover {
   background: #30243a;
 }
+
+/* ================= SIDEBAR COLLAPSE ================= */
+
+.sidebar {
+  transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 72px;
+  padding: 20px 10px;
+}
+
+/* Hide logo text */
+.sidebar.collapsed .logo-text {
+  display: none;
+}
+
+/* Center logo */
+.sidebar.collapsed .logo-section {
+  justify-content: center;
+  padding: 10px 0 25px;
+}
+
+/* Hide NAVIGATION title */
+.sidebar.collapsed .navigation-title {
+  display: none;
+}
+
+/* Center navigation buttons */
+.sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+/* Hide navigation text */
+.sidebar.collapsed .nav-item > span:not(.nav-icon) {
+  display: none;
+}
+
+/* Keep icons visible */
+.sidebar.collapsed .nav-icon {
+  width: auto;
+  font-size: 18px;
+}
+
+/* Center logout */
+.sidebar.collapsed .logout-button {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+/* Hide Logout text */
+.sidebar.collapsed .logout-button .nav-label {
+  display: none;
+}
