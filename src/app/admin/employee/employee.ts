@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -10,29 +11,20 @@ import { CommonModule } from '@angular/common';
 })
 export class Employee {
 
-  showForm = false;
+  employees: any[] = [];
 
-  employees = [
-    {
-      name: 'Rahul Sharma',
-      email: 'rahul@example.com'
-    },
-    {
-      name: 'Priya Nair',
-      email: 'priya@example.com'
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+
+    const savedEmployees = localStorage.getItem('employees');
+
+    if (savedEmployees) {
+      this.employees = JSON.parse(savedEmployees);
     }
-  ];
+  }
 
   openForm() {
-    this.showForm = true;
-  }
-
-  closeForm() {
-    this.showForm = false;
-  }
-
-  createEmployee() {
-    console.log('Employee created');
-    this.showForm = false;
+    this.router.navigate(['/admin/employee/new']);
   }
 }

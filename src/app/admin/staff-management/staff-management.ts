@@ -20,7 +20,7 @@ interface Staff {
   selector: 'app-staff-management',
   standalone: true,
   imports: [
-    [RouterLink],
+    RouterLink,
     CommonModule,
     FormsModule
   ],

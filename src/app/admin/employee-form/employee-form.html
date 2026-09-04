@@ -1,0 +1,535 @@
+<div class="employee-form-page">
+
+  <!-- ================= HEADER ================= -->
+
+  <div class="form-page-header">
+
+    <button
+  type="button"
+  class="back-btn"
+  (click)="goBack()">
+  ← Back to Employees
+</button>
+
+    <div>
+      <h1>Add Employee</h1>
+      <p>Enter employee personal and contact information</p>
+    </div>
+
+  </div>
+
+
+  <!-- ================= FORM CARD ================= -->
+
+  <div class="form-card">
+
+
+    <!-- PERSONAL -->
+
+    <div class="section-header">
+      <h2>Personal</h2>
+    </div>
+
+
+    <div class="form-grid">
+
+
+      <!-- Employee Name -->
+
+      <div class="form-group employee-name-field">
+
+        <label>
+          Employee Name <span>*</span>
+        </label>
+
+        <div class="name-wrapper">
+
+          <select
+            [(ngModel)]="employeeForm.title">
+
+            <option value="Mr.">Mr.</option>
+            <option value="Mrs.">Mrs.</option>
+            <option value="Ms.">Ms.</option>
+
+          </select>
+
+          <input
+            type="text"
+            [(ngModel)]="employeeForm.employeeName"
+            placeholder="Enter Name As Per Aadhaar">
+
+        </div>
+
+      </div>
+
+
+      <!-- Father Name -->
+
+      <div class="form-group">
+
+        <label>Father Name</label>
+
+        <input
+          type="text"
+          [(ngModel)]="employeeForm.fatherName"
+          placeholder="Enter Father Name">
+
+      </div>
+
+
+      <!-- Mother Name -->
+
+      <div class="form-group">
+
+        <label>Mother Name</label>
+
+        <input
+          type="text"
+          [(ngModel)]="employeeForm.motherName"
+          placeholder="Enter Mother Name">
+
+      </div>
+
+
+      <!-- Gender -->
+
+      <div class="form-group">
+
+        <label>
+          Gender <span>*</span>
+        </label>
+
+        <select [(ngModel)]="employeeForm.gender">
+
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Date of Birth -->
+
+      <div class="form-group">
+
+        <label>Date of Birth</label>
+
+        <input
+          type="text"
+          [(ngModel)]="employeeForm.dateOfBirth"
+          placeholder="DD-MM-YYYY">
+
+      </div>
+
+
+      <!-- Blood Group -->
+
+      <div class="form-group">
+
+        <label>Blood Group</label>
+
+        <select [(ngModel)]="employeeForm.bloodGroup">
+
+          <option value="">Select Blood Group</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Mobile -->
+
+      <div class="form-group">
+
+        <label>
+          Mobile No. <span>*</span>
+        </label>
+
+        <input
+          type="tel"
+          [(ngModel)]="employeeForm.mobileNumber"
+          placeholder="Enter Mobile Number">
+
+      </div>
+
+
+      <!-- Email -->
+
+      <div class="form-group">
+
+        <label>
+          Personal Email ID <span>*</span>
+        </label>
+
+        <input
+          type="email"
+          [(ngModel)]="employeeForm.personalEmail"
+          placeholder="Enter Personal Email ID">
+
+      </div>
+
+
+      <!-- Nationality -->
+
+      <div class="form-group">
+
+        <label>Nationality</label>
+
+        <input
+          type="text"
+          [(ngModel)]="employeeForm.nationality"
+          placeholder="Nationality">
+
+      </div>
+
+
+      <!-- Marital Status -->
+
+      <div class="form-group">
+
+        <label>Marital Status</label>
+
+        <select [(ngModel)]="employeeForm.maritalStatus">
+
+          <option value="Single">Single</option>
+          <option value="Married">Married</option>
+          <option value="Divorced">Divorced</option>
+          <option value="Widowed">Widowed</option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Spouse -->
+
+      <div class="form-group">
+
+        <label>Spouse Name</label>
+
+        <input
+          type="text"
+          [(ngModel)]="employeeForm.spouseName"
+          placeholder="Enter Spouse Name">
+
+      </div>
+
+
+      <!-- Aadhaar -->
+
+      <div class="form-group">
+
+        <label>Aadhaar Number</label>
+
+        <input
+          type="text"
+          [(ngModel)]="employeeForm.aadhaarNumber"
+          placeholder="Enter Aadhaar Number">
+
+      </div>
+
+
+      <!-- PAN -->
+
+      <div class="form-group">
+
+        <label>PAN No.</label>
+
+        <input
+          type="text"
+          [(ngModel)]="employeeForm.panNumber"
+          placeholder="Enter PAN No.">
+
+      </div>
+
+
+      <!-- Religion -->
+
+      <div class="form-group">
+
+        <label>Religion</label>
+
+        <select [(ngModel)]="employeeForm.religion">
+
+          <option value="Hindu">Hindu</option>
+          <option value="Muslim">Muslim</option>
+          <option value="Christian">Christian</option>
+          <option value="Sikh">Sikh</option>
+          <option value="Buddhist">Buddhist</option>
+          <option value="Jain">Jain</option>
+          <option value="Other">Other</option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= ADDRESS ================= -->
+
+    <div class="section-divider"></div>
+
+
+    <div class="address-container">
+
+
+      <!-- CURRENT ADDRESS -->
+
+      <div class="address-section">
+
+        <h2>Current Address</h2>
+
+
+        <div class="form-group">
+
+          <label>Address</label>
+
+          <textarea
+            [(ngModel)]="employeeForm.currentAddress"
+            placeholder="Enter Address">
+          </textarea>
+
+        </div>
+
+
+        <div class="address-grid">
+
+          <div class="form-group">
+
+            <label>
+              Country <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.currentCountry"
+              placeholder="Search here..">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              State <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.currentState"
+              placeholder="Search here..">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              City <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.currentCity"
+              placeholder="City">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Pincode <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.currentPincode"
+              placeholder="Pincode">
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PERMANENT ADDRESS -->
+
+      <div class="address-section">
+
+        <div class="address-title">
+
+          <h2>Permanent Address</h2>
+
+          <label class="same-address">
+
+            <input
+              type="checkbox"
+              (change)="copyCurrentAddress()">
+
+            Same as current
+
+          </label>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Address</label>
+
+          <textarea
+            [(ngModel)]="employeeForm.permanentAddress"
+            placeholder="Enter Address">
+          </textarea>
+
+        </div>
+
+
+        <div class="address-grid">
+
+          <div class="form-group">
+
+            <label>
+              Country <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.permanentCountry"
+              placeholder="Search here..">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              State <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.permanentState"
+              placeholder="Search here..">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              City <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.permanentCity"
+              placeholder="City">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Pincode <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeForm.permanentPincode"
+              placeholder="Pincode">
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= EMERGENCY ================= -->
+
+    <div class="section-divider"></div>
+
+
+    <div class="emergency-section">
+
+      <h2>Emergency Contacts</h2>
+
+
+      <div class="emergency-grid">
+
+        <div class="form-group">
+
+          <label>Contact Person</label>
+
+          <input
+            type="text"
+            [(ngModel)]="employeeForm.emergencyContact"
+            placeholder="Enter Contact Person">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Mobile No.</label>
+
+          <input
+            type="tel"
+            [(ngModel)]="employeeForm.emergencyMobile"
+            placeholder="Enter Mobile Number">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Relation</label>
+
+          <input
+            type="text"
+            [(ngModel)]="employeeForm.emergencyRelation"
+            placeholder="Enter Relation">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="form-footer">
+
+  <button
+    type="button"
+    class="cancel-btn"
+    (click)="goBack()">
+    Cancel
+  </button>
+
+  <button
+    type="button"
+    class="save-btn"
+    (click)="saveEmployee()">
+    Save Employee
+  </button>
+
+</div>

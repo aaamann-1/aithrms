@@ -8,9 +8,14 @@
       <p>Manage employees and their account details</p>
     </div>
 
-    <button class="new-employee-btn" (click)="openForm()">
+    <button
+      class="new-employee-btn"
+      type="button"
+      (click)="openForm()">
+
       <span>+</span>
       New Employee
+
     </button>
 
   </div>
@@ -20,134 +25,56 @@
   <div class="employee-card">
 
     <div class="card-header">
-      <h2>Employee List</h2>
-      <span>{{ employees.length }} Employees</span>
+
+      <div>
+        <h2>Employee List</h2>
+      </div>
+
+      <span>
+        {{ employees.length }} Employees
+      </span>
+
     </div>
+
 
     <div class="employee-table">
 
+      <!-- Table Header -->
       <div class="table-header">
         <div>Name</div>
         <div>Email</div>
         <div>Status</div>
       </div>
 
-      <div class="table-row" *ngFor="let employee of employees">
+
+      <!-- Employee Rows -->
+      <div
+        class="table-row"
+        *ngFor="let employee of employees">
 
         <div class="employee-name">
+
           <div class="avatar">
             {{ employee.name.charAt(0) }}
           </div>
 
-          <span>{{ employee.name }}</span>
+          <span>
+            {{ employee.name }}
+          </span>
+
         </div>
+
 
         <div class="employee-email">
           {{ employee.email }}
         </div>
+
 
         <div>
           <span class="status active">
             Active
           </span>
         </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- New Employee Form -->
-
-  <div class="form-overlay" *ngIf="showForm">
-
-    <div class="employee-form">
-
-      <div class="form-header">
-
-        <div>
-          <h2>New Employee</h2>
-          <p>Create a new employee account</p>
-        </div>
-
-        <button
-          class="close-btn"
-          type="button"
-          (click)="closeForm()">
-          ×
-        </button>
-
-      </div>
-
-
-      <div class="form-body">
-
-        <!-- Name -->
-        <div class="form-group">
-
-          <label for="name">
-            Name
-          </label>
-
-          <input
-            id="name"
-            type="text"
-            placeholder="Enter employee name">
-
-        </div>
-
-
-        <!-- Email -->
-        <div class="form-group">
-
-          <label for="email">
-            Email
-          </label>
-
-          <input
-            id="email"
-            type="email"
-            placeholder="Enter employee email">
-
-        </div>
-
-
-        <!-- Password -->
-        <div class="form-group">
-
-          <label for="password">
-            Password
-          </label>
-
-          <input
-            id="password"
-            type="password"
-            placeholder="Enter password">
-
-        </div>
-
-      </div>
-
-
-      <!-- Buttons -->
-
-      <div class="form-footer">
-
-        <button
-          type="button"
-          class="cancel-btn"
-          (click)="closeForm()">
-          Cancel
-        </button>
-
-        <button
-          type="button"
-          class="create-btn"
-          (click)="createEmployee()">
-          Create Employee
-        </button>
 
       </div>
 
