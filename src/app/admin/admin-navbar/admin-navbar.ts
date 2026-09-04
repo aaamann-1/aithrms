@@ -14,9 +14,9 @@ import { Router } from '@angular/router';
   styleUrl: './admin-navbar.css'
 })
 export class AdminNavbarComponent {
-
+@Output() menuToggle = new EventEmitter<void>();
   searchQuery = '';
-@Output() searchEvent = new EventEmitter<string>();
+
   selectedDate = '';
 
   notificationOpen = false;
@@ -68,17 +68,24 @@ export class AdminNavbarComponent {
 
   }
 
-
+ toggleMenu(): void {
+    this.menuToggle.emit();
+  }
   /* SEARCH */
-performSearch(): void {
-  const query = this.searchQuery.trim();
 
-  if (!query) {
-    return;
+  performSearch(): void {
+
+    const query = this.searchQuery.trim();
+
+    if (!query) {
+      return;
+    }
+
+    console.log('Searching:', query);
+
   }
 
-  this.searchEvent.emit(query);
-}
+
   onSearchKey(event: KeyboardEvent): void {
 
     if (event.key === 'Enter') {

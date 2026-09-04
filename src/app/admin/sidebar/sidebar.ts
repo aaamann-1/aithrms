@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.css'
 })
 export class SidebarComponent {
-
+collapsed = input(false);
   constructor(private router: Router) {}
 
   logout(): void {

@@ -1,11 +1,14 @@
 <div class="admin-layout">
 
-  <app-sidebar></app-sidebar>
+  <app-sidebar
+    [collapsed]="sidebarCollapsed">
+  </app-sidebar>
 
-  <div class="main-area">
+  <div class="main-area"
+       [class.sidebar-collapsed]="sidebarCollapsed">
 
     <app-admin-navbar
-      (searchEvent)="onSearch($event)">
+      (menuToggle)="toggleSidebar()">
     </app-admin-navbar>
 
     <main class="page-content">

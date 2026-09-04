@@ -1,3 +1,19 @@
+.menu-toggle {
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.menu-toggle:hover {
+  background: #f1f2f7;
+}
 .top-header {
   height: 72px;
 
