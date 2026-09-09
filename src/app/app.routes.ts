@@ -23,6 +23,7 @@ import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
 import { ExportReports } from './admin/export-reports/export-reports';
 import { Settings } from './admin/settings/settings';
+import { Profile as AdminProfile } from './admin/profile/profile';
 // =========================
 // STAFF
 // =========================
@@ -139,6 +140,11 @@ export const routes: Routes = [
 {
   path: 'settings',
   component: Settings
+},
+
+{
+  path: 'profile',
+  component: AdminProfile
 },
 
       // DEFAULT ADMIN PAGE

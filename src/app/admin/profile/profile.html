@@ -1,0 +1,645 @@
+<section class="profile-page">
+
+  <!-- ================= PAGE HEADER ================= -->
+
+  <div class="page-header">
+
+    <div>
+      <h1>My Profile</h1>
+
+      <p>
+        Manage your personal information and account settings
+      </p>
+    </div>
+
+    <div class="breadcrumb">
+      <span>Dashboard</span>
+      <span>›</span>
+      <strong>My Profile</strong>
+    </div>
+
+  </div>
+
+
+  <!-- ================= MAIN GRID ================= -->
+
+  <div class="profile-grid">
+
+
+    <!-- ================= LEFT ================= -->
+
+    <div class="left-column">
+
+      <div class="card profile-card">
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-header">
+
+          <div class="avatar-wrapper">
+
+            @if (profileImage) {
+
+              <img
+                [src]="profileImage"
+                alt="Profile photo"
+                class="profile-avatar-image"
+              >
+
+            } @else {
+
+              <div class="profile-avatar">
+                DS
+              </div>
+
+            }
+
+            <div class="camera-button">
+              📷
+            </div>
+
+          </div>
+
+
+          <div class="profile-info">
+
+            <h2>
+              {{ fullName }}
+            </h2>
+
+            <p class="role">
+              {{ role }}
+            </p>
+
+            <span class="status">
+              ● Active
+            </span>
+
+            <div class="contact">
+
+              <span>
+                ✉ {{ email }}
+              </span>
+
+              <span>
+                ☎ {{ phone }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="photo-action">
+
+            <input
+              #photoInput
+              type="file"
+              accept="image/*"
+              hidden
+              (change)="onPhotoSelected($event)"
+            >
+
+            <button
+              type="button"
+              class="outline-button"
+              (click)="triggerPhotoUpload(photoInput)"
+            >
+              ✎ Change Photo
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= PERSONAL INFORMATION ================= -->
+
+        <div class="section-title">
+          Personal Information
+        </div>
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>FULL NAME</label>
+
+            <input
+              type="text"
+              [(ngModel)]="fullName"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>EMAIL ADDRESS</label>
+
+            <input
+              type="email"
+              [(ngModel)]="email"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>PHONE NUMBER</label>
+
+            <input
+              type="text"
+              [(ngModel)]="phone"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>ROLE</label>
+
+            <input
+              type="text"
+              [(ngModel)]="role"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>DEPARTMENT</label>
+
+            <input
+              type="text"
+              [(ngModel)]="department"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>EMPLOYEE ID</label>
+
+            <input
+              type="text"
+              [(ngModel)]="employeeId"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= ACTIONS ================= -->
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="primary-button"
+            (click)="saveChanges()"
+          >
+            💾 Save Changes
+          </button>
+
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="cancelChanges()"
+          >
+            Cancel
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= RIGHT ================= -->
+
+    <div class="right-column">
+
+
+      <!-- ================= ACCOUNT SETTINGS ================= -->
+
+      <div class="card">
+
+        <div class="card-heading">
+
+          <div class="heading-icon">
+            ⚙
+          </div>
+
+          <div>
+            <h3>Account Settings</h3>
+
+            <p>
+              Manage your account preferences
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- CHANGE PASSWORD -->
+
+        <button
+          type="button"
+          class="setting-item"
+          (click)="openChangePassword()"
+        >
+
+          <span class="setting-icon">
+            🔒
+          </span>
+
+          <span class="setting-text">
+
+            <strong>
+              Change Password
+            </strong>
+
+            <small>
+              Update your account password
+            </small>
+
+          </span>
+
+          <span class="arrow">
+            ›
+          </span>
+
+        </button>
+
+
+        <!-- NOTIFICATIONS -->
+
+        <button
+          type="button"
+          class="setting-item"
+          (click)="toggleNotifications()"
+        >
+
+          <span class="setting-icon">
+            🔔
+          </span>
+
+          <span class="setting-text">
+
+            <strong>
+              Notification Preferences
+            </strong>
+
+            <small>
+              {{ notificationsEnabled ? 'Notifications are enabled' : 'Notifications are disabled' }}
+            </small>
+
+          </span>
+
+          <span class="arrow">
+            ›
+          </span>
+
+        </button>
+
+
+        <!-- APPEARANCE -->
+
+        <button
+          type="button"
+          class="setting-item"
+          (click)="toggleAppearance()"
+        >
+
+          <span class="setting-icon">
+            ◐
+          </span>
+
+          <span class="setting-text">
+
+            <strong>
+              Appearance
+            </strong>
+
+            <small>
+              Choose theme and display settings
+            </small>
+
+          </span>
+
+          <span class="arrow">
+            ›
+          </span>
+
+        </button>
+
+
+        <!-- LANGUAGE -->
+
+        <button
+          type="button"
+          class="setting-item"
+          (click)="toggleLanguage()"
+        >
+
+          <span class="setting-icon">
+            🌐
+          </span>
+
+          <span class="setting-text">
+
+            <strong>
+              Language
+            </strong>
+
+            <small>
+              {{ selectedLanguage }}
+            </small>
+
+          </span>
+
+          <span class="arrow">
+            ›
+          </span>
+
+        </button>
+
+
+        <!-- NOTIFICATION STATUS -->
+
+        @if (showNotificationSettings) {
+
+          <div class="inline-setting">
+
+            <strong>
+              Notifications
+            </strong>
+
+            <button
+              type="button"
+              class="mini-toggle"
+              [class.on]="notificationsEnabled"
+              (click)="notificationsEnabled = !notificationsEnabled"
+            >
+              <span></span>
+            </button>
+
+          </div>
+
+        }
+
+
+        <!-- APPEARANCE SETTINGS -->
+
+        @if (showAppearanceSettings) {
+
+          <div class="inline-setting">
+
+            <div>
+
+              <strong>
+                Dark Mode
+              </strong>
+
+              <small>
+                Switch the interface theme
+              </small>
+
+            </div>
+
+            <button
+              type="button"
+              class="mini-toggle"
+              [class.on]="darkMode"
+              (click)="toggleDarkMode()"
+            >
+              <span></span>
+            </button>
+
+          </div>
+
+        }
+
+
+        <!-- LANGUAGE SETTINGS -->
+
+        @if (showLanguageSettings) {
+
+          <div class="language-options">
+
+            <button
+              type="button"
+              [class.selected]="selectedLanguage === 'English'"
+              (click)="changeLanguage('English')"
+            >
+              English
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedLanguage === 'Hindi'"
+              (click)="changeLanguage('Hindi')"
+            >
+              Hindi
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="selectedLanguage === 'Marathi'"
+              (click)="changeLanguage('Marathi')"
+            >
+              Marathi
+            </button>
+
+          </div>
+
+        }
+
+      </div>
+
+
+      <!-- ================= ACCOUNT ACTIVITY ================= -->
+
+      <div class="card">
+
+        <div class="card-heading">
+
+          <div class="heading-icon">
+            ◷
+          </div>
+
+          <div>
+
+            <h3>
+              Account Activity
+            </h3>
+
+            <p>
+              Your recent account activity
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="activity-list">
+
+          @for (activity of activities; track $index) {
+
+            <div class="activity-item">
+
+              <div class="activity-dot"></div>
+
+              <div class="activity-content">
+
+                <strong>
+                  {{ activity.title }}
+                </strong>
+
+                <span>
+                  {{ activity.description }}
+                </span>
+
+              </div>
+
+              <small>
+                {{ activity.time }}
+              </small>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CHANGE PASSWORD MODAL ================= -->
+
+@if (showPasswordForm) {
+
+  <div
+    class="modal-overlay"
+    (click)="closeChangePassword()"
+  >
+
+    <div
+      class="password-modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+            Change Password
+          </h2>
+
+          <p>
+            Update your account password
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="closeChangePassword()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="password-form">
+
+        <div class="form-group">
+
+          <label>
+            CURRENT PASSWORD
+          </label>
+
+          <input
+            type="password"
+            placeholder="Enter current password"
+            [(ngModel)]="currentPassword"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            NEW PASSWORD
+          </label>
+
+          <input
+            type="password"
+            placeholder="Enter new password"
+            [(ngModel)]="newPassword"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            CONFIRM NEW PASSWORD
+          </label>
+
+          <input
+            type="password"
+            placeholder="Confirm new password"
+            [(ngModel)]="confirmPassword"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="closeChangePassword()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="updatePassword()"
+        >
+          Change Password
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
