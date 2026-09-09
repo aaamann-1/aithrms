@@ -275,6 +275,47 @@
 
     </div>
 
+    <div class="form-group">
+
+  <label>
+    Designation <span>*</span>
+  </label>
+
+  <select
+    [(ngModel)]="employeeForm.designation">
+
+    <option value="">
+      Select Designation
+    </option>
+
+    <option value="Support Executive">
+      Support Executive
+    </option>
+
+    <option value="Senior Support Executive">
+      Senior Support Executive
+    </option>
+
+    <option value="Team Leader">
+      Team Leader
+    </option>
+
+    <option value="HR Executive">
+      HR Executive
+    </option>
+
+    <option value="Manager">
+      Manager
+    </option>
+
+    <option value="Admin">
+      Admin
+    </option>
+
+  </select>
+
+</div>
+
 
     <!-- ================= ADDRESS ================= -->
 
@@ -286,238 +327,213 @@
 
       <!-- CURRENT ADDRESS -->
 
-      <div class="address-section">
-
-        <h2>Current Address</h2>
-
-
-        <div class="form-group">
-
-          <label>Address</label>
-
-          <textarea
-            [(ngModel)]="employeeForm.currentAddress"
-            placeholder="Enter Address">
-          </textarea>
-
-        </div>
-
-
-        <div class="address-grid">
-
-          <div class="form-group">
-
-            <label>
-              Country <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.currentCountry"
-              placeholder="Search here..">
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>
-              State <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.currentState"
-              placeholder="Search here..">
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>
-              City <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.currentCity"
-              placeholder="City">
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>
-              Pincode <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.currentPincode"
-              placeholder="Pincode">
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- PERMANENT ADDRESS -->
-
-      <div class="address-section">
-
-        <div class="address-title">
-
-          <h2>Permanent Address</h2>
-
-          <label class="same-address">
-
-            <input
-              type="checkbox"
-              (change)="copyCurrentAddress()">
-
-            Same as current
-
-          </label>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Address</label>
-
-          <textarea
-            [(ngModel)]="employeeForm.permanentAddress"
-            placeholder="Enter Address">
-          </textarea>
-
-        </div>
-
-
-        <div class="address-grid">
-
-          <div class="form-group">
-
-            <label>
-              Country <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.permanentCountry"
-              placeholder="Search here..">
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>
-              State <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.permanentState"
-              placeholder="Search here..">
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>
-              City <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.permanentCity"
-              placeholder="City">
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>
-              Pincode <span>*</span>
-            </label>
-
-            <input
-              type="text"
-              [(ngModel)]="employeeForm.permanentPincode"
-              placeholder="Pincode">
-
-          </div>
-
-        </div>
-
-      </div>
-
+      <!-- ================= CURRENT & PERMANENT ADDRESS ================= -->
+
+<div class="form-section">
+  <div class="section-header">
+    <h2>Current Address</h2>
+    <p>Enter the employee's current residential address</p>
+  </div>
+
+  <div class="address-grid">
+
+    <div class="form-group">
+      <label>Address Line 1</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.currentAddress1"
+        placeholder="Enter address line 1"
+      />
     </div>
 
-
-    <!-- ================= EMERGENCY ================= -->
-
-    <div class="section-divider"></div>
-
-
-    <div class="emergency-section">
-
-      <h2>Emergency Contacts</h2>
-
-
-      <div class="emergency-grid">
-
-        <div class="form-group">
-
-          <label>Contact Person</label>
-
-          <input
-            type="text"
-            [(ngModel)]="employeeForm.emergencyContact"
-            placeholder="Enter Contact Person">
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Mobile No.</label>
-
-          <input
-            type="tel"
-            [(ngModel)]="employeeForm.emergencyMobile"
-            placeholder="Enter Mobile Number">
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Relation</label>
-
-          <input
-            type="text"
-            [(ngModel)]="employeeForm.emergencyRelation"
-            placeholder="Enter Relation">
-
-        </div>
-
-      </div>
-
+    <div class="form-group">
+      <label>Address Line 2</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.currentAddress2"
+        placeholder="Enter address line 2"
+      />
     </div>
 
+    <div class="form-group">
+      <label>Address Line 3</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.currentAddress3"
+        placeholder="Enter address line 3"
+      />
+    </div>
 
-    <!-- ================= FOOTER ================= -->
+    <div class="form-group">
+      <label>Country</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.currentCountry"
+        placeholder="Enter country"
+      />
+    </div>
 
-    <div class="form-footer">
+    <div class="form-group">
+      <label>State</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.currentState"
+        placeholder="Enter state"
+      />
+    </div>
 
+    <div class="form-group">
+      <label>City</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.currentCity"
+        placeholder="Enter city"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Pincode</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.currentPincode"
+        placeholder="Enter pincode"
+      />
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================= PERMANENT ADDRESS ================= -->
+
+<div class="form-section">
+  <div class="section-header">
+    <h2>Permanent Address</h2>
+    <p>Enter the employee's permanent residential address</p>
+  </div>
+
+  <div class="same-address">
+    <label>
+      <input
+        type="checkbox"
+        (change)="copyCurrentAddress()"
+      />
+      Same as Current Address
+    </label>
+  </div>
+
+  <div class="address-grid">
+
+    <div class="form-group">
+      <label>Address Line 1</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.permanentAddress1"
+        placeholder="Enter address line 1"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Address Line 2</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.permanentAddress2"
+        placeholder="Enter address line 2"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Address Line 3</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.permanentAddress3"
+        placeholder="Enter address line 3"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Country</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.permanentCountry"
+        placeholder="Enter country"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>State</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.permanentState"
+        placeholder="Enter state"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>City</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.permanentCity"
+        placeholder="Enter city"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Pincode</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.permanentPincode"
+        placeholder="Enter pincode"
+      />
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================= EMERGENCY CONTACT ================= -->
+
+<div class="form-section">
+  <div class="section-header">
+    <h2>Emergency Contact</h2>
+    <p>Provide an emergency contact person for the employee</p>
+  </div>
+
+  <div class="emergency-grid">
+
+    <div class="form-group">
+      <label>Contact Person</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.emergencyContact"
+        placeholder="Enter contact person"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Relation</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.emergencyRelation"
+        placeholder="Enter relation"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Mobile No.</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeForm.emergencyMobile"
+        placeholder="Enter mobile number"
+      />
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= FORM ACTIONS ================= -->
+
+<div class="form-footer">
   <button
     type="button"
     class="cancel-btn"
@@ -529,7 +545,6 @@
     type="button"
     class="save-btn"
     (click)="saveEmployee()">
-    Save Employee
+    {{ isEditMode ? 'Update Employee' : 'Save Employee' }}
   </button>
-
 </div>

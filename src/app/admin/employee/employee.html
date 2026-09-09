@@ -1,6 +1,9 @@
 <div class="employee-page">
 
-  <!-- Page Header -->
+  <!-- ==============================
+       PAGE HEADER
+  =============================== -->
+
   <div class="page-header">
 
     <div>
@@ -8,76 +11,392 @@
       <p>Manage employees and their account details</p>
     </div>
 
-    <button
-      class="new-employee-btn"
-      type="button"
-      (click)="openForm()">
-
-      <span>+</span>
-      New Employee
-
-    </button>
+    <button type="button" class="new-employee-btn" (click)="openForm()">
+  + New Employee
+</button>
 
   </div>
 
 
-  <!-- Employee List -->
+  <!-- ==============================
+       EMPLOYEE LIST
+  =============================== -->
+
   <div class="employee-card">
 
-    <div class="card-header">
+    <div class="list-header">
 
-      <div>
-        <h2>Employee List</h2>
-      </div>
+      <h2>Employee List</h2>
 
-      <span>
+      <span class="employee-count">
         {{ employees.length }} Employees
       </span>
 
     </div>
 
 
-    <div class="employee-table">
+    <!-- TABLE HEADER -->
 
-      <!-- Table Header -->
-      <div class="table-header">
-        <div>Name</div>
-        <div>Email</div>
-        <div>Status</div>
+    <div class="table-header">
+
+      <div>NAME</div>
+      <div>EMAIL</div>
+      <div>DESIGNATION</div>
+      <div>STATUS</div>
+      <div>ACTIONS</div>
+
+    </div>
+
+
+    <!-- EMPLOYEE LIST -->
+
+    <div
+      class="employee-row"
+      *ngFor="let employee of employees">
+
+      <!-- NAME -->
+
+      <div class="employee-name">
+
+        <div class="avatar">
+          {{ employee.name.charAt(0).toUpperCase() }}
+        </div>
+
+        <span>
+          {{ employee.name }}
+        </span>
+
       </div>
 
 
-      <!-- Employee Rows -->
-      <div
-        class="table-row"
-        *ngFor="let employee of employees">
+      <!-- EMAIL -->
 
-        <div class="employee-name">
+      <div class="employee-email">
+        {{ employee.email }}
+      </div>
 
-          <div class="avatar">
-            {{ employee.name.charAt(0) }}
+
+      <!-- DESIGNATION -->
+
+      <div class="employee-designation">
+        {{ employee.designation }}
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div>
+
+        <span
+          class="status-badge"
+          [class.inactive]="employee.status === 'Inactive'">
+
+          {{ employee.status }}
+
+        </span>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="actions">
+
+        <!-- VIEW -->
+
+        <button
+          type="button"
+          class="action-btn view-btn"
+          title="View Employee"
+          (click)="viewEmployee(employee)">
+
+          👁️
+
+        </button>
+
+
+        <!-- EDIT -->
+
+        <button
+          type="button"
+          class="action-btn edit-btn"
+          title="Edit Employee"
+          (click)="editEmployee(employee)">
+
+          ✏️
+
+        </button>
+
+
+        <!-- DELETE -->
+
+        <button
+          type="button"
+          class="action-btn delete-btn"
+          title="Delete Employee"
+          (click)="deleteEmployee(employee)">
+
+          🗑️
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- NO EMPLOYEES -->
+
+    <div
+      class="empty-state"
+      *ngIf="employees.length === 0">
+
+      <h3>No employees found</h3>
+
+      <p>
+        Click "New Employee" to add an employee.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- VIEW EMPLOYEE MODAL -->
+<div class="view-overlay" *ngIf="showView && selectedEmployee">
+
+  <div class="view-modal">
+
+    <div class="view-modal-header">
+      <div>
+        <h2>Employee Details</h2>
+        <p>View employee information</p>
+      </div>
+
+      <button
+        type="button"
+        class="close-view-btn"
+        (click)="closeView()">
+        ×
+      </button>
+    </div>
+
+    <div class="view-content">
+
+      <!-- PERSONAL INFORMATION -->
+      <div class="view-section">
+        <h3>Personal Information</h3>
+
+        <div class="view-grid">
+
+          <div>
+            <span>Employee Name</span>
+            <strong>{{ selectedEmployee.title }} {{ selectedEmployee.name }}</strong>
           </div>
 
-          <span>
-            {{ employee.name }}
-          </span>
+          <div>
+            <span>Father Name</span>
+            <strong>{{ selectedEmployee.fatherName || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Mother Name</span>
+            <strong>{{ selectedEmployee.motherName || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Gender</span>
+            <strong>{{ selectedEmployee.gender || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Date of Birth</span>
+            <strong>{{ selectedEmployee.dateOfBirth || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Blood Group</span>
+            <strong>{{ selectedEmployee.bloodGroup || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Phone No.</span>
+            <strong>{{ selectedEmployee.phoneNumber || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Mobile No.</span>
+            <strong>{{ selectedEmployee.mobileNumber || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Personal Email ID</span>
+            <strong>{{ selectedEmployee.personalEmail || selectedEmployee.email || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Nationality</span>
+            <strong>{{ selectedEmployee.nationality || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Marital Status</span>
+            <strong>{{ selectedEmployee.maritalStatus || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Spouse Name</span>
+            <strong>{{ selectedEmployee.spouseName || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Aadhaar Number</span>
+            <strong>{{ selectedEmployee.aadhaarNumber || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>PAN No.</span>
+            <strong>{{ selectedEmployee.panNumber || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Religion</span>
+            <strong>{{ selectedEmployee.religion || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Designation</span>
+            <strong>{{ selectedEmployee.designation || '-' }}</strong>
+          </div>
 
         </div>
-
-
-        <div class="employee-email">
-          {{ employee.email }}
-        </div>
-
-
-        <div>
-          <span class="status active">
-            Active
-          </span>
-        </div>
-
       </div>
 
+
+      <!-- CURRENT ADDRESS -->
+      <div class="view-section">
+        <h3>Current Address</h3>
+
+        <div class="view-grid">
+
+          <div>
+            <span>Address Line 1</span>
+            <strong>{{ selectedEmployee.currentAddress1 || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Address Line 2</span>
+            <strong>{{ selectedEmployee.currentAddress2 || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Address Line 3</span>
+            <strong>{{ selectedEmployee.currentAddress3 || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Country</span>
+            <strong>{{ selectedEmployee.currentCountry || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>State</span>
+            <strong>{{ selectedEmployee.currentState || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>City</span>
+            <strong>{{ selectedEmployee.currentCity || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Pincode</span>
+            <strong>{{ selectedEmployee.currentPincode || '-' }}</strong>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- PERMANENT ADDRESS -->
+      <div class="view-section">
+        <h3>Permanent Address</h3>
+
+        <div class="view-grid">
+
+          <div>
+            <span>Address Line 1</span>
+            <strong>{{ selectedEmployee.permanentAddress1 || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Address Line 2</span>
+            <strong>{{ selectedEmployee.permanentAddress2 || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Address Line 3</span>
+            <strong>{{ selectedEmployee.permanentAddress3 || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Country</span>
+            <strong>{{ selectedEmployee.permanentCountry || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>State</span>
+            <strong>{{ selectedEmployee.permanentState || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>City</span>
+            <strong>{{ selectedEmployee.permanentCity || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Pincode</span>
+            <strong>{{ selectedEmployee.permanentPincode || '-' }}</strong>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- EMERGENCY CONTACT -->
+      <div class="view-section">
+        <h3>Emergency Contact</h3>
+
+        <div class="view-grid">
+
+          <div>
+            <span>Contact Person</span>
+            <strong>{{ selectedEmployee.emergencyContact || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Relation</span>
+            <strong>{{ selectedEmployee.emergencyRelation || '-' }}</strong>
+          </div>
+
+          <div>
+            <span>Mobile No.</span>
+            <strong>{{ selectedEmployee.emergencyMobile || '-' }}</strong>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="view-modal-footer">
+      <button
+        type="button"
+        class="cancel-btn"
+        (click)="closeView()">
+        Close
+      </button>
     </div>
 
   </div>
