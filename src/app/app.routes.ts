@@ -1,32 +1,33 @@
 import { Routes } from '@angular/router';
+//import { authGuard } from './auth.guard';
 
 import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
-
-// =========================
 // ADMIN
-// =========================
 
 import { AdminLayout } from './admin/admin-layout/admin-layout';
+
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { IndividualReports } from './admin/reports/individual/individual';
 import { TeamReportsComponent } from './admin/reports/team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
-import { Employee } from './admin/employee/employee';
-import { EmployeeForm } from './admin/employee-form/employee-form';
-
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
+import { Employee } from './admin/employee/employee';
+import { EmployeeForm } from './admin/employee-form/employee-form';
 import { ExportReports } from './admin/export-reports/export-reports';
 import { Settings } from './admin/settings/settings';
+<<<<<<< Updated upstream
 import { Profile as AdminProfile } from './admin/profile/profile';
 // =========================
+=======
+
+>>>>>>> Stashed changes
 // STAFF
-// =========================
 
 import { StaffLayout } from './staff/staff-layout/staff-layout';
 import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
@@ -35,12 +36,9 @@ import { TaskEntry } from './staff/task-entry/task-entry';
 import { Profile } from './staff/profile/profile';
 import { MyReports } from './staff/my-reports/my-reports';
 
-
 export const routes: Routes = [
 
-  // =========================
   // PUBLIC PAGES - HRMS
-  // =========================
 
   {
     path: '',
@@ -62,37 +60,30 @@ export const routes: Routes = [
     component: ForgotPassword
   },
 
-
-  // =========================
   // ADMIN
-  // =========================
 
   {
     path: 'admin',
-
     component: AdminLayout,
-
     children: [
 
       // DASHBOARD
-      {
-        path: 'dashboard',
-        component: Dashboard
-      },
+       {
+      path: 'dashboard',
+      component: Dashboard
+    },
 
-      // LIVE ACTIVITY FEED
       {
         path: 'live-feed',
         component: LiveFeedComponent
       },
 
-      // STAFF MANAGEMENT
       {
         path: 'staff-management',
         component: StaffManagement
       },
 
-      {
+       {
   path: 'employee',
   component: Employee
 },
@@ -101,17 +92,13 @@ export const routes: Routes = [
     path: 'employee/new',
     component: EmployeeForm
   },
-
-      // ATTENDANCE
+  
       {
         path: 'attendance',
         component: Attendance
       },
 
-
-      // =========================
       // ADMIN REPORTS
-      // =========================
 
       {
         path: 'reports/individual',
@@ -123,10 +110,7 @@ export const routes: Routes = [
         component: TeamReportsComponent
       },
 
-
-      // =========================
       // ADMIN OTHER
-      // =========================
 
       {
         path: 'issue-categories',
@@ -137,10 +121,6 @@ export const routes: Routes = [
         path: 'export-reports',
         component: ExportReports
       },
-{
-  path: 'settings',
-  component: Settings
-},
 
 {
   path: 'profile',
@@ -157,9 +137,12 @@ export const routes: Routes = [
     ]
   },
 
+{
+  path: 'admin/settings',
+  component: Settings
+},
   // =========================
   // STAFF
-  // =========================
 
   {
     path: 'staff',
@@ -202,10 +185,7 @@ export const routes: Routes = [
     ]
   },
 
-
-  // =========================
   // INVALID URL
-  // =========================
 
   {
     path: '**',

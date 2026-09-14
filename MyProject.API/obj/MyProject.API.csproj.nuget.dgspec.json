@@ -54,6 +54,13 @@
               "target": "Package",
               "version": "[10.0.11, )"
             },
+<<<<<<< Updated upstream
+=======
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[10.0.11, )"
+            },
+>>>>>>> Stashed changes
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",

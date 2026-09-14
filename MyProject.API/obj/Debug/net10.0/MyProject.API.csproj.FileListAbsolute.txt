@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\RecoveredMyProjectAPI\bin\Debug\net10.0\appsettings.json
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\RecoveredMyProjectAPI\bin\Debug\net10.0\MyProject.API.staticwebassets.endpoints.json
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\RecoveredMyProjectAPI\bin\Debug\net10.0\MyProject.API.exe
@@ -132,6 +133,9 @@ C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\RecoveredMyProjectAPI\obj\Debu
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\RecoveredMyProjectAPI\obj\Debug\net10.0\MyProject.API.pdb
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\RecoveredMyProjectAPI\obj\Debug\net10.0\MyProject.API.genruntimeconfig.cache
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\RecoveredMyProjectAPI\obj\Debug\net10.0\ref\MyProject.API.dll
+=======
+C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\appsettings.Development.json
+>>>>>>> Stashed changes
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\appsettings.json
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\MyProject.API.staticwebassets.endpoints.json
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\MyProject.API.exe
@@ -142,6 +146,10 @@ C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\BCrypt-Net-Next.dll
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\Humanizer.dll
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+<<<<<<< Updated upstream
+=======
+C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+>>>>>>> Stashed changes
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\Microsoft.Build.Framework.dll
 C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll

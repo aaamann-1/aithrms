@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyProject.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< Updated upstream
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fb06be050dd61581bc30c7545810c4175deb3131")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdf39ecb07d8ea1a2a8b818ca1ed2d3ea30c525f")]
+>>>>>>> Stashed changes
 [assembly: System.Reflection.AssemblyProductAttribute("MyProject.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyProject.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:5089
+
+### Test backend
+GET {{baseUrl}}/weatherforecast
+Accept: application/json
+
+
+### Login as seeded Admin
+POST {{baseUrl}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "username": "admin@hrms.com",
+  "contactNumber": "9999999999",
+  "password": "admin@123",
+  "role": "Admin"
+}

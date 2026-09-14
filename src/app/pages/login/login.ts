@@ -14,7 +14,11 @@ export class Login {
   username = '';
   contactNumber = '';
   password = '';
+<<<<<<< Updated upstream
   selectedRole = 'Staff';
+=======
+  selectedRole = 'staff';
+>>>>>>> Stashed changes
 
   constructor(
     private authService: AuthService,
@@ -22,6 +26,7 @@ export class Login {
   ) {}
 
   login() {
+<<<<<<< Updated upstream
     if (
       !this.username ||
       !this.contactNumber ||
@@ -32,6 +37,8 @@ export class Login {
       return;
     }
 
+=======
+>>>>>>> Stashed changes
     const loginData = {
       username: this.username,
       contactNumber: this.contactNumber,
@@ -44,6 +51,7 @@ export class Login {
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
 
+<<<<<<< Updated upstream
         if (response.role === 'Admin') {
           this.router.navigate(['/admin']);
         } else {
@@ -59,6 +67,23 @@ export class Login {
           'Login failed. Check your details and role.'
         );
       }
+=======
+
+        
+       if (response.role === 'Admin') {
+  this.router.navigate(['/admin']);
+} else {
+  this.router.navigate(['/staff']);
+}
+      },
+
+
+     error: (error: any) => {
+      console.log(error);
+    alert(error.error?.message || 'Login failed. Check your details and role.');
+  
+}
+>>>>>>> Stashed changes
     });
   }
 }

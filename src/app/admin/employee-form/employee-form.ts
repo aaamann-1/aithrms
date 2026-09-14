@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './employee-form.html',
   styleUrl: './employee-form.css'
 })
+<<<<<<< Updated upstream
 export class EmployeeForm implements OnInit {
 
   // =========================
@@ -29,6 +31,9 @@ export class EmployeeForm implements OnInit {
   // EMPLOYEE FORM
   // =========================
 
+=======
+export class EmployeeForm {
+>>>>>>> Stashed changes
   employeeForm = {
 
     // PERSONAL
@@ -78,10 +83,17 @@ export class EmployeeForm implements OnInit {
     emergencyRelation: ''
   };
 
+<<<<<<< Updated upstream
 
   // =========================
   // CONSTRUCTOR
   // =========================
+=======
+  constructor(
+    private router: Router,
+    private http: HttpClient
+  ) {}
+>>>>>>> Stashed changes
 
   constructor(
     private router: Router,
@@ -212,6 +224,7 @@ export class EmployeeForm implements OnInit {
     this.router.navigate(['/admin/employee']);
   }
 
+<<<<<<< Updated upstream
 
   // =========================
   // SAVE EMPLOYEE
@@ -459,6 +472,43 @@ export class EmployeeForm implements OnInit {
 
     this.employeeForm.permanentAddress3 =
       this.employeeForm.currentAddress3;
+=======
+  saveEmployee() {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      alert('Admin login token is missing. Please log in again.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.post(
+      'http://localhost:5089/api/Employee',
+      this.employeeForm,
+      { headers }
+    ).subscribe({
+      next: () => {
+        alert('Employee and Staff login account created successfully.');
+        this.router.navigate(['/admin/employee']);
+      },
+      error: (error: any) => {
+        console.log(error);
+        alert(
+          error.error?.message ||
+          'Employee could not be saved. Please check all required fields.'
+        );
+      }
+    });
+  }
+
+  copyCurrentAddress() {
+    this.employeeForm.permanentAddress =
+      this.employeeForm.currentAddress;
+>>>>>>> Stashed changes
 
     this.employeeForm.permanentCountry =
       this.employeeForm.currentCountry;
