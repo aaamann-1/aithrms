@@ -21,12 +21,8 @@ import { Employee } from './admin/employee/employee';
 import { EmployeeForm } from './admin/employee-form/employee-form';
 import { ExportReports } from './admin/export-reports/export-reports';
 import { Settings } from './admin/settings/settings';
-<<<<<<< Updated upstream
 import { Profile as AdminProfile } from './admin/profile/profile';
 // =========================
-=======
-
->>>>>>> Stashed changes
 // STAFF
 
 import { StaffLayout } from './staff/staff-layout/staff-layout';

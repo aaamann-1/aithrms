@@ -1,20 +1,12 @@
 {
   "version": 2,
-<<<<<<< Updated upstream
   "dgSpecHash": "1TcC+jMIadI=",
-=======
-  "dgSpecHash": "T7RA50OSi6A=",
->>>>>>> Stashed changes
   "success": true,
   "projectFilePath": "C:\\Users\\Yasmin\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yasmin\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\Yasmin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Yasmin\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\10.0.11\\microsoft.aspnetcore.authentication.jwtbearer.10.0.11.nupkg.sha512",
-<<<<<<< Updated upstream
-=======
-    "C:\\Users\\Yasmin\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.11\\microsoft.aspnetcore.openapi.10.0.11.nupkg.sha512",
->>>>>>> Stashed changes
     "C:\\Users\\Yasmin\\.nuget\\packages\\microsoft.bcl.cryptography\\10.0.2\\microsoft.bcl.cryptography.10.0.2.nupkg.sha512",
     "C:\\Users\\Yasmin\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",
     "C:\\Users\\Yasmin\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.11.0\\microsoft.codeanalysis.analyzers.3.11.0.nupkg.sha512",
