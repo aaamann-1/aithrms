@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-//import { authGuard } from './auth.guard';
+import { adminGuard } from './guards/admin-guard';
 
 import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
@@ -59,9 +59,10 @@ export const routes: Routes = [
   // ADMIN
 
   {
-    path: 'admin',
-    component: AdminLayout,
-    children: [
+  path: 'admin',
+  component: AdminLayout,
+  canActivate: [adminGuard],
+  children: [
 
       // DASHBOARD
        {
@@ -135,7 +136,8 @@ export const routes: Routes = [
 
 {
   path: 'admin/settings',
-  component: Settings
+  component: Settings,
+  canActivate: [adminGuard]
 },
   // =========================
   // STAFF
