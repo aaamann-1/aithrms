@@ -40,16 +40,34 @@ export class Login {
     };
 
     this.authService.login(loginData).subscribe({
-      next: (response: any) => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
 
-        if (response.role === 'Admin') {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/staff']);
-        }
-      },
+
+     next: (response: any) => {
+
+  localStorage.setItem('token', response.token);
+  localStorage.setItem('role', response.role);
+
+  // Save logged-in user's profile information
+  const currentUser = {
+    username: response.username,
+    fullName: response.fullName,
+    contactNumber: response.contactNumber,
+    role: response.role
+  };
+
+  localStorage.setItem(
+    'currentUser',
+    JSON.stringify(currentUser)
+  );
+
+  if (response.role === 'Admin') {
+    this.router.navigate(['/admin']);
+  } else {
+    this.router.navigate(['/staff']);
+  }
+},
+
+
 
       error: (error: any) => {
         console.log(error);

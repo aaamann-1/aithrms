@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,16 +12,18 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
-export class Profile {
+export class Profile implements OnInit {
 
   // =========================
   // PROFILE DATA
   // =========================
 
-  fullName = 'Dev Sharma';
-  email = 'dev.sharma@dsrpanel.com';
-  phone = '+91 98765 43210';
-  role = 'Administrator';
+  fullName = '';
+  email = '';
+  phone = '';
+  role = '';
+
+  // These remain fixed
   department = 'Support & Operations';
   employeeId = 'DSR001';
 
@@ -79,24 +81,81 @@ export class Profile {
   ];
 
   // =========================
+  // LOAD LOGGED-IN ADMIN
+  // =========================
+
+  ngOnInit(): void {
+
+    const storedUser = localStorage.getItem('currentUser');
+
+    if (storedUser) {
+
+      try {
+
+        const user = JSON.parse(storedUser);
+
+        this.fullName =
+          user.fullName || 'Admin';
+
+        this.email =
+          user.username || '';
+
+        this.phone =
+          user.contactNumber || '';
+
+        this.role =
+          user.role === 'Admin'
+            ? 'Administrator'
+            : user.role || '';
+
+      } catch (error) {
+
+        console.error(
+          'Unable to load current user:',
+          error
+        );
+
+      }
+
+    }
+
+  }
+
+  // =========================
   // SAVE PROFILE
   // =========================
 
   saveChanges(): void {
 
-    const user = {
-      name: this.fullName,
-      email: this.email,
-      phone: this.phone,
-      role: this.role,
-      department: this.department,
-      employeeId: this.employeeId
+    const storedUser =
+      localStorage.getItem('currentUser');
+
+    let user: any = {};
+
+    if (storedUser) {
+
+      try {
+        user = JSON.parse(storedUser);
+      } catch {
+        user = {};
+      }
+
+    }
+
+    const updatedUser = {
+      ...user,
+      fullName: this.fullName,
+      username: this.email,
+      contactNumber: this.phone,
+      role: 'Admin'
     };
 
     localStorage.setItem(
       'currentUser',
-      JSON.stringify(user)
+      JSON.stringify(updatedUser)
     );
+
+    this.role = 'Administrator';
 
     this.activities.unshift({
       title: 'Profile updated',
@@ -134,7 +193,8 @@ export class Profile {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.profileImage = reader.result as string;
+      this.profileImage =
+        reader.result as string;
     };
 
     reader.readAsDataURL(file);
@@ -169,12 +229,16 @@ export class Profile {
     }
 
     if (this.newPassword !== this.confirmPassword) {
-      alert('New password and confirm password do not match.');
+      alert(
+        'New password and confirm password do not match.'
+      );
       return;
     }
 
     if (this.newPassword.length < 6) {
-      alert('New password must contain at least 6 characters.');
+      alert(
+        'New password must contain at least 6 characters.'
+      );
       return;
     }
 
@@ -194,6 +258,7 @@ export class Profile {
   // =========================
 
   toggleNotifications(): void {
+
     this.notificationsEnabled =
       !this.notificationsEnabled;
 
@@ -206,13 +271,15 @@ export class Profile {
   // =========================
 
   toggleAppearance(): void {
+
     this.showAppearanceSettings =
       !this.showAppearanceSettings;
   }
 
   toggleDarkMode(): void {
 
-    this.darkMode = !this.darkMode;
+    this.darkMode =
+      !this.darkMode;
 
     document.body.classList.toggle(
       'dark-mode',
@@ -225,15 +292,19 @@ export class Profile {
   // =========================
 
   toggleLanguage(): void {
+
     this.showLanguageSettings =
       !this.showLanguageSettings;
   }
 
   changeLanguage(language: string): void {
+
     this.selectedLanguage = language;
     this.showLanguageSettings = false;
 
-    alert(`Language changed to ${language}.`);
+    alert(
+      `Language changed to ${language}.`
+    );
   }
 
   // =========================
@@ -242,10 +313,36 @@ export class Profile {
 
   cancelChanges(): void {
 
-    this.fullName = 'Dev Sharma';
-    this.email = 'dev.sharma@dsrpanel.com';
-    this.phone = '+91 98765 43210';
-    this.role = 'Administrator';
+    const storedUser =
+      localStorage.getItem('currentUser');
+
+    if (storedUser) {
+
+      try {
+
+        const user = JSON.parse(storedUser);
+
+        this.fullName =
+          user.fullName || 'Admin';
+
+        this.email =
+          user.username || '';
+
+        this.phone =
+          user.contactNumber || '';
+
+        this.role =
+          user.role === 'Admin'
+            ? 'Administrator'
+            : user.role || '';
+
+      } catch {
+        // Keep current values
+      }
+
+    }
+
+    // These remain fixed
     this.department = 'Support & Operations';
     this.employeeId = 'DSR001';
 
