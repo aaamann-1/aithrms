@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-employee-form',
@@ -15,15 +16,22 @@ import { Router } from '@angular/router';
 })
 export class EmployeeForm implements OnInit {
 
+  // =========================
+  // EDIT MODE
+  // =========================
+
   isEditMode = false;
 
   editingEmployeeId: number | null = null;
 
+
+  // =========================
+  // EMPLOYEE FORM
+  // =========================
+
   employeeForm = {
 
-    // =========================
     // PERSONAL
-    // =========================
 
     title: 'Mr.',
     employeeName: '',
@@ -43,9 +51,7 @@ export class EmployeeForm implements OnInit {
     religion: 'Hindu',
     designation: '',
 
-    // =========================
     // CURRENT ADDRESS
-    // =========================
 
     currentAddress1: '',
     currentAddress2: '',
@@ -55,9 +61,7 @@ export class EmployeeForm implements OnInit {
     currentCity: '',
     currentPincode: '',
 
-    // =========================
     // PERMANENT ADDRESS
-    // =========================
 
     permanentAddress1: '',
     permanentAddress2: '',
@@ -67,9 +71,7 @@ export class EmployeeForm implements OnInit {
     permanentCity: '',
     permanentPincode: '',
 
-    // =========================
     // EMERGENCY
-    // =========================
 
     emergencyContact: '',
     emergencyMobile: '',
@@ -77,7 +79,14 @@ export class EmployeeForm implements OnInit {
   };
 
 
-  constructor(private router: Router) {}
+  // =========================
+  // CONSTRUCTOR
+  // =========================
+
+  constructor(
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
 
   // =========================
@@ -100,7 +109,7 @@ export class EmployeeForm implements OnInit {
       this.employeeForm = {
 
         title: employee.title || 'Mr.',
-        employeeName: employee.name || '',
+        employeeName: employee.name || employee.employeeName || '',
         fatherName: employee.fatherName || '',
         motherName: employee.motherName || '',
         gender: employee.gender || 'Male',
@@ -108,34 +117,85 @@ export class EmployeeForm implements OnInit {
         bloodGroup: employee.bloodGroup || '',
         phoneNumber: employee.phoneNumber || '',
         mobileNumber: employee.mobileNumber || '',
-        personalEmail: employee.personalEmail || employee.email || '',
-        nationality: employee.nationality || 'Indian',
-        maritalStatus: employee.maritalStatus || 'Single',
-        spouseName: employee.spouseName || '',
-        aadhaarNumber: employee.aadhaarNumber || '',
-        panNumber: employee.panNumber || '',
-        religion: employee.religion || 'Hindu',
-        designation: employee.designation || '',
+        personalEmail:
+          employee.personalEmail ||
+          employee.email ||
+          '',
+        nationality:
+          employee.nationality ||
+          'Indian',
+        maritalStatus:
+          employee.maritalStatus ||
+          'Single',
+        spouseName:
+          employee.spouseName ||
+          '',
+        aadhaarNumber:
+          employee.aadhaarNumber ||
+          '',
+        panNumber:
+          employee.panNumber ||
+          '',
+        religion:
+          employee.religion ||
+          'Hindu',
+        designation:
+          employee.designation ||
+          '',
 
-        currentAddress1: employee.currentAddress1 || '',
-        currentAddress2: employee.currentAddress2 || '',
-        currentAddress3: employee.currentAddress3 || '',
-        currentCountry: employee.currentCountry || '',
-        currentState: employee.currentState || '',
-        currentCity: employee.currentCity || '',
-        currentPincode: employee.currentPincode || '',
+        currentAddress1:
+          employee.currentAddress1 ||
+          '',
+        currentAddress2:
+          employee.currentAddress2 ||
+          '',
+        currentAddress3:
+          employee.currentAddress3 ||
+          '',
+        currentCountry:
+          employee.currentCountry ||
+          '',
+        currentState:
+          employee.currentState ||
+          '',
+        currentCity:
+          employee.currentCity ||
+          '',
+        currentPincode:
+          employee.currentPincode ||
+          '',
 
-        permanentAddress1: employee.permanentAddress1 || '',
-        permanentAddress2: employee.permanentAddress2 || '',
-        permanentAddress3: employee.permanentAddress3 || '',
-        permanentCountry: employee.permanentCountry || '',
-        permanentState: employee.permanentState || '',
-        permanentCity: employee.permanentCity || '',
-        permanentPincode: employee.permanentPincode || '',
+        permanentAddress1:
+          employee.permanentAddress1 ||
+          '',
+        permanentAddress2:
+          employee.permanentAddress2 ||
+          '',
+        permanentAddress3:
+          employee.permanentAddress3 ||
+          '',
+        permanentCountry:
+          employee.permanentCountry ||
+          '',
+        permanentState:
+          employee.permanentState ||
+          '',
+        permanentCity:
+          employee.permanentCity ||
+          '',
+        permanentPincode:
+          employee.permanentPincode ||
+          '',
 
-        emergencyContact: employee.emergencyContact || '',
-        emergencyMobile: employee.emergencyMobile || '',
-        emergencyRelation: employee.emergencyRelation || ''
+        emergencyContact:
+          employee.emergencyContact ||
+          '',
+        emergencyMobile:
+          employee.emergencyMobile ||
+          '',
+        emergencyRelation:
+          employee.emergencyRelation ||
+          ''
       };
     }
   }
@@ -154,10 +214,14 @@ export class EmployeeForm implements OnInit {
 
 
   // =========================
-  // SAVE / UPDATE
+  // SAVE EMPLOYEE
   // =========================
 
   saveEmployee(): void {
+
+    // -------------------------
+    // VALIDATION
+    // -------------------------
 
     if (!this.employeeForm.employeeName.trim()) {
 
@@ -191,92 +255,193 @@ export class EmployeeForm implements OnInit {
     }
 
 
-    const existingEmployees =
-      JSON.parse(
-        localStorage.getItem('employees') || '[]'
-      );
+    // -------------------------
+    // CREATE REQUEST
+    // -------------------------
+
+    const request = {
+
+      title:
+        this.employeeForm.title,
+
+      employeeName:
+        this.employeeForm.employeeName,
+
+      fatherName:
+        this.employeeForm.fatherName,
+
+      motherName:
+        this.employeeForm.motherName,
+
+      gender:
+        this.employeeForm.gender,
+
+      dateOfBirth:
+        this.employeeForm.dateOfBirth,
+
+      bloodGroup:
+        this.employeeForm.bloodGroup,
+
+      mobileNumber:
+        this.employeeForm.mobileNumber,
+
+      personalEmail:
+        this.employeeForm.personalEmail,
+
+      nationality:
+        this.employeeForm.nationality,
+
+      maritalStatus:
+        this.employeeForm.maritalStatus,
+
+      spouseName:
+        this.employeeForm.spouseName,
+
+      aadhaarNumber:
+        this.employeeForm.aadhaarNumber,
+
+      panNumber:
+        this.employeeForm.panNumber,
+
+      religion:
+        this.employeeForm.religion,
+
+
+      // -------------------------
+      // CURRENT ADDRESS
+      // -------------------------
+
+      currentAddress: [
+
+        this.employeeForm.currentAddress1,
+
+        this.employeeForm.currentAddress2,
+
+        this.employeeForm.currentAddress3
+
+      ]
+        .filter(value => value)
+        .join(', '),
+
+      currentCountry:
+        this.employeeForm.currentCountry,
+
+      currentState:
+        this.employeeForm.currentState,
+
+      currentCity:
+        this.employeeForm.currentCity,
+
+      currentPincode:
+        this.employeeForm.currentPincode,
+
+
+      // -------------------------
+      // PERMANENT ADDRESS
+      // -------------------------
+
+      permanentAddress: [
+
+        this.employeeForm.permanentAddress1,
+
+        this.employeeForm.permanentAddress2,
+
+        this.employeeForm.permanentAddress3
+
+      ]
+        .filter(value => value)
+        .join(', '),
+
+      permanentCountry:
+        this.employeeForm.permanentCountry,
+
+      permanentState:
+        this.employeeForm.permanentState,
+
+      permanentCity:
+        this.employeeForm.permanentCity,
+
+      permanentPincode:
+        this.employeeForm.permanentPincode,
+
+
+      // -------------------------
+      // EMERGENCY
+      // -------------------------
+
+      emergencyContact:
+        this.employeeForm.emergencyContact,
+
+      emergencyMobile:
+        this.employeeForm.emergencyMobile,
+
+      emergencyRelation:
+        this.employeeForm.emergencyRelation
+    };
 
 
     // =========================
-    // UPDATE
+    // SEND TO BACKEND
     // =========================
 
-    if (this.isEditMode && this.editingEmployeeId !== null) {
+    this.http.post(
 
-      const index =
-        existingEmployees.findIndex(
-          (employee: any) =>
-            employee.id === this.editingEmployeeId
+      'http://localhost:5089/api/Employee',
+
+      request
+
+    )
+    .subscribe({
+
+      // =========================
+      // SUCCESS
+      // =========================
+
+      next: (response: any) => {
+
+        console.log(
+          'Employee saved successfully:',
+          response
         );
 
 
-      if (index !== -1) {
+        alert(
+          'Employee saved successfully.'
+        );
 
-        existingEmployees[index] = {
 
-          ...existingEmployees[index],
+        localStorage.removeItem(
+          'editingEmployee'
+        );
 
-          ...this.employeeForm,
 
-          id: this.editingEmployeeId,
+        this.router.navigate(
+          ['/admin/employee']
+        );
+      },
 
-          name: this.employeeForm.employeeName,
 
-          email: this.employeeForm.personalEmail,
+      // =========================
+      // ERROR
+      // =========================
 
-          status:
-            existingEmployees[index].status || 'Active'
-        };
+      error: (error) => {
+
+        console.error(
+          'Employee save error:',
+          error
+        );
+
+
+        const message =
+          error?.error?.message ||
+          'Failed to save employee.';
+
+
+        alert(message);
       }
 
-
-      localStorage.setItem(
-        'employees',
-        JSON.stringify(existingEmployees)
-      );
-
-
-      localStorage.removeItem('editingEmployee');
-
-      alert('Employee updated successfully.');
-
-    }
-
-
-    // =========================
-    // CREATE
-    // =========================
-
-    else {
-
-      const newEmployee = {
-
-        id: Date.now(),
-
-        ...this.employeeForm,
-
-        name: this.employeeForm.employeeName,
-
-        email: this.employeeForm.personalEmail,
-
-        status: 'Active'
-      };
-
-
-      existingEmployees.push(newEmployee);
-
-
-      localStorage.setItem(
-        'employees',
-        JSON.stringify(existingEmployees)
-      );
-
-
-      alert('Employee added successfully.');
-    }
-
-
-    this.router.navigate(['/admin/employee']);
+    });
   }
 
 

@@ -1,0 +1,22 @@
+using System.ComponentModel.DataAnnotations;
+namespace MyProject.API.Models;
+public class User
+{
+    public int Id { get; set; }
+    [Required]
+    [MaxLength(100)]
+    public string FullName { get; set; } = string.Empty;
+    [Required]
+    [MaxLength(50)]
+    public string Username { get; set; } = string.Empty;
+    [Required]
+    [MaxLength(20)]
+    public string ContactNumber { get; set; } = string.Empty;
+    [Required]
+    public string PasswordHash { get; set; } = string.Empty;
+    [Required]
+    [MaxLength(10)]
+    public string Role { get; set; } =string.Empty;
+    public Employee? Employee { get; set; }
+
+}

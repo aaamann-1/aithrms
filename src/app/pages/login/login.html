@@ -5,7 +5,6 @@
     <div class="row min-vh-100">
 
       <!-- LEFT SIDE -->
-
       <div class="col-lg-7 left-panel">
 
         <div class="content">
@@ -64,13 +63,11 @@
       </div>
 
       <!-- RIGHT SIDE -->
-
       <div class="col-lg-5 right-panel">
 
         <div class="login-card">
 
           <h2>Welcome Back!</h2>
-
           <p>Login to continue</p>
 
           <div class="mt-4">
@@ -80,7 +77,7 @@
                 class="form-check-input"
                 type="radio"
                 name="role"
-                value="admin"
+                value="Admin"
                 [(ngModel)]="selectedRole">
 
               <label class="form-check-label">
@@ -93,7 +90,7 @@
                 class="form-check-input"
                 type="radio"
                 name="role"
-                value="staff"
+                value="Staff"
                 [(ngModel)]="selectedRole">
 
               <label class="form-check-label">
@@ -105,22 +102,29 @@
 
           <input
             class="form-control mt-4"
-            placeholder="Username">
+            placeholder="Username"
+            name="username"
+            [(ngModel)]="username">
 
           <input
             class="form-control mt-3"
-            placeholder="Contact Number">
+            placeholder="Contact Number"
+            name="contactNumber"
+            [(ngModel)]="contactNumber">
 
           <input
             class="form-control mt-3"
             placeholder="Password"
-            type="password">
+            type="password"
+            name="password"
+            [(ngModel)]="password">
 
-          <button class="btn btn-primary w-100 mt-4">
+          <button
+            type="button"
+            class="btn btn-primary w-100 mt-4"
+            (click)="login()">
             Sign In
           </button>
-
-          <!-- LOGIN LINKS -->
 
           <div class="login-links">
 
