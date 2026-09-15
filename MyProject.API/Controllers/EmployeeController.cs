@@ -177,6 +177,15 @@ public class EmployeeController : ControllerBase
             Religion =
                 request.Religion,
 
+Department =
+    request.Department,
+
+Designation =
+    request.Designation,
+
+JoiningDate =
+    request.JoiningDate,
+    
             // Current address
             CurrentAddress =
                 request.CurrentAddress,

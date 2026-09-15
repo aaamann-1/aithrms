@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,16 +8,16 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
-export class Profile {
+export class Profile implements OnInit {
 
   // Profile information
-  fullName = 'Rahul Sharma';
-  employeeId = 'EMP-0072';
-  contactNumber = '+91 98765 43210';
-  email = 'rahul.sharma@dsrweb.com';
-  department = 'Billing Support';
-  designation = 'Support Executive';
-  joiningDate = '15 March 2022';
+  fullName = '';
+  employeeId = '';
+  contactNumber = '';
+  email = '';
+  department = '';
+  designation = '';
+  joiningDate = '';
 
   // Popup controls
   showEditProfile = false;
@@ -27,6 +27,17 @@ export class Profile {
   currentPassword = '';
   newPassword = '';
   confirmPassword = '';
+
+  // Load logged-in Staff profile information
+  ngOnInit(): void {
+    this.fullName = localStorage.getItem('fullName') ?? '';
+    this.employeeId = localStorage.getItem('employeeId') ?? '';
+    this.contactNumber = localStorage.getItem('contactNumber') ?? '';
+    this.email = localStorage.getItem('username') ?? '';
+    this.department = localStorage.getItem('department') ?? '';
+    this.designation = localStorage.getItem('designation') ?? '';
+    this.joiningDate = localStorage.getItem('joiningDate') ?? '';
+  }
 
   // Open Edit Profile
   editProfile(): void {

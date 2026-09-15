@@ -48,14 +48,15 @@ export class EmployeeForm implements OnInit {
     spouseName: '',
     aadhaarNumber: '',
     panNumber: '',
-    religion: 'Hindu',
+    religion: '',
     designation: '',
+department: '',
+joiningDate: '',
 
     // CURRENT ADDRESS
 
     currentAddress1: '',
     currentAddress2: '',
-    currentAddress3: '',
     currentCountry: '',
     currentState: '',
     currentCity: '',
@@ -65,7 +66,6 @@ export class EmployeeForm implements OnInit {
 
     permanentAddress1: '',
     permanentAddress2: '',
-    permanentAddress3: '',
     permanentCountry: '',
     permanentState: '',
     permanentCity: '',
@@ -142,6 +142,14 @@ export class EmployeeForm implements OnInit {
         designation:
           employee.designation ||
           '',
+        
+        department:
+  employee.department ||
+  '',
+
+joiningDate:
+  employee.joiningDate ||
+  '',
 
         currentAddress1:
           employee.currentAddress1 ||
@@ -149,9 +157,8 @@ export class EmployeeForm implements OnInit {
         currentAddress2:
           employee.currentAddress2 ||
           '',
-        currentAddress3:
-          employee.currentAddress3 ||
-          '',
+        
+
         currentCountry:
           employee.currentCountry ||
           '',
@@ -171,9 +178,8 @@ export class EmployeeForm implements OnInit {
         permanentAddress2:
           employee.permanentAddress2 ||
           '',
-        permanentAddress3:
-          employee.permanentAddress3 ||
-          '',
+        
+          
         permanentCountry:
           employee.permanentCountry ||
           '',
@@ -224,36 +230,31 @@ export class EmployeeForm implements OnInit {
     // -------------------------
 
     if (!this.employeeForm.employeeName.trim()) {
-
       alert('Please enter Employee Name.');
-
       return;
     }
-
 
     if (!this.employeeForm.mobileNumber.trim()) {
-
       alert('Please enter Mobile Number.');
-
       return;
     }
-
 
     if (!this.employeeForm.personalEmail.trim()) {
-
       alert('Please enter Personal Email ID.');
-
       return;
     }
-
 
     if (!this.employeeForm.designation.trim()) {
-
       alert('Please enter Designation.');
-
       return;
     }
 
+    if (!this.employeeForm.joiningDate) {
+
+  alert('Please select Joining Date.');
+
+  return;
+}
 
     // -------------------------
     // CREATE REQUEST
@@ -306,7 +307,11 @@ export class EmployeeForm implements OnInit {
       religion:
         this.employeeForm.religion,
 
+      department:
+  this.employeeForm.department,
 
+joiningDate:
+  this.employeeForm.joiningDate,
       // -------------------------
       // CURRENT ADDRESS
       // -------------------------
@@ -315,9 +320,7 @@ export class EmployeeForm implements OnInit {
 
         this.employeeForm.currentAddress1,
 
-        this.employeeForm.currentAddress2,
-
-        this.employeeForm.currentAddress3
+        this.employeeForm.currentAddress2
 
       ]
         .filter(value => value)
@@ -344,9 +347,8 @@ export class EmployeeForm implements OnInit {
 
         this.employeeForm.permanentAddress1,
 
-        this.employeeForm.permanentAddress2,
+        this.employeeForm.permanentAddress2
 
-        this.employeeForm.permanentAddress3
 
       ]
         .filter(value => value)
@@ -457,8 +459,6 @@ export class EmployeeForm implements OnInit {
     this.employeeForm.permanentAddress2 =
       this.employeeForm.currentAddress2;
 
-    this.employeeForm.permanentAddress3 =
-      this.employeeForm.currentAddress3;
 
     this.employeeForm.permanentCountry =
       this.employeeForm.currentCountry;

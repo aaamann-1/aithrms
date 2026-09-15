@@ -53,6 +53,12 @@ namespace MyProject.API.Migrations
                     b.Property<string>("DateOfBirth")
                         .HasColumnType("text");
 
+                    b.Property<string>("Department")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Designation")
+                        .HasColumnType("text");
+
                     b.Property<string>("EmergencyContact")
                         .HasColumnType("text");
 
@@ -71,6 +77,9 @@ namespace MyProject.API.Migrations
 
                     b.Property<string>("Gender")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("JoiningDate")
                         .HasColumnType("text");
 
                     b.Property<string>("MaritalStatus")

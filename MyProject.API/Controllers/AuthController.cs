@@ -56,14 +56,16 @@ public class AuthController : ControllerBase
             });
         }
 
-        var user = await _context.Users
-            .FirstOrDefaultAsync(user =>
-                user.Username.ToLower() ==
-                    request.Username.ToLower() &&
-                user.ContactNumber ==
-                    request.ContactNumber &&
-                user.Role.ToLower() ==
-                    request.Role.ToLower());
+       var user = await _context.Users
+    .Include(user => user.Employee)
+    .FirstOrDefaultAsync(user =>
+        user.Username.ToLower() ==
+            request.Username.ToLower() &&
+        user.ContactNumber ==
+            request.ContactNumber &&
+        user.Role.ToLower() ==
+            request.Role.ToLower());
+
 
         if (user is null)
         {
@@ -88,15 +90,23 @@ public class AuthController : ControllerBase
             });
         }
 
-        return Ok(new AuthResponse
-        {
-            Token = CreateToken(user),
-            Username = user.Username,
-            FullName = user.FullName,
-            ContactNumber = user.ContactNumber,
-            Role = user.Role
-        });
+
+return Ok(new AuthResponse
+{
+    Token = CreateToken(user),
+    Username = user.Username,
+    FullName = user.FullName,
+    ContactNumber = user.ContactNumber,
+    Role = user.Role,
+
+    EmployeeId = user.Employee?.Id,
+    Department = user.Employee?.Department,
+    Designation = user.Employee?.Designation,
+    JoiningDate = user.Employee?.JoiningDate
+});
     }
+
+
 
     // =========================================================
     // CREATE JWT TOKEN

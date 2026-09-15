@@ -28,6 +28,9 @@ public class Employee
     public string? PanNumber { get; set; }
     public string? Religion { get; set; }
 
+public string? Department { get; set; }
+public string? Designation { get; set; }
+public string? JoiningDate { get; set; }
     // Current address
     public string? CurrentAddress { get; set; }
     public string? CurrentCountry { get; set; }
