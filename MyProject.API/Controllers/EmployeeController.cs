@@ -85,13 +85,13 @@ public class EmployeeController : ControllerBase
         }
 
         // -----------------------------------------------------
-        // Get common staff password
+        // Get common staff password hash
         // -----------------------------------------------------
 
-        var staffPassword =
+        var staffPasswordHash =
             _configuration["DefaultStaff:Password"];
 
-        if (string.IsNullOrWhiteSpace(staffPassword))
+        if (string.IsNullOrWhiteSpace(staffPasswordHash))
         {
             return StatusCode(
                 StatusCodes.Status500InternalServerError,
@@ -117,9 +117,10 @@ public class EmployeeController : ControllerBase
             ContactNumber =
                 request.MobileNumber,
 
+            // Password is already BCrypt hashed
+            // in appsettings.json
             PasswordHash =
-                BCrypt.Net.BCrypt.HashPassword(
-                    staffPassword),
+                staffPasswordHash,
 
             Role = "Staff"
         };
@@ -177,15 +178,15 @@ public class EmployeeController : ControllerBase
             Religion =
                 request.Religion,
 
-Department =
-    request.Department,
+            Department =
+                request.Department,
 
-Designation =
-    request.Designation,
+            Designation =
+                request.Designation,
 
-JoiningDate =
-    request.JoiningDate,
-    
+            JoiningDate =
+                request.JoiningDate,
+
             // Current address
             CurrentAddress =
                 request.CurrentAddress,
@@ -233,12 +234,11 @@ JoiningDate =
         // Save both
         // -----------------------------------------------------
 
-       _context.Users.Add(user);
+        _context.Users.Add(user);
 
+        _context.Employees.Add(employee);
 
-_context.Employees.Add(employee);
-
-await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
 
         // -----------------------------------------------------
         // Response

@@ -10,69 +10,193 @@ import { FormsModule } from '@angular/forms';
 })
 export class Profile implements OnInit {
 
-  // Profile information
-  fullName = '';
-  employeeId = '';
-  contactNumber = '';
-  email = '';
-  department = '';
-  designation = '';
-  joiningDate = '';
+  // =========================================
+  // STAFF PROFILE INFORMATION
+  // =========================================
 
-  // Popup controls
+  fullName = 'Rahul Sharma';
+  employeeId = 'EMP-0072';
+  contactNumber = '+91 98765 43210';
+  email = 'rahul.sharma@dsrpanel.com';
+  department = 'Customer Support';
+  designation = 'Support Executive';
+  joiningDate = '15 January 2026';
+
+  // =========================================
+  // POPUP CONTROLS
+  // =========================================
+
   showEditProfile = false;
   showChangePassword = false;
 
-  // Password fields
+  // =========================================
+  // PASSWORD FIELDS
+  // =========================================
+
   currentPassword = '';
   newPassword = '';
   confirmPassword = '';
 
-  // Load logged-in Staff profile information
+  // =========================================
+  // LOAD STAFF INFORMATION
+  // =========================================
+
   ngOnInit(): void {
-    this.fullName = localStorage.getItem('fullName') ?? '';
-    this.employeeId = localStorage.getItem('employeeId') ?? '';
-    this.contactNumber = localStorage.getItem('contactNumber') ?? '';
-    this.email = localStorage.getItem('username') ?? '';
-    this.department = localStorage.getItem('department') ?? '';
-    this.designation = localStorage.getItem('designation') ?? '';
-    this.joiningDate = localStorage.getItem('joiningDate') ?? '';
+
+    /*
+     * Default Staff information is Rahul Sharma.
+     *
+     * If a Staff user is stored in currentUser,
+     * we use that information instead.
+     *
+     * Admin information will NOT be loaded here.
+     */
+
+    const currentUser = localStorage.getItem('currentUser');
+
+    if (!currentUser) {
+      return;
+    }
+
+    try {
+
+      const user = JSON.parse(currentUser);
+
+      const role =
+        user.role ||
+        user.Role ||
+        '';
+
+      // Only load data if the logged-in user is Staff
+      if (role.toLowerCase() !== 'staff') {
+        return;
+      }
+
+      this.fullName =
+        user.fullName ||
+        user.FullName ||
+        this.fullName;
+
+      this.employeeId =
+        user.employeeId ||
+        user.EmployeeId ||
+        this.employeeId;
+
+      this.contactNumber =
+        user.contactNumber ||
+        user.ContactNumber ||
+        this.contactNumber;
+
+      this.email =
+        user.username ||
+        user.email ||
+        user.Email ||
+        this.email;
+
+      this.department =
+        user.department ||
+        user.Department ||
+        this.department;
+
+      this.designation =
+        user.designation ||
+        user.Designation ||
+        this.designation;
+
+      this.joiningDate =
+        user.joiningDate ||
+        user.JoiningDate ||
+        this.joiningDate;
+
+    } catch (error) {
+
+      console.log('Unable to load Staff profile information.');
+
+    }
   }
 
-  // Open Edit Profile
+  // =========================================
+  // EDIT PROFILE
+  // =========================================
+
   editProfile(): void {
+
     this.showEditProfile = true;
     this.showChangePassword = false;
+
   }
 
-  // Open Change Password
+  // =========================================
+  // CHANGE PASSWORD
+  // =========================================
+
   changePassword(): void {
+
     this.showChangePassword = true;
     this.showEditProfile = false;
+
   }
 
-  // Close popup
+  // =========================================
+  // CLOSE POPUPS
+  // =========================================
+
   closeForms(): void {
+
     this.showEditProfile = false;
     this.showChangePassword = false;
+
+    this.currentPassword = '';
+    this.newPassword = '';
+    this.confirmPassword = '';
+
   }
 
-  // Save profile
+  // =========================================
+  // SAVE PROFILE
+  // =========================================
+
   saveProfile(): void {
+
+    /*
+     * UI-only for now.
+     * Later we will connect this to the .NET API.
+     */
+
     alert('Profile updated successfully!');
+
     this.closeForms();
+
   }
 
-  // Update password
+  // =========================================
+  // UPDATE PASSWORD
+  // =========================================
+
   updatePassword(): void {
 
-    if (!this.currentPassword || !this.newPassword || !this.confirmPassword) {
+    if (
+      !this.currentPassword ||
+      !this.newPassword ||
+      !this.confirmPassword
+    ) {
+
       alert('Please fill all password fields.');
+
+      return;
+    }
+
+    if (this.newPassword.length < 6) {
+
+      alert('New password must contain at least 6 characters.');
+
       return;
     }
 
     if (this.newPassword !== this.confirmPassword) {
+
       alert('New password and confirm password do not match.');
+
       return;
     }
 
@@ -83,5 +207,7 @@ export class Profile implements OnInit {
     this.confirmPassword = '';
 
     this.closeForms();
+
   }
+
 }

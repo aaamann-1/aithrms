@@ -33,12 +33,12 @@ public static class DbInitializer
         var adminMobile =
             configuration["DefaultAdmin:ContactNumber"];
 
-        var adminPassword =
+        var adminPasswordHash =
             configuration["DefaultAdmin:Password"];
 
         if (string.IsNullOrWhiteSpace(adminUsername) ||
             string.IsNullOrWhiteSpace(adminMobile) ||
-            string.IsNullOrWhiteSpace(adminPassword))
+            string.IsNullOrWhiteSpace(adminPasswordHash))
         {
             throw new InvalidOperationException(
                 "DefaultAdmin configuration is missing.");
@@ -49,7 +49,10 @@ public static class DbInitializer
             FullName = "System Administrator",
             Username = adminUsername.Trim(),
             ContactNumber = adminMobile.Trim(),
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword),
+
+            // Password is already BCrypt hashed in appsettings.json
+            PasswordHash = adminPasswordHash,
+
             Role = "Admin"
         };
 

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-staff-navbar',
@@ -18,18 +19,17 @@ export class Navbar {
 
   searchQuery = '';
 
-  // Today's date by default
   selectedDate = this.getTodayDate();
 
   showNotifications = false;
 
   showProfile = false;
 
+  constructor(private router: Router) {}
 
   toggleMenu(): void {
     this.menuToggle.emit();
   }
-
 
   toggleNotifications(): void {
     this.showNotifications = !this.showNotifications;
@@ -39,7 +39,6 @@ export class Navbar {
     }
   }
 
-
   toggleProfile(): void {
     this.showProfile = !this.showProfile;
 
@@ -48,6 +47,15 @@ export class Navbar {
     }
   }
 
+  openProfile(): void {
+    this.showProfile = false;
+    this.router.navigate(['/staff/profile']);
+  }
+
+  openSettings(): void {
+    this.showProfile = false;
+    this.router.navigate(['/staff/settings']);
+  }
 
   getTodayDate(): string {
 

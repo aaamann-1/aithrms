@@ -1,0 +1,680 @@
+<div class="content">
+
+  <!-- ================= PAGE HEADER ================= -->
+
+  <div class="page-heading">
+
+    <h1>Settings</h1>
+
+    <p>
+      Manage your account and preferences
+    </p>
+
+  </div>
+
+
+  <!-- ================= SETTINGS GRID ================= -->
+
+  <div class="settings-grid">
+
+
+    <!-- ================= LEFT COLUMN ================= -->
+
+    <div class="left-column">
+
+
+      <!-- ================= PROFILE SETTINGS ================= -->
+
+      <div class="card profile-card">
+
+        <h3>
+          Profile Settings
+        </h3>
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-header">
+
+          <div class="large-avatar">
+            R
+          </div>
+
+
+          <div class="profile-title">
+
+            <h2>
+              {{ fullName }}
+            </h2>
+
+            <p>
+              {{ designation }} • DSR Web Panel
+            </p>
+
+            <a>
+              Change Photo
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- PROFILE FORM -->
+
+        <div class="form-grid">
+
+
+          <!-- FULL NAME -->
+
+          <div class="form-group">
+
+            <label>
+              FULL NAME
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="fullName">
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label>
+              EMAIL
+            </label>
+
+            <input
+              type="email"
+              [(ngModel)]="email">
+
+          </div>
+
+
+          <!-- PHONE -->
+
+          <div class="form-group">
+
+            <label>
+              PHONE
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="contactNumber">
+
+          </div>
+
+
+          <!-- ROLE -->
+
+          <div class="form-group">
+
+            <label>
+              ROLE
+            </label>
+
+            <input
+              type="text"
+              [value]="designation"
+              readonly>
+
+          </div>
+
+
+          <!-- EMPLOYEE ID -->
+
+          <div class="form-group">
+
+            <label>
+              EMPLOYEE ID
+            </label>
+
+            <input
+              type="text"
+              [value]="employeeId"
+              readonly>
+
+          </div>
+
+
+          <!-- DEPARTMENT -->
+
+          <div class="form-group">
+
+            <label>
+              DEPARTMENT
+            </label>
+
+            <input
+              type="text"
+              [value]="department"
+              readonly>
+
+          </div>
+
+        </div>
+
+
+        <!-- SAVE -->
+
+        <button
+          class="save-button"
+          type="button"
+          (click)="saveChanges()">
+
+          Save Changes
+
+        </button>
+
+      </div>
+
+
+      <!-- ================= PREFERENCES ================= -->
+
+      <div class="card preferences-card">
+
+        <h3>
+          Preferences
+        </h3>
+
+
+        <!-- PUSH NOTIFICATIONS -->
+
+        <div class="preference-row">
+
+          <div>
+
+            <strong>
+              Push Notifications
+            </strong>
+
+            <p>
+              Receive alerts for important tasks and issues
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="toggle"
+            [class.on]="pushNotifications"
+            (click)="pushNotifications = !pushNotifications">
+
+            <span></span>
+
+          </button>
+
+        </div>
+
+
+        <!-- TASK REMINDERS -->
+
+        <div class="preference-row">
+
+          <div>
+
+            <strong>
+              Task Reminders
+            </strong>
+
+            <p>
+              Receive reminders for pending and assigned tasks
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="toggle"
+            [class.on]="taskReminders"
+            (click)="taskReminders = !taskReminders">
+
+            <span></span>
+
+          </button>
+
+        </div>
+
+
+        <!-- EMAIL NOTIFICATIONS -->
+
+        <div class="preference-row">
+
+          <div>
+
+            <strong>
+              Email Notifications
+            </strong>
+
+            <p>
+              Receive important updates through email
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="toggle"
+            [class.on]="emailNotifications"
+            (click)="emailNotifications = !emailNotifications">
+
+            <span></span>
+
+          </button>
+
+        </div>
+
+
+        <!-- DARK MODE -->
+
+        <div class="preference-row">
+
+          <div>
+
+            <strong>
+              Dark Mode
+            </strong>
+
+            <p>
+              Switch to dark color scheme
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="toggle"
+            [class.on]="darkMode"
+            (click)="toggleDarkMode()">
+
+            <span></span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= SECURITY ================= -->
+
+      <div class="card security-card">
+
+        <h3>
+          Security
+        </h3>
+
+
+        <!-- CHANGE PASSWORD -->
+
+        <button
+          class="security-item"
+          type="button"
+          (click)="openChangePassword()">
+
+          <div>
+
+            <strong>
+              Change Password
+            </strong>
+
+            <p>
+              Update your account password
+            </p>
+
+          </div>
+
+          <span>
+            ›
+          </span>
+
+        </button>
+
+
+        <!-- TWO FACTOR -->
+
+        <button
+          class="security-item"
+          type="button"
+          (click)="openTwoFactor()">
+
+          <div>
+
+            <strong>
+              Two-Factor Authentication
+            </strong>
+
+            <p>
+              Add an extra layer of security
+            </p>
+
+          </div>
+
+          <span>
+            ›
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= RIGHT COLUMN ================= -->
+
+    <div class="right-column">
+
+
+      <!-- ================= STAFF INFO ================= -->
+
+      <div class="card company-card">
+
+        <h3>
+          Staff Info
+        </h3>
+
+
+        <div class="company-item">
+
+          <span class="company-icon">
+            👤
+          </span>
+
+          <div>
+
+            <strong>
+              {{ fullName }}
+            </strong>
+
+            <p>
+              Staff Name
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="company-item">
+
+          <span class="company-icon">
+            🔑
+          </span>
+
+          <div>
+
+            <strong>
+              {{ employeeId }}
+            </strong>
+
+            <p>
+              Employee ID
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="company-item">
+
+          <span class="company-icon">
+            🏢
+          </span>
+
+          <div>
+
+            <strong>
+              {{ department }}
+            </strong>
+
+            <p>
+              Department
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="company-item">
+
+          <span class="company-icon">
+            💼
+          </span>
+
+          <div>
+
+            <strong>
+              {{ designation }}
+            </strong>
+
+            <p>
+              Designation
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="company-item">
+
+          <span class="company-icon">
+            ●
+          </span>
+
+          <div>
+
+            <strong class="active-text">
+              Active
+            </strong>
+
+            <p>
+              Account Status
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= SYSTEM INFO ================= -->
+
+      <div class="card system-card">
+
+        <h3>
+          System Info
+        </h3>
+
+
+        <div class="system-row">
+
+          <span>
+            Panel
+          </span>
+
+          <strong>
+            Staff Panel
+          </strong>
+
+        </div>
+
+
+        <div class="system-row">
+
+          <span>
+            Role
+          </span>
+
+          <strong>
+            Staff
+          </strong>
+
+        </div>
+
+
+        <div class="system-row">
+
+          <span>
+            Status
+          </span>
+
+          <strong class="active-text">
+            Active
+          </strong>
+
+        </div>
+
+
+        <div class="system-row">
+
+          <span>
+            Employee ID
+          </span>
+
+          <strong>
+            {{ employeeId }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- CHANGE PASSWORD MODAL -->
+<!-- ================================================= -->
+
+@if (showPasswordForm) {
+
+  <div class="modal-overlay">
+
+    <div class="password-modal">
+
+
+      <!-- HEADER -->
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+            Change Password
+          </h2>
+
+          <p>
+            Update your account password
+          </p>
+
+        </div>
+
+
+        <button
+          class="close-button"
+          type="button"
+          (click)="closeChangePassword()">
+
+          ×
+
+        </button>
+
+      </div>
+
+
+      <!-- CURRENT PASSWORD -->
+
+      <div class="form-group">
+
+        <label>
+          Current Password
+        </label>
+
+        <input
+          type="password"
+          placeholder="Enter current password"
+          [(ngModel)]="currentPassword">
+
+      </div>
+
+
+      <!-- NEW PASSWORD -->
+
+      <div class="form-group">
+
+        <label>
+          New Password
+        </label>
+
+        <input
+          type="password"
+          placeholder="Enter new password"
+          [(ngModel)]="newPassword">
+
+      </div>
+
+
+      <!-- CONFIRM PASSWORD -->
+
+      <div class="form-group">
+
+        <label>
+          Confirm New Password
+        </label>
+
+        <input
+          type="password"
+          placeholder="Confirm new password"
+          [(ngModel)]="confirmPassword">
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div class="modal-buttons">
+
+        <button
+          class="cancel-button"
+          type="button"
+          (click)="closeChangePassword()">
+
+          Cancel
+
+        </button>
+
+
+        <button
+          class="save-button"
+          type="button"
+          (click)="updatePassword()">
+
+          Change Password
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}

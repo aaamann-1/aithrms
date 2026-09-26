@@ -25,15 +25,16 @@
 
   </div>
 
-<!--Date-->
-<div class="date-section">
 
-  <input
-    type="date"
-    [(ngModel)]="selectedDate"
-    class="date-picker">
+  <!-- DATE -->
+  <div class="date-section">
 
-</div>
+    <input
+      type="date"
+      [(ngModel)]="selectedDate"
+      class="date-picker">
+
+  </div>
 
 
   <!-- NOTIFICATION -->
@@ -116,10 +117,12 @@
     </button>
 
 
+    <!-- PROFILE DROPDOWN -->
     <div
       class="profile-dropdown"
       *ngIf="showProfile">
 
+      <!-- KEEP THIS -->
       <div class="profile-dropdown-header">
 
         <strong>Rahul Sharma</strong>
@@ -128,12 +131,14 @@
 
       </div>
 
-      <button type="button">
-        My Profile
-      </button>
 
-      <button type="button">
+      <!-- ONLY SETTINGS REMAINS -->
+      <button
+        type="button"
+        (click)="openSettings()">
+
         Settings
+
       </button>
 
     </div>
