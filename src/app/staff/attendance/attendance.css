@@ -1,526 +1,460 @@
-/* =========================
-   PAGE
-========================= */
+/* =========================================================
+   ATTENDANCE PAGE
+   ========================================================= */
 
 .attendance-page {
-  width: 100%;
-  min-height: calc(100vh - 74px);
-
-  background: #f1f5fa;
-
-  padding: 28px 30px 50px;
-
-  box-sizing: border-box;
+  padding: 28px;
+  max-width: 1250px;
+  margin: 0 auto;
+  color: #172033;
 }
 
 
-/* =========================
+/* =========================================================
    PAGE HEADER
-========================= */
+   ========================================================= */
 
 .page-header {
-  width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
 
 .page-header h1 {
   margin: 0;
-
-  color: #243044;
-
-  font-size: 23px;
-
+  font-size: 30px;
   font-weight: 700;
+  color: #111827;
 }
 
 .page-header p {
-  margin: 5px 0 0;
-
-  color: #778397;
-
+  margin: 7px 0 0;
+  color: #6b7280;
   font-size: 14px;
 }
 
 
-/* =========================
-   TODAY CARD
-========================= */
+/* =========================================================
+   HALF SELECTOR
+   ========================================================= */
 
-.today-card {
-  width: 100%;
+.half-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 
-  min-height: 312px;
+.half-selector button {
+  border: 1px solid #d9dee8;
+  background: #ffffff;
+  color: #596273;
+  padding: 10px 24px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
 
-  background: linear-gradient(
-    135deg,
-    #294db9,
-    #2764e9
-  );
+.half-selector button:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
 
-  border-radius: 17px;
-
-  padding: 25px;
-
-  box-sizing: border-box;
-
-  color: white;
-
-  box-shadow:
-    0 10px 25px rgba(35, 88, 210, 0.20);
-
-  margin-bottom: 25px;
+.half-selector button.selected {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
 }
 
 
-/* =========================
-   TODAY HEADER
-========================= */
+/* =========================================================
+   BLUE TODAY CARD
+   ========================================================= */
+
+.today-card {
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.18);
+}
 
 .today-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: flex-start;
+  gap: 20px;
 }
 
 .today-label {
   display: block;
-
-  color: #b9c9f1;
-
-  font-size: 14px;
-
-  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 8px;
 }
 
 .today-header h2 {
   margin: 0;
-
-  font-size: 31px;
-
-  line-height: 1.2;
-
+  font-size: 24px;
   font-weight: 700;
 }
 
 
-/* =========================
+/* =========================================================
    PRESENT BADGE
-========================= */
+   ========================================================= */
 
 .present-badge {
   display: inline-flex;
-
   align-items: center;
-
-  gap: 8px;
-
-  background: rgba(38, 197, 144, 0.25);
-
-  color: #a5f2d3;
-
-  padding: 7px 13px;
-
-  border-radius: 18px;
-
+  gap: 7px;
   margin-top: 13px;
-
-  font-size: 13px;
-
+  padding: 6px 11px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 12px;
   font-weight: 600;
 }
 
+.present-badge.not-marked {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .status-dot {
-  width: 8px;
-  height: 8px;
-
-  background: #32d29c;
-
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-
-  flex-shrink: 0;
+  background: #ffffff;
+  display: inline-block;
 }
 
 
-/* =========================
-   HOURS
-========================= */
+/* =========================================================
+   HOURS BOX
+   ========================================================= */
 
 .hours-box {
+  min-width: 145px;
+  padding: 15px 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.13);
   text-align: right;
-
-  padding-top: 2px;
 }
 
 .hours-box span {
   display: block;
-
-  color: #afc3ee;
-
-  font-size: 13px;
-
-  margin-bottom: 3px;
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 5px;
 }
 
 .hours-box strong {
   display: block;
-
-  font-size: 27px;
-
-  color: white;
+  font-size: 23px;
+  font-weight: 700;
 }
 
 
-/* =========================
+/* =========================================================
    ATTENDANCE INFORMATION
-========================= */
+   ========================================================= */
 
 .attendance-info {
-  width: 100%;
-
   display: grid;
-
   grid-template-columns: repeat(3, 1fr);
-
-  gap: 16px;
-
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 22px;
 }
 
 .info-box {
-  background: rgba(255, 255, 255, 0.13);
-
-  border-radius: 12px;
-
-  padding: 13px 14px;
-
-  min-height: 72px;
-
-  box-sizing: border-box;
+  padding: 15px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .info-box span {
   display: block;
-
-  color: #bdccef;
-
-  font-size: 13px;
-
-  margin-bottom: 4px;
+  font-size: 12px;
+  opacity: 0.78;
+  margin-bottom: 6px;
 }
 
 .info-box strong {
   display: block;
-
-  color: white;
-
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .info-box strong.active-status {
-  color: #45e0a9;
+  color: #dbeafe;
 }
 
 .info-box strong.completed {
-  color: #a9d1ff;
+  color: #dcfce7;
 }
 
 
-/* =========================
+/* =========================================================
    ACTION BUTTONS
-========================= */
+   ========================================================= */
 
 .attendance-actions {
-  width: 100%;
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
+  display: flex;
   gap: 12px;
-
   margin-top: 20px;
 }
 
-.attendance-actions button {
-  height: 44px;
-
-  border-radius: 11px;
-
+.check-in-button,
+.check-out-button {
+  min-width: 145px;
+  padding: 11px 18px;
+  border-radius: 9px;
+  border: none;
   font-size: 14px;
-
   font-weight: 600;
-
   cursor: pointer;
-
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
-
-
-/* =========================
-   CHECK IN BUTTON
-========================= */
 
 .check-in-button {
-  border: none;
-
-  background: rgba(255, 255, 255, 0.12);
-
-  color: rgba(255, 255, 255, 0.55);
-
-  cursor: not-allowed !important;
+  background: #ffffff;
+  color: #2563eb;
 }
 
-
-/* =========================
-   CHECK OUT BUTTON
-========================= */
+.check-in-button:hover:not(:disabled) {
+  background: #eff6ff;
+  transform: translateY(-1px);
+}
 
 .check-out-button {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.35);
-
-  background: rgba(255, 255, 255, 0.17);
-
-  color: white;
 }
 
 .check-out-button:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.23);
 }
 
+.check-in-button:disabled,
 .check-out-button:disabled {
-  opacity: 0.5;
-
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 
-/* =========================
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.half-note {
+  margin-top: 15px;
+  padding: 10px 13px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+
+/* =========================================================
    WEEKLY CARD
-========================= */
+   ========================================================= */
 
 .weekly-card {
-  width: 100%;
-
-  background: white;
-
-  border-radius: 17px;
-
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
   overflow: hidden;
-
-  box-shadow:
-    0 2px 7px rgba(30, 50, 80, 0.05);
-
-  border: 1px solid #e9edf3;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
 }
-
-
-/* =========================
-   CARD TITLE
-========================= */
 
 .card-title {
-  height: 55px;
-
-  display: flex;
-
-  align-items: center;
-
-  padding: 0 20px;
-
-  box-sizing: border-box;
-
-  border-bottom: 1px solid #edf0f4;
-
-  color: #263344;
-
-  font-size: 15px;
-
+  padding: 18px 20px;
+  font-size: 16px;
   font-weight: 700;
+  color: #1f2937;
+  border-bottom: 1px solid #e5e7eb;
 }
-
-
-/* =========================
-   TABLE WRAPPER
-========================= */
 
 .table-wrapper {
   width: 100%;
-
   overflow-x: auto;
 }
 
 
-/* =========================
-   TABLE
-========================= */
+/* =========================================================
+   WEEKLY TABLE
+   ========================================================= */
 
-table {
+.week-table {
   width: 100%;
-
   border-collapse: collapse;
+  min-width: 760px;
+}
 
-  min-width: 720px;
+.week-table th {
+  background: #f8fafc;
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 13px 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.week-table td {
+  padding: 15px;
+  font-size: 13px;
+  color: #4b5563;
+  border-bottom: 1px solid #eef0f4;
+  vertical-align: top;
+}
+
+.week-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.week-table tbody tr:hover {
+  background: #fafbfc;
+}
+
+.week-table .day {
+  font-weight: 700;
+  color: #1f2937;
 }
 
 
-/* =========================
-   TABLE HEADER
-========================= */
+/* =========================================================
+   VERTICAL MULTIPLE CHECK-IN / CHECK-OUT TIMES
+   ========================================================= */
 
-thead th {
-  height: 42px;
+.week-table .time-column {
+  white-space: pre-line;
+  vertical-align: top;
+  line-height: 1.9;
+  min-width: 110px;
+}
 
-  text-align: left;
-
-  padding: 0 20px;
-
-  color: #99a4b4;
-
-  font-size: 12px;
-
+.week-table .hours {
   font-weight: 700;
-
-  border-bottom: 1px solid #edf0f4;
-
+  color: #1f2937;
   white-space: nowrap;
 }
 
 
-/* =========================
-   TABLE BODY
-========================= */
-
-tbody td {
-  height: 50px;
-
-  padding: 0 20px;
-
-  color: #697588;
-
-  font-size: 13px;
-
-  border-bottom: 1px solid #f0f2f5;
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
-}
-
-tbody tr:hover {
-  background: #fafcff;
-}
-
-
-/* =========================
-   DAY
-========================= */
-
-td.day {
-  color: #273445;
-
-  font-size: 14px;
-
-  font-weight: 600;
-}
-
-
-/* =========================
-   STATUS
-========================= */
+/* =========================================================
+   TABLE STATUS
+   ========================================================= */
 
 .table-status {
   display: inline-flex;
-
   align-items: center;
-
-  justify-content: center;
-
-  min-width: 66px;
-
-  padding: 5px 10px;
-
-  border-radius: 14px;
-
-  background: #d4f8e9;
-
-  color: #19835e;
-
-  font-size: 12px;
-
+  padding: 5px 9px;
+  border-radius: 15px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 11px;
   font-weight: 600;
-
   white-space: nowrap;
 }
 
 .table-status.live-status {
-  background: #dce9ff;
-
-  color: #2d64c8;
+  background: #dcfce7;
+  color: #15803d;
 }
 
 
-/* =========================
-   HOURS
-========================= */
+/* =========================================================
+   CHECKOUT CONFIRMATION OVERLAY
+   ========================================================= */
 
-td.hours {
-  color: #293547;
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(3px);
+}
 
+.confirm-box {
+  width: 100%;
+  max-width: 390px;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+}
+
+.confirm-box h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  color: #111827;
+}
+
+.confirm-box p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.confirm-cancel,
+.confirm-yes {
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
+}
 
-  white-space: nowrap;
+.confirm-cancel {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+.confirm-yes {
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  color: #ffffff;
+}
+
+.confirm-cancel:hover {
+  background: #e5e7eb;
+}
+
+.confirm-yes:hover {
+  background: #1d4ed8;
 }
 
 
-/* =========================
-   RESPONSIVE - 1000px
-========================= */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
-@media (max-width: 1000px) {
-
-  .attendance-page {
-    padding: 25px 22px 40px;
-  }
-
-  .attendance-info {
-    gap: 12px;
-  }
-
-}
-
-
-/* =========================
-   RESPONSIVE - 800px
-========================= */
-
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
   .attendance-page {
-    padding: 22px 18px 35px;
-  }
-
-  .today-card,
-  .weekly-card {
-    width: 100%;
-  }
-
-  .attendance-info {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-}
-
-
-/* =========================
-   RESPONSIVE - 650px
-========================= */
-
-@media (max-width: 650px) {
-
-  .attendance-page {
-    padding: 20px 13px 35px;
+    padding: 18px;
   }
 
   .today-header {
@@ -528,62 +462,28 @@ td.hours {
   }
 
   .hours-box {
+    width: 100%;
     text-align: left;
-
-    margin-top: 15px;
   }
 
   .attendance-info {
     grid-template-columns: 1fr;
-
-    gap: 10px;
   }
 
   .attendance-actions {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 
-  .today-header h2 {
-    font-size: 26px;
+  .check-in-button,
+  .check-out-button {
+    width: 100%;
   }
 
-  .today-card {
-    padding: 20px;
-
-    border-radius: 14px;
+  .half-selector {
+    width: 100%;
   }
 
-}
-
-
-/* =========================
-   RESPONSIVE - 500px
-========================= */
-
-@media (max-width: 500px) {
-
-  .attendance-page {
-    padding: 18px 10px 30px;
+  .half-selector button {
+    flex: 1;
   }
-
-  .page-header h1 {
-    font-size: 21px;
-  }
-
-  .page-header p {
-    font-size: 13px;
-  }
-
-  .today-header h2 {
-    font-size: 23px;
-  }
-
-  .hours-box strong {
-    font-size: 24px;
-  }
-
-  .today-card {
-    padding: 18px;
-  }
-
 }

@@ -71,7 +71,7 @@ public class EmployeeController : ControllerBase
         }
 
         var defaultStaffPassword =
-            _configuration["DefaultStaffPassword"];
+            _configuration["DefaultStaff:Password"];
 
         if (string.IsNullOrWhiteSpace(defaultStaffPassword))
         {
@@ -86,7 +86,9 @@ public class EmployeeController : ControllerBase
             FullName = $"{request.Title} {request.EmployeeName}".Trim(),
             Username = request.PersonalEmail,
             ContactNumber = request.MobileNumber,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(defaultStaffPassword),
+            PasswordHash = defaultStaffPassword.StartsWith("$2")
+                ? defaultStaffPassword
+                : BCrypt.Net.BCrypt.HashPassword(defaultStaffPassword),
             Role = "Staff"
         };
 
@@ -141,7 +143,7 @@ public class EmployeeController : ControllerBase
                 message = "Employee and staff login created successfully.",
                 employeeId = employee.Id,
                 loginUsername = user.Username,
-                defaultPassword = defaultStaffPassword,
+                defaultPassword = defaultStaffPassword.StartsWith("$2") ? "staff@123" : defaultStaffPassword,
                 role = user.Role
             });
     }

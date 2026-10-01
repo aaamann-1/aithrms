@@ -1,243 +1,426 @@
 <div class="attendance-page">
 
-  <!-- PAGE HEADER -->
-
   <div class="page-header">
-
     <h1>Attendance</h1>
+    <p>Track your daily attendance and working hours</p>
+  </div>
 
-    <p>
-      Track your daily attendance and working hours
-    </p>
+  <div class="half-selector">
+
+    <button
+      type="button"
+      [class.selected]="selectedHalf === 'half1'"
+      (click)="selectHalf('half1')">
+      1st Half
+    </button>
+
+    <button
+      type="button"
+      [class.selected]="selectedHalf === 'half2'"
+      (click)="selectHalf('half2')">
+      2nd Half
+    </button>
 
   </div>
 
 
-  <!-- TODAY CARD -->
+  @if (selectedHalf === 'half1') {
 
-  <section class="today-card">
+    <section class="today-card">
 
-    <div class="today-header">
+      <div class="today-header">
 
-      <div>
+        <div>
 
-        <span class="today-label">
-          Today
-        </span>
+          <span class="today-label">
+            1st Half · 9:30 AM – 2:00 PM
+          </span>
 
-        <h2>
-          {{ today }}
-        </h2>
+          <h2>{{ today }}</h2>
 
-        <div class="present-badge">
+          <div
+            class="present-badge"
+            [class.not-marked]="!half1.marked">
 
-          <span class="status-dot"></span>
+            <span class="status-dot"></span>
 
-          Present
+            {{ half1.marked ? 'Present' : 'Not Marked' }}
+
+          </div>
+
+        </div>
+
+        <div class="hours-box">
+          <span>Hours Worked</span>
+          <strong>{{ half1.hoursWorked }}</strong>
+        </div>
+
+      </div>
+
+
+      <div class="attendance-info">
+
+        <div class="info-box">
+          <span>Check In</span>
+          <strong>{{ half1.checkInTime }}</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Check Out</span>
+          <strong>{{ half1.checkOutTime }}</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Status</span>
+
+          <strong
+            [class.active-status]="half1.status === 'Active'"
+            [class.completed]="half1.status === 'Completed'">
+            {{ half1.status }}
+          </strong>
 
         </div>
 
       </div>
 
 
-      <div class="hours-box">
+      <div class="attendance-actions">
 
-        <span>
-          Hours Worked
-        </span>
+        <button
+          class="check-in-button"
+          [class.is-active]="half1.canCheckIn"
+          [disabled]="!half1.canCheckIn"
+          (click)="checkIn('half1')">
 
-        <strong>
-          {{ hoursWorked }}
-        </strong>
+          {{ half1.checkInText }}
 
-      </div>
-
-    </div>
+        </button>
 
 
-    <!-- ATTENDANCE INFORMATION -->
+        <button
+          class="check-out-button"
+          [disabled]="!half1.checkedIn"
+          (click)="askCheckOut('half1')">
 
-    <div class="attendance-info">
-
-
-      <!-- CHECK IN -->
-
-      <div class="info-box">
-
-        <span>
-          Check In
-        </span>
-
-        <strong>
-          {{ checkInTime }}
-        </strong>
-
-      </div>
-
-
-      <!-- CHECK OUT -->
-
-      <div class="info-box">
-
-        <span>
           Check Out
-        </span>
 
-        <strong>
-          {{ checkOutTime }}
-        </strong>
+        </button>
 
       </div>
 
 
-      <!-- STATUS -->
+      @if (half1.note) {
 
-      <div class="info-box">
+        <div class="half-note">
+          {{ half1.note }}
+        </div>
 
-        <span>
-          Status
-        </span>
+      }
 
-        <strong
-          [class.active-status]="status === 'Active'"
-          [class.completed]="status === 'Completed'">
+    </section>
 
-          {{ status }}
 
-        </strong>
+    <section class="weekly-card">
 
+      <div class="card-title">
+        This Week's 1st Half Attendance
       </div>
 
-    </div>
 
+      <div class="table-wrapper">
 
-    <!-- BUTTONS -->
+        <table class="week-table">
 
-    <div class="attendance-actions">
-
-
-      <!-- CHECKED IN BUTTON -->
-
-      <button
-        class="check-in-button"
-        [disabled]="checkedIn">
-
-        @if (checkedIn) {
-
-          <span>
-            ✓ Checked In
-          </span>
-
-        } @else {
-
-          <span>
-            Check In
-          </span>
-
-        }
-
-      </button>
-
-
-      <!-- CHECK OUT BUTTON -->
-
-      <button
-        class="check-out-button"
-        [disabled]="!checkedIn"
-        (click)="checkOut()">
-
-        Check Out
-
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- WEEKLY ATTENDANCE -->
-
-  <section class="weekly-card">
-
-
-    <div class="card-title">
-      This Week's Attendance
-    </div>
-
-
-    <div class="table-wrapper">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>DAY</th>
-
-            <th>DATE</th>
-
-            <th>STATUS</th>
-
-            <th>CHECK IN</th>
-
-            <th>CHECK OUT</th>
-
-            <th>TOTAL HOURS</th>
-
-          </tr>
-
-        </thead>
-
-
-        <tbody>
-
-          @for (record of attendanceRecords; track record.date) {
+          <thead>
 
             <tr>
-
-              <td class="day">
-                {{ record.day }}
-              </td>
-
-              <td>
-                {{ record.date }}
-              </td>
-
-              <td>
-
-                <span
-                  class="table-status"
-                  [class.live-status]="record.checkOut === '—'">
-
-                  {{ record.status }}
-
-                </span>
-
-              </td>
-
-              <td>
-                {{ record.checkIn }}
-              </td>
-
-              <td>
-                {{ record.checkOut }}
-              </td>
-
-              <td class="hours">
-                {{ record.totalHours }}
-              </td>
-
+              <th>DAY</th>
+              <th>DATE</th>
+              <th>STATUS</th>
+              <th>CHECK IN</th>
+              <th>CHECK OUT</th>
+              <th>HOURS</th>
             </tr>
 
-          }
+          </thead>
 
-        </tbody>
 
-      </table>
+          <tbody>
+
+            @for (
+              record of attendanceRecords;
+              track record.date
+            ) {
+
+              <tr>
+
+                <td class="day">
+                  {{ record.day }}
+                </td>
+
+                <td>
+                  {{ record.date }}
+                </td>
+
+                <td>
+
+                  <span
+                    class="table-status"
+                    [class.live-status]="record.live">
+
+                    {{ record.status }}
+
+                  </span>
+
+                </td>
+
+                <td class="time-column">
+                  {{ record.h1In }}
+                </td>
+
+                <td class="time-column">
+                  {{ record.h1Out }}
+                </td>
+
+                <td class="hours">
+                  {{ record.h1Hours }}
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  @if (selectedHalf === 'half2') {
+
+    <section class="today-card">
+
+      <div class="today-header">
+
+        <div>
+
+          <span class="today-label">
+            2nd Half · 3:00 PM – 6:00 PM
+          </span>
+
+          <h2>{{ today }}</h2>
+
+          <div
+            class="present-badge"
+            [class.not-marked]="!half2.marked">
+
+            <span class="status-dot"></span>
+
+            {{ half2.marked ? 'Present' : 'Not Marked' }}
+
+          </div>
+
+        </div>
+
+        <div class="hours-box">
+          <span>Hours Worked</span>
+          <strong>{{ half2.hoursWorked }}</strong>
+        </div>
+
+      </div>
+
+
+      <div class="attendance-info">
+
+        <div class="info-box">
+          <span>Check In</span>
+          <strong>{{ half2.checkInTime }}</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Check Out</span>
+          <strong>{{ half2.checkOutTime }}</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Status</span>
+
+          <strong
+            [class.active-status]="half2.status === 'Active'"
+            [class.completed]="half2.status === 'Completed'">
+
+            {{ half2.status }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="attendance-actions">
+
+        <button
+          class="check-in-button"
+          [class.is-active]="half2.canCheckIn"
+          [disabled]="!half2.canCheckIn"
+          (click)="checkIn('half2')">
+
+          {{ half2.checkInText }}
+
+        </button>
+
+
+        <button
+          class="check-out-button"
+          [disabled]="!half2.checkedIn"
+          (click)="askCheckOut('half2')">
+
+          Check Out
+
+        </button>
+
+      </div>
+
+
+      @if (half2.note) {
+
+        <div class="half-note">
+          {{ half2.note }}
+        </div>
+
+      }
+
+    </section>
+
+
+    <section class="weekly-card">
+
+      <div class="card-title">
+        This Week's 2nd Half Attendance
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table class="week-table">
+
+          <thead>
+
+            <tr>
+              <th>DAY</th>
+              <th>DATE</th>
+              <th>STATUS</th>
+              <th>CHECK IN</th>
+              <th>CHECK OUT</th>
+              <th>HOURS</th>
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            @for (
+              record of attendanceRecords;
+              track record.date
+            ) {
+
+              <tr>
+
+                <td class="day">
+                  {{ record.day }}
+                </td>
+
+                <td>
+                  {{ record.date }}
+                </td>
+
+                <td>
+
+                  <span
+                    class="table-status"
+                    [class.live-status]="record.live">
+
+                    {{ record.status }}
+
+                  </span>
+
+                </td>
+
+                <td class="time-column">
+                  {{ record.h2In }}
+                </td>
+
+                <td class="time-column">
+                  {{ record.h2Out }}
+                </td>
+
+                <td class="hours">
+                  {{ record.h2Hours }}
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  @if (confirmKey) {
+
+    <div
+      class="confirm-overlay"
+      (click)="cancelCheckOut()">
+
+      <div
+        class="confirm-box"
+        (click)="$event.stopPropagation()">
+
+        <h3>Check out?</h3>
+
+        <p>
+          Are you sure you want to check out
+          of the {{ confirmLabel }}?
+        </p>
+
+        <div class="confirm-actions">
+
+          <button
+            class="confirm-cancel"
+            (click)="cancelCheckOut()">
+
+            Cancel
+
+          </button>
+
+          <button
+            class="confirm-yes"
+            (click)="confirmCheckOut()">
+
+            Yes, Check Out
+
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
-  </section>
+  }
 
 </div>
