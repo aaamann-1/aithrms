@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MyProject.API.Data;
+using MyProject.API.Services;
 using MyProject.API.Settings;
 using Microsoft.OpenApi;
 
@@ -40,6 +41,8 @@ builder.Services.Configure<JwtSettings>(
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 var jwtSettings = builder.Configuration
     .GetSection("Jwt")

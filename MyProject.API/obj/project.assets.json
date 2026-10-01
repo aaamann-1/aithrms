@@ -2992,11 +2992,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\aksha\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Manasa\\.nuget\\packages\\": {}
+>>>>>>> 81ffa098a6c679797c68e05d2623d3cd1eda825d
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
       "projectName": "MyProject.API",
       "projectPath": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
@@ -3005,6 +3010,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\aksha\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+      "projectUniqueName": "C:\\Users\\Manasa\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
+      "projectName": "MyProject.API",
+      "projectPath": "C:\\Users\\Manasa\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
+      "packagesPath": "C:\\Users\\Manasa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Manasa\\Documents\\GitHub\\aithrms\\MyProject.API\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Manasa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> 81ffa098a6c679797c68e05d2623d3cd1eda825d
       ],
       "originalTargetFrameworks": [
         "net10.0"

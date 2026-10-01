@@ -15,7 +15,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users { get; set; }
 
     public DbSet<Employee> Employees { get; set; }
-
+public DbSet<Attendance> Attendances { get; set; }
     // MODEL CONFIGURATION
 
     protected override void OnModelCreating(
