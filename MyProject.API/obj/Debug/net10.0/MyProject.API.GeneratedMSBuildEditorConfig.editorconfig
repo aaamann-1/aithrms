@@ -20,13 +20,21 @@ build_property.TargetFrameworkVersion = v10.0
 build_property.EntryPointFilePath = 
 build_property.RootNamespace = MyProject.API
 build_property.RootNamespace = MyProject.API
-build_property.ProjectDir = C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API\
+<<<<<<< HEAD
+build_property.ProjectDir = C:\Users\aksha\OneDrive\Desktop\aithrms\MyProject.API\
+=======
+build_property.ProjectDir = C:\Users\Manasa\Documents\GitHub\aithrms\MyProject.API\
+>>>>>>> 81ffa098a6c679797c68e05d2623d3cd1eda825d
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 10.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Yasmin\OneDrive\Documents\GitHub\aithrms\MyProject.API
+<<<<<<< HEAD
+build_property.MSBuildProjectDirectory = C:\Users\aksha\OneDrive\Desktop\aithrms\MyProject.API
+=======
+build_property.MSBuildProjectDirectory = C:\Users\Manasa\Documents\GitHub\aithrms\MyProject.API
+>>>>>>> 81ffa098a6c679797c68e05d2623d3cd1eda825d
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
