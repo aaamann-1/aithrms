@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-staff-navbar',
@@ -23,9 +24,15 @@ export class Navbar {
 
   showNotifications = false;
 
-  showProfile = false;
+  // Logged-in staff information
+  currentUser: any = null;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.currentUser = this.authService.getCurrentUser();
+  }
 
   toggleMenu(): void {
     this.menuToggle.emit();
@@ -33,28 +40,10 @@ export class Navbar {
 
   toggleNotifications(): void {
     this.showNotifications = !this.showNotifications;
-
-    if (this.showNotifications) {
-      this.showProfile = false;
-    }
-  }
-
-  toggleProfile(): void {
-    this.showProfile = !this.showProfile;
-
-    if (this.showProfile) {
-      this.showNotifications = false;
-    }
   }
 
   openProfile(): void {
-    this.showProfile = false;
     this.router.navigate(['/staff/profile']);
-  }
-
-  openSettings(): void {
-    this.showProfile = false;
-    this.router.navigate(['/staff/settings']);
   }
 
   getTodayDate(): string {
@@ -69,5 +58,4 @@ export class Navbar {
 
     return `${year}-${month}-${day}`;
   }
-
 }

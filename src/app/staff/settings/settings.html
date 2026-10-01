@@ -51,9 +51,6 @@
               {{ designation }} • DSR Web Panel
             </p>
 
-            <a>
-              Change Photo
-            </a>
 
           </div>
 
@@ -75,7 +72,8 @@
 
             <input
               type="text"
-              [(ngModel)]="fullName">
+              [(ngModel)]="fullName"
+              readonly>
 
           </div>
 
@@ -90,7 +88,8 @@
 
             <input
               type="email"
-              [(ngModel)]="email">
+              [(ngModel)]="email"
+              readonly>
 
           </div>
 
@@ -105,7 +104,8 @@
 
             <input
               type="text"
-              [(ngModel)]="contactNumber">
+              [(ngModel)]="contactNumber"
+              readonly>
 
           </div>
 
@@ -161,15 +161,6 @@
 
 
         <!-- SAVE -->
-
-        <button
-          class="save-button"
-          type="button"
-          (click)="saveChanges()">
-
-          Save Changes
-
-        </button>
 
       </div>
 

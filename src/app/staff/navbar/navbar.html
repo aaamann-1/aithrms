@@ -92,56 +92,29 @@
     <button
       type="button"
       class="profile-button"
-      (click)="toggleProfile()">
+      (click)="openProfile()">
 
       <div class="profile-avatar">
-        R
+        {{ currentUser?.fullName?.charAt(0) || 'S' }}
       </div>
 
       <div class="profile-info">
 
         <strong>
-          Rahul Sharma
+          {{ currentUser?.fullName || 'Staff' }}
         </strong>
 
         <span>
-          Support Executive
+          {{ currentUser?.designation || 'Support Executive' }}
         </span>
 
       </div>
 
       <span class="profile-arrow">
-        ▾
+        ▸
       </span>
 
     </button>
-
-
-    <!-- PROFILE DROPDOWN -->
-    <div
-      class="profile-dropdown"
-      *ngIf="showProfile">
-
-      <!-- KEEP THIS -->
-      <div class="profile-dropdown-header">
-
-        <strong>Rahul Sharma</strong>
-
-        <span>Support Executive</span>
-
-      </div>
-
-
-      <!-- ONLY SETTINGS REMAINS -->
-      <button
-        type="button"
-        (click)="openSettings()">
-
-        Settings
-
-      </button>
-
-    </div>
 
   </div>
 

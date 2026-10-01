@@ -15,8 +15,8 @@ import { AdminLayout } from './admin/admin-layout/admin-layout';
 
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
-import { IndividualReports } from './admin/reports/Individual/individual';
-import { TeamReportsComponent } from './admin/reports/Team/team';
+import { IndividualReports } from './admin/reports/individual/individual';
+import { TeamReportsComponent } from './admin/reports/team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
