@@ -2992,19 +2992,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SAYEED MOMIN\\.nuget\\packages\\": {}
+    "C:\\Users\\aksha\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
+      "projectUniqueName": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
       "projectName": "MyProject.API",
-      "projectPath": "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
-      "packagesPath": "C:\\Users\\SAYEED MOMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\obj\\",
+      "projectPath": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
+      "packagesPath": "C:\\Users\\aksha\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\SAYEED MOMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\aksha\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -3029,7 +3029,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.300"
+      "SdkAnalysisLevel": "10.0.400"
     },
     "frameworks": {
       "net10.0": {
@@ -3078,7 +3078,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

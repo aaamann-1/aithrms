@@ -1,38 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './employee-form.html',
   styleUrl: './employee-form.css'
 })
 export class EmployeeForm implements OnInit {
-
-  // =========================
-  // EDIT MODE
-  // =========================
-
   isEditMode = false;
-
   editingEmployeeId: number | null = null;
 
-
-  // =========================
-  // EMPLOYEE FORM
-  // =========================
-
   employeeForm = {
-
-    // PERSONAL
-
     title: 'Mr.',
     employeeName: '',
     fatherName: '',
@@ -50,10 +32,8 @@ export class EmployeeForm implements OnInit {
     panNumber: '',
     religion: '',
     designation: '',
-department: '',
-joiningDate: '',
-
-    // CURRENT ADDRESS
+    department: '',
+    joiningDate: '',
 
     currentAddress1: '',
     currentAddress2: '',
@@ -62,8 +42,6 @@ joiningDate: '',
     currentCity: '',
     currentPincode: '',
 
-    // PERMANENT ADDRESS
-
     permanentAddress1: '',
     permanentAddress2: '',
     permanentCountry: '',
@@ -71,43 +49,27 @@ joiningDate: '',
     permanentCity: '',
     permanentPincode: '',
 
-    // EMERGENCY
-
     emergencyContact: '',
     emergencyMobile: '',
     emergencyRelation: ''
   };
 
-
-  // =========================
-  // CONSTRUCTOR
-  // =========================
-
-  constructor(
-    private router: Router,
-    private http: HttpClient
-  ) {}
-
-
-  // =========================
-  // INITIALIZE
-  // =========================
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
+    const editingEmployee = localStorage.getItem('editingEmployee');
 
-    const editingEmployee =
-      localStorage.getItem('editingEmployee');
+    if (!editingEmployee) {
+      return;
+    }
 
-    if (editingEmployee) {
-
+    try {
       const employee = JSON.parse(editingEmployee);
 
       this.isEditMode = true;
-
       this.editingEmployeeId = employee.id;
 
       this.employeeForm = {
-
         title: employee.title || 'Mr.',
         employeeName: employee.name || employee.employeeName || '',
         fatherName: employee.fatherName || '',
@@ -117,120 +79,55 @@ joiningDate: '',
         bloodGroup: employee.bloodGroup || '',
         phoneNumber: employee.phoneNumber || '',
         mobileNumber: employee.mobileNumber || '',
-        personalEmail:
-          employee.personalEmail ||
-          employee.email ||
-          '',
-        nationality:
-          employee.nationality ||
-          'Indian',
-        maritalStatus:
-          employee.maritalStatus ||
-          'Single',
-        spouseName:
-          employee.spouseName ||
-          '',
-        aadhaarNumber:
-          employee.aadhaarNumber ||
-          '',
-        panNumber:
-          employee.panNumber ||
-          '',
-        religion:
-          employee.religion ||
-          'Hindu',
-        designation:
-          employee.designation ||
-          '',
-        
-        department:
-  employee.department ||
-  '',
+        personalEmail: employee.personalEmail || employee.email || '',
+        nationality: employee.nationality || 'Indian',
+        maritalStatus: employee.maritalStatus || 'Single',
+        spouseName: employee.spouseName || '',
+        aadhaarNumber: employee.aadhaarNumber || '',
+        panNumber: employee.panNumber || '',
+        religion: employee.religion || '',
+        designation: employee.designation || '',
+        department: employee.department || '',
+        joiningDate: employee.joiningDate || '',
 
-joiningDate:
-  employee.joiningDate ||
-  '',
+        currentAddress1: employee.currentAddress1 || '',
+        currentAddress2: employee.currentAddress2 || '',
+        currentCountry: employee.currentCountry || '',
+        currentState: employee.currentState || '',
+        currentCity: employee.currentCity || '',
+        currentPincode: employee.currentPincode || '',
 
-        currentAddress1:
-          employee.currentAddress1 ||
-          '',
-        currentAddress2:
-          employee.currentAddress2 ||
-          '',
-        
+        permanentAddress1: employee.permanentAddress1 || '',
+        permanentAddress2: employee.permanentAddress2 || '',
+        permanentCountry: employee.permanentCountry || '',
+        permanentState: employee.permanentState || '',
+        permanentCity: employee.permanentCity || '',
+        permanentPincode: employee.permanentPincode || '',
 
-        currentCountry:
-          employee.currentCountry ||
-          '',
-        currentState:
-          employee.currentState ||
-          '',
-        currentCity:
-          employee.currentCity ||
-          '',
-        currentPincode:
-          employee.currentPincode ||
-          '',
-
-        permanentAddress1:
-          employee.permanentAddress1 ||
-          '',
-        permanentAddress2:
-          employee.permanentAddress2 ||
-          '',
-        
-          
-        permanentCountry:
-          employee.permanentCountry ||
-          '',
-        permanentState:
-          employee.permanentState ||
-          '',
-        permanentCity:
-          employee.permanentCity ||
-          '',
-        permanentPincode:
-          employee.permanentPincode ||
-          '',
-
-        emergencyContact:
-          employee.emergencyContact ||
-          '',
-        emergencyMobile:
-          employee.emergencyMobile ||
-          '',
-        emergencyRelation:
-          employee.emergencyRelation ||
-          ''
+        emergencyContact: employee.emergencyContact || '',
+        emergencyMobile: employee.emergencyMobile || '',
+        emergencyRelation: employee.emergencyRelation || ''
       };
+    } catch (error) {
+      console.error('Error loading employee data:', error);
+      alert('Unable to load employee data.');
+      localStorage.removeItem('editingEmployee');
     }
   }
 
-
-  // =========================
-  // BACK
-  // =========================
-
   goBack(): void {
-
     localStorage.removeItem('editingEmployee');
-
     this.router.navigate(['/admin/employee']);
   }
 
-
-  // =========================
-  // SAVE EMPLOYEE
-  // =========================
-
   saveEmployee(): void {
-
-    // -------------------------
-    // VALIDATION
-    // -------------------------
-
     if (!this.employeeForm.employeeName.trim()) {
       alert('Please enter Employee Name.');
+      return;
+    }
+
+    if (!this.employeeForm.gender.trim()) {
+      alert('Please select Gender.');
       return;
     }
 
@@ -245,232 +142,130 @@ joiningDate:
     }
 
     if (!this.employeeForm.designation.trim()) {
-      alert('Please enter Designation.');
+      alert('Please select Designation.');
       return;
     }
 
-    if (!this.employeeForm.joiningDate) {
+    if (!this.employeeForm.department.trim()) {
+      alert('Please select Department.');
+      return;
+    }
 
-  alert('Please select Joining Date.');
+    if (!this.employeeForm.joiningDate.trim()) {
+      alert('Please select Joining Date.');
+      return;
+    }
 
-  return;
-}
-
-    // -------------------------
-    // CREATE REQUEST
-    // -------------------------
-
-    const request = {
-
-      title:
-        this.employeeForm.title,
-
-      employeeName:
-        this.employeeForm.employeeName,
-
-      fatherName:
-        this.employeeForm.fatherName,
-
-      motherName:
-        this.employeeForm.motherName,
-
-      gender:
-        this.employeeForm.gender,
-
-      dateOfBirth:
-        this.employeeForm.dateOfBirth,
-
-      bloodGroup:
-        this.employeeForm.bloodGroup,
-
-      mobileNumber:
-        this.employeeForm.mobileNumber,
-
-      personalEmail:
-        this.employeeForm.personalEmail,
-
-      nationality:
-        this.employeeForm.nationality,
-
-      maritalStatus:
-        this.employeeForm.maritalStatus,
-
-      spouseName:
-        this.employeeForm.spouseName,
-
-      aadhaarNumber:
-        this.employeeForm.aadhaarNumber,
-
-      panNumber:
-        this.employeeForm.panNumber,
-
-      religion:
-        this.employeeForm.religion,
-
-      department:
-  this.employeeForm.department,
-
-joiningDate:
-  this.employeeForm.joiningDate,
-      // -------------------------
-      // CURRENT ADDRESS
-      // -------------------------
-
-      currentAddress: [
-
-        this.employeeForm.currentAddress1,
-
-        this.employeeForm.currentAddress2
-
-      ]
-        .filter(value => value)
-        .join(', '),
-
-      currentCountry:
-        this.employeeForm.currentCountry,
-
-      currentState:
-        this.employeeForm.currentState,
-
-      currentCity:
-        this.employeeForm.currentCity,
-
-      currentPincode:
-        this.employeeForm.currentPincode,
-
-
-      // -------------------------
-      // PERMANENT ADDRESS
-      // -------------------------
-
-      permanentAddress: [
-
-        this.employeeForm.permanentAddress1,
-
-        this.employeeForm.permanentAddress2
-
-
-      ]
-        .filter(value => value)
-        .join(', '),
-
-      permanentCountry:
-        this.employeeForm.permanentCountry,
-
-      permanentState:
-        this.employeeForm.permanentState,
-
-      permanentCity:
-        this.employeeForm.permanentCity,
-
-      permanentPincode:
-        this.employeeForm.permanentPincode,
-
-
-      // -------------------------
-      // EMERGENCY
-      // -------------------------
-
-      emergencyContact:
-        this.employeeForm.emergencyContact,
-
-      emergencyMobile:
-        this.employeeForm.emergencyMobile,
-
-      emergencyRelation:
-        this.employeeForm.emergencyRelation
+    const optionalValue = (value: string): string | null => {
+      const trimmed = value?.trim();
+      return trimmed ? trimmed : null;
     };
 
+    let employees: any[];
 
-    // =========================
-    // SEND TO BACKEND
-    // =========================
+    try {
+      employees = JSON.parse(localStorage.getItem('employees') || '[]');
 
-    this.http.post(
-
-      'http://localhost:5089/api/Employee',
-
-      request
-
-    )
-    .subscribe({
-
-      // =========================
-      // SUCCESS
-      // =========================
-
-      next: (response: any) => {
-
-        console.log(
-          'Employee saved successfully:',
-          response
-        );
-
-
-        alert(
-          'Employee saved successfully.'
-        );
-
-
-        localStorage.removeItem(
-          'editingEmployee'
-        );
-
-
-        this.router.navigate(
-          ['/admin/employee']
-        );
-      },
-
-
-      // =========================
-      // ERROR
-      // =========================
-
-      error: (error) => {
-
-        console.error(
-          'Employee save error:',
-          error
-        );
-
-
-        const message =
-          error?.error?.message ||
-          'Failed to save employee.';
-
-
-        alert(message);
+      if (!Array.isArray(employees)) {
+        employees = [];
       }
+    } catch {
+      employees = [];
+    }
 
-    });
+    const savedEmployee = {
+      ...(this.isEditMode
+        ? employees.find(
+            employee => employee.id === this.editingEmployeeId
+          ) || {}
+        : {}),
+
+      id: this.isEditMode && this.editingEmployeeId !== null
+        ? this.editingEmployeeId
+        : Date.now(),
+
+      title: this.employeeForm.title,
+      name: this.employeeForm.employeeName.trim(),
+      email: this.employeeForm.personalEmail.trim(),
+      designation: this.employeeForm.designation,
+      department: this.employeeForm.department,
+      status: 'Active',
+
+      fatherName: optionalValue(this.employeeForm.fatherName),
+      motherName: optionalValue(this.employeeForm.motherName),
+      gender: this.employeeForm.gender,
+      dateOfBirth: optionalValue(this.employeeForm.dateOfBirth),
+      bloodGroup: optionalValue(this.employeeForm.bloodGroup),
+      phoneNumber: optionalValue(this.employeeForm.phoneNumber),
+      mobileNumber: this.employeeForm.mobileNumber.trim(),
+      personalEmail: this.employeeForm.personalEmail.trim(),
+      nationality: optionalValue(this.employeeForm.nationality),
+      maritalStatus: optionalValue(this.employeeForm.maritalStatus),
+      spouseName: optionalValue(this.employeeForm.spouseName),
+      aadhaarNumber: optionalValue(this.employeeForm.aadhaarNumber),
+      panNumber: optionalValue(this.employeeForm.panNumber),
+      religion: optionalValue(this.employeeForm.religion),
+      joiningDate: this.employeeForm.joiningDate,
+
+      currentAddress1: optionalValue(this.employeeForm.currentAddress1),
+      currentAddress2: optionalValue(this.employeeForm.currentAddress2),
+      currentAddress3: '',
+      currentCountry: optionalValue(this.employeeForm.currentCountry),
+      currentState: optionalValue(this.employeeForm.currentState),
+      currentCity: optionalValue(this.employeeForm.currentCity),
+      currentPincode: optionalValue(this.employeeForm.currentPincode),
+
+      permanentAddress1: optionalValue(this.employeeForm.permanentAddress1),
+      permanentAddress2: optionalValue(this.employeeForm.permanentAddress2),
+      permanentAddress3: '',
+      permanentCountry: optionalValue(this.employeeForm.permanentCountry),
+      permanentState: optionalValue(this.employeeForm.permanentState),
+      permanentCity: optionalValue(this.employeeForm.permanentCity),
+      permanentPincode: optionalValue(this.employeeForm.permanentPincode),
+
+      emergencyContact: optionalValue(this.employeeForm.emergencyContact),
+      emergencyMobile: optionalValue(this.employeeForm.emergencyMobile),
+      emergencyRelation: optionalValue(this.employeeForm.emergencyRelation)
+    };
+
+    if (this.isEditMode) {
+      const index = employees.findIndex(
+        employee => employee.id === this.editingEmployeeId
+      );
+
+      if (index >= 0) {
+        employees[index] = savedEmployee;
+      } else {
+        employees.push(savedEmployee);
+      }
+    } else {
+      employees.push(savedEmployee);
+    }
+
+    localStorage.setItem('employees', JSON.stringify(employees));
+    localStorage.removeItem('editingEmployee');
+
+    alert(
+      this.isEditMode
+        ? 'Employee updated successfully.'
+        : 'Employee saved successfully.'
+    );
+
+    this.router.navigate(['/admin/employee']);
   }
 
-
-  // =========================
-  // COPY CURRENT ADDRESS
-  // =========================
-
   copyCurrentAddress(): void {
-
     this.employeeForm.permanentAddress1 =
       this.employeeForm.currentAddress1;
-
     this.employeeForm.permanentAddress2 =
       this.employeeForm.currentAddress2;
-
-
     this.employeeForm.permanentCountry =
       this.employeeForm.currentCountry;
-
     this.employeeForm.permanentState =
       this.employeeForm.currentState;
-
     this.employeeForm.permanentCity =
       this.employeeForm.currentCity;
-
     this.employeeForm.permanentPincode =
       this.employeeForm.currentPincode;
   }
-
 }

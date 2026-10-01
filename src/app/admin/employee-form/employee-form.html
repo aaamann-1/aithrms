@@ -254,28 +254,30 @@
 
 
       <!-- Religion -->
+<div class="form-group">
 
-      <div class="form-group">
+  <label>
+    Religion <span>*</span>
+  </label>
 
-        <label>Religion</label>
+  <select
+    [(ngModel)]="employeeForm.religion">
 
-        <select [(ngModel)]="employeeForm.religion">
+    <option value="Hindu">Hindu</option>
+    <option value="Muslim">Muslim</option>
+    <option value="Christian">Christian</option>
+    <option value="Sikh">Sikh</option>
+    <option value="Buddhist">Buddhist</option>
+    <option value="Jain">Jain</option>
+    <option value="Other">Other</option>
 
-          <option value="Hindu">Hindu</option>
-          <option value="Muslim">Muslim</option>
-          <option value="Christian">Christian</option>
-          <option value="Sikh">Sikh</option>
-          <option value="Buddhist">Buddhist</option>
-          <option value="Jain">Jain</option>
-          <option value="Other">Other</option>
+  </select>
 
-        </select>
+</div>
 
-      </div>
 
-    </div>
-
-    <div class="form-group">
+<!-- Designation -->
+<div class="form-group">
 
   <label>
     Designation <span>*</span>
@@ -316,8 +318,8 @@
 
 </div>
 
-<!-- DEPARTMENT -->
 
+<!-- Department -->
 <div class="form-group">
 
   <label>
@@ -368,8 +370,7 @@
 </div>
 
 
-<!-- JOINING DATE -->
-
+<!-- Joining Date -->
 <div class="form-group">
 
   <label>
@@ -380,6 +381,10 @@
     type="date"
     [(ngModel)]="employeeForm.joiningDate">
 
+</div>
+
+
+<!-- NOW CLOSE THE FORM GRID -->
 </div>
 
 
