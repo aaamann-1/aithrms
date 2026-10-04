@@ -4,6 +4,10 @@ namespace MyProject.API.DTOs;
 
 public class CreateEmployeeRequest
 {
+    // =========================================================
+    // REQUIRED PERSONAL INFORMATION
+    // =========================================================
+
     [Required]
     public string Title { get; set; } = string.Empty;
 
@@ -17,8 +21,10 @@ public class CreateEmployeeRequest
     [Required]
     public string Gender { get; set; } = string.Empty;
 
+    // Optional
     public string? DateOfBirth { get; set; }
 
+    // Optional
     public string? BloodGroup { get; set; }
 
     [Required]
@@ -40,42 +46,58 @@ public class CreateEmployeeRequest
 
     public string? Religion { get; set; }
 
-    public string? Department { get; set; }
 
-public string? Designation { get; set; }
+    // =========================================================
+    // REQUIRED EMPLOYEE INFORMATION
+    // =========================================================
 
-public string? JoiningDate { get; set; }
-    // Current address
+    [Required]
+    public string Department { get; set; } = string.Empty;
+
+    [Required]
+    public string Designation { get; set; } = string.Empty;
+
+    [Required]
+    public string JoiningDate { get; set; } = string.Empty;
+
+
+    // =========================================================
+    // CURRENT ADDRESS
+    // All fields are OPTIONAL because there is no * in HTML.
+    // =========================================================
+
     public string? CurrentAddress { get; set; }
 
-    [Required]
-    public string CurrentCountry { get; set; } = string.Empty;
+    public string? CurrentCountry { get; set; }
 
-    [Required]
-    public string CurrentState { get; set; } = string.Empty;
+    public string? CurrentState { get; set; }
 
-    [Required]
-    public string CurrentCity { get; set; } = string.Empty;
+    public string? CurrentCity { get; set; }
 
-    [Required]
-    public string CurrentPincode { get; set; } = string.Empty;
+    public string? CurrentPincode { get; set; }
 
-    // Permanent address
+
+    // =========================================================
+    // PERMANENT ADDRESS
+    // All fields are OPTIONAL because there is no * in HTML.
+    // =========================================================
+
     public string? PermanentAddress { get; set; }
 
-    [Required]
-    public string PermanentCountry { get; set; } = string.Empty;
+    public string? PermanentCountry { get; set; }
 
-    [Required]
-    public string PermanentState { get; set; } = string.Empty;
+    public string? PermanentState { get; set; }
 
-    [Required]
-    public string PermanentCity { get; set; } = string.Empty;
+    public string? PermanentCity { get; set; }
 
-    [Required]
-    public string PermanentPincode { get; set; } = string.Empty;
+    public string? PermanentPincode { get; set; }
 
-    // Emergency
+
+    // =========================================================
+    // EMERGENCY CONTACT
+    // All fields are OPTIONAL because there is no * in HTML.
+    // =========================================================
+
     public string? EmergencyContact { get; set; }
 
     public string? EmergencyMobile { get; set; }
