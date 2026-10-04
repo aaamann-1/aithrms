@@ -1,220 +1,280 @@
+<!-- ================================================= -->
+<!-- ATTENDANCE CONTENT -->
+<!-- ================================================= -->
+
+<div class="attendance-content">
+
 
   <!-- ================================================= -->
-    <!-- ATTENDANCE CONTENT -->
-    <!-- ================================================= -->
+  <!-- PAGE TITLE -->
+  <!-- ================================================= -->
 
-    <div class="attendance-content">
+  <div class="page-title">
 
+    <h1>
+      Attendance
+    </h1>
 
-      <!-- PAGE TITLE -->
+    <p>
+      Daily attendance tracking —
+      {{ getFormattedDate() }}
+    </p>
 
-      <div class="page-title">
+  </div>
 
-        <h1>
-          Attendance
-        </h1>
 
-        <p>
-          Daily attendance tracking —
-          {{ getFormattedDate() }}
-        </p>
+  <!-- ================================================= -->
+  <!-- STATISTICS -->
+  <!-- ================================================= -->
 
-      </div>
+  <section
+    class="attendance-stats-grid"
+    *ngIf="!isHoliday"
+  >
 
 
-      <!-- ================================================= -->
-      <!-- STATISTICS -->
-      <!-- ================================================= -->
+    <!-- TOTAL STAFF -->
 
-      <section class="attendance-stats-grid">
+    <div class="attendance-card">
 
+      <span class="dot blue"></span>
 
-        <div class="attendance-card">
+      <h2>
+        {{ totalStaff }}
+      </h2>
 
-          <span class="dot blue"></span>
-
-          <h2>
-            12
-          </h2>
-
-          <p>
-            Total Staff
-          </p>
-
-        </div>
-
-
-        <div class="attendance-card">
-
-          <span class="dot green"></span>
-
-          <h2>
-            10
-          </h2>
-
-          <p>
-            Present
-          </p>
-
-        </div>
-
-
-        <div class="attendance-card">
-
-          <span class="dot red"></span>
-
-          <h2>
-            2
-          </h2>
-
-          <p>
-            Absent
-          </p>
-
-        </div>
-
-
-        <div class="attendance-card">
-
-          <span class="dot purple"></span>
-
-          <h2>
-            7h 56m
-          </h2>
-
-          <p>
-            Avg Hours
-          </p>
-
-        </div>
-
-
-      </section>
-
-
-      <!-- ================================================= -->
-      <!-- ATTENDANCE TABLE -->
-      <!-- ================================================= -->
-
-      <section class="attendance-table-card">
-
-        <table>
-
-
-          <thead>
-
-            <tr>
-
-              <th>
-                STAFF NAME
-              </th>
-
-              <th>
-                PUNCH IN
-              </th>
-
-              <th>
-                PUNCH OUT
-              </th>
-
-              <th>
-                WORKING HOURS
-              </th>
-
-              <th>
-                STATUS
-              </th>
-
-            </tr>
-
-          </thead>
-
-
-          <tbody>
-
-
-            <!-- STAFF -->
-
-            <tr
-              *ngFor="let person of filteredAttendance">
-
-
-              <td>
-
-                <div class="staff-name">
-
-                  <div class="avatar">
-                    {{ person.initials }}
-                  </div>
-
-                  <span>
-                    {{ person.name }}
-                  </span>
-
-                </div>
-
-              </td>
-
-
-              <td>
-                {{ person.punchIn }}
-              </td>
-
-
-              <td>
-                {{ person.punchOut }}
-              </td>
-
-
-              <td>
-                {{ person.hours }}
-              </td>
-
-
-              <td>
-
-                <span
-                  class="status"
-                  [class.present]="person.status === 'Present'"
-                  [class.absent]="person.status === 'Absent'">
-
-                  ● {{ person.status }}
-
-                </span>
-
-              </td>
-
-
-            </tr>
-
-
-            <!-- NO RESULTS -->
-
-            <tr
-              *ngIf="filteredAttendance.length === 0">
-
-              <td
-                colspan="5"
-                class="no-results">
-
-                No staff found.
-
-              </td>
-
-            </tr>
-
-
-          </tbody>
-
-
-        </table>
-
-      </section>
-
+      <p>
+        Total Staff
+      </p>
 
     </div>
 
 
+    <!-- PRESENT -->
+
+    <div class="attendance-card">
+
+      <span class="dot green"></span>
+
+      <h2>
+        {{ presentCount }}
+      </h2>
+
+      <p>
+        Present
+      </p>
+
+    </div>
 
 
+    <!-- ABSENT -->
 
+    <div class="attendance-card">
+
+      <span class="dot red"></span>
+
+      <h2>
+        {{ absentCount }}
+      </h2>
+
+      <p>
+        Absent
+      </p>
+
+    </div>
+
+
+    <!-- AVERAGE HOURS -->
+
+    <div class="attendance-card">
+
+      <span class="dot purple"></span>
+
+      <h2>
+        {{ averageHours }}
+      </h2>
+
+      <p>
+        Avg Hours
+      </p>
+
+    </div>
+
+
+  </section>
+
+
+  <!-- ================================================= -->
+  <!-- SUNDAY HOLIDAY -->
+  <!-- ================================================= -->
+
+  <section
+    class="holiday-card"
+    *ngIf="isHoliday"
+  >
+
+    <div class="holiday-icon">
+      🏖️
+    </div>
+
+    <div class="holiday-content">
+
+      <h2>
+        Sunday — Holiday
+      </h2>
+
+      <p>
+        Attendance is not counted on Sundays.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================================= -->
+  <!-- ATTENDANCE TABLE -->
+  <!-- ================================================= -->
+
+  <section
+    class="attendance-table-card"
+    *ngIf="!isHoliday"
+  >
+
+    <table>
+
+
+      <thead>
+
+        <tr>
+
+          <th>
+            STAFF NAME
+          </th>
+
+          <th>
+            PUNCH IN
+          </th>
+
+          <th>
+            PUNCH OUT
+          </th>
+
+          <th>
+            WORKING HOURS
+          </th>
+
+          <th>
+            STATUS
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+
+        <!-- STAFF -->
+
+        <tr
+          *ngFor="
+            let person of filteredAttendance
+          "
+        >
+
+
+          <td>
+
+            <div class="staff-name">
+
+              <div class="avatar">
+
+                {{ person.initials }}
+
+              </div>
+
+              <span>
+
+                {{ person.name }}
+
+              </span>
+
+            </div>
+
+          </td>
+
+
+          <td>
+
+            {{ person.punchIn }}
+
+          </td>
+
+
+          <td>
+
+            {{ person.punchOut }}
+
+          </td>
+
+
+          <td>
+
+            {{ person.hours }}
+
+          </td>
+
+
+          <td>
+
+            <span
+              class="status"
+              [class.present]="
+                person.status === 'Present'
+              "
+              [class.absent]="
+                person.status === 'Absent'
+              "
+            >
+
+              ● {{ person.status }}
+
+            </span>
+
+          </td>
+
+
+        </tr>
+
+
+        <!-- NO RESULTS -->
+
+        <tr
+          *ngIf="
+            filteredAttendance.length === 0
+          "
+        >
+
+          <td
+            colspan="5"
+            class="no-results"
+          >
+
+            No staff found.
+
+          </td>
+
+        </tr>
+
+
+      </tbody>
+
+
+    </table>
+
+  </section>
+
+
+</div>

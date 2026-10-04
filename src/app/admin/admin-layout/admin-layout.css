@@ -20,7 +20,7 @@
   width: calc(100% - 72px);
 }
 
-.page-content {
+.admin-page-content {
   flex: 1;
   padding: 25px;
   overflow-y: auto;

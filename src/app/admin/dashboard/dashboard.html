@@ -1,279 +1,181 @@
+<div class="dashboard-page">
 
-  <!-- ===================================================
-         DASHBOARD CONTENT
-    ==================================================== -->
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="dashboard-content">
 
-    <div class="dashboard-content">
+    <!-- ==================== PAGE HEADER ==================== -->
+    <section class="page-header">
+
+      <div>
+        <h1>Dashboard</h1>
+
+        <p>
+          Welcome back,
+          {{ currentUser?.name || 'Admin' }}.
+          Here's what's happening today.
+        </p>
+      </div>
+
+    </section>
 
 
-      <!-- PAGE TITLE -->
+    <!-- ==================== STAT CARDS ==================== -->
+    <section class="stats-grid">
 
-      <div class="page-title">
+      <!-- Total Staff -->
+      <div class="stat-card">
 
-        <div>
+        <div class="stat-icon staff-icon">
+          👥
+        </div>
 
-          <h1>
-            Dashboard
-          </h1>
+        <div class="stat-content">
 
-          <p>
-            Overview of today's support operations
-          </p>
+          <span class="stat-title">
+            TOTAL STAFF
+          </span>
+
+          <h2>
+            {{ stats.totalStaff }}
+          </h2>
 
         </div>
 
       </div>
 
 
-      <!-- =================================================
-           SEARCH RESULT MESSAGE
-      ================================================== -->
+      <!-- Present Today -->
+      <div class="stat-card">
 
-      <div
-        class="search-result"
-        *ngIf="searchPerformed"
-      >
+        <div class="stat-icon attendance-icon">
+          ✓
+        </div>
 
-        <span
-          *ngIf="
-            filteredActivities.length > 0 ||
-            filteredRecentTasks.length > 0 ||
-            filteredAttendance.length > 0 ||
-            filteredCategories.length > 0
-          "
-        >
-          Search results for:
+        <div class="stat-content">
 
-          <strong>
-            {{ searchQuery }}
-          </strong>
-        </span>
+          <span class="stat-title">
+            PRESENT TODAY
+          </span>
 
+          <h2>
+            {{ stats.presentToday }}
+          </h2>
 
-        <span
-          *ngIf="
-            filteredActivities.length === 0 &&
-            filteredRecentTasks.length === 0 &&
-            filteredAttendance.length === 0 &&
-            filteredCategories.length === 0
-          "
-        >
-          No results found for:
-
-          <strong>
-            {{ searchQuery }}
-          </strong>
-        </span>
-
-
-        <button
-          type="button"
-          (click)="clearSearch()"
-        >
-          Clear
-        </button>
+        </div>
 
       </div>
 
 
-      <!-- =================================================
-           STATISTICS
-      ================================================== -->
+      <!-- Issues Solved -->
+      <div class="stat-card">
 
-      <section class="stats-grid">
+        <div class="stat-icon solved-icon">
+          ✓
+        </div>
 
+        <div class="stat-content">
 
-        <!-- TOTAL STAFF -->
+          <span class="stat-title">
+            ISSUES SOLVED
+          </span>
 
-        <div class="stat-card">
-
-          <div class="stat-content">
-
-            <span class="stat-title">
-              TOTAL STAFF
-            </span>
-
-            <h2>
-              {{ stats.totalStaff }}
-            </h2>
-
-            <span class="stat-positive">
-              ↑ &nbsp;+2 vs yesterday
-            </span>
-
-          </div>
-
-          <div class="stat-icon blue">
-            ♙
-          </div>
+          <h2>
+            {{ stats.issuesSolved }}
+          </h2>
 
         </div>
 
+      </div>
 
-        <!-- PRESENT -->
 
-        <div class="stat-card">
+      <!-- Pending Issues -->
+      <div class="stat-card">
 
-          <div class="stat-content">
+        <div class="stat-icon pending-icon">
+          !
+        </div>
 
-            <span class="stat-title">
-              PRESENT TODAY
-            </span>
+        <div class="stat-content">
 
-            <h2>
-              {{ stats.presentToday }}
-            </h2>
+          <span class="stat-title">
+            PENDING ISSUES
+          </span>
 
-            <span class="stat-positive">
-              ↑ &nbsp;+1 vs yesterday
-            </span>
-
-          </div>
-
-          <div class="stat-icon green">
-            ♙
-          </div>
+          <h2>
+            {{ stats.pendingIssues }}
+          </h2>
 
         </div>
 
+      </div>
 
-        <!-- ISSUES SOLVED -->
 
-        <div class="stat-card">
+      <!-- Escalated Issues -->
+      <div class="stat-card">
 
-          <div class="stat-content">
+        <div class="stat-icon escalated-icon">
+          !
+        </div>
 
-            <span class="stat-title">
-              ISSUES SOLVED
-            </span>
+        <div class="stat-content">
 
-            <h2>
-              {{ stats.issuesSolved }}
-            </h2>
+          <span class="stat-title">
+            ESCALATED ISSUES
+          </span>
 
-            <span class="stat-positive">
-              ↑ &nbsp;+18 vs yesterday
-            </span>
-
-          </div>
-
-          <div class="stat-icon purple">
-            ✓
-          </div>
+          <h2>
+            {{ stats.escalated }}
+          </h2>
 
         </div>
 
+      </div>
 
-        <!-- PENDING -->
 
-        <div class="stat-card">
+      <!-- Average Resolution -->
+      <div class="stat-card">
 
-          <div class="stat-content">
+        <div class="stat-icon resolution-icon">
+          ⏱
+        </div>
 
-            <span class="stat-title">
-              PENDING ISSUES
-            </span>
+        <div class="stat-content">
 
-            <h2>
-              {{ stats.pendingIssues }}
-            </h2>
+          <span class="stat-title">
+            AVG RESOLUTION
+          </span>
 
-            <span class="stat-negative">
-              ↓ &nbsp;-5 vs yesterday
-            </span>
-
-          </div>
-
-          <div class="stat-icon orange">
-            !
-          </div>
+          <h2>
+            {{ stats.avgResolution }}
+          </h2>
 
         </div>
 
+      </div>
 
-        <!-- ESCALATED -->
-
-        <div class="stat-card">
-
-          <div class="stat-content">
-
-            <span class="stat-title">
-              ESCALATED
-            </span>
-
-            <h2>
-              {{ stats.escalated }}
-            </h2>
-
-            <span class="stat-negative">
-              ↓ &nbsp;+2 vs yesterday
-            </span>
-
-          </div>
-
-          <div class="stat-icon red">
-            ⚠
-          </div>
-
-        </div>
+    </section>
 
 
-        <!-- AVG RESOLUTION -->
+    <!-- ==================== MAIN DASHBOARD GRID ==================== -->
+    <section class="dashboard-grid">
 
-        <div class="stat-card">
-
-          <div class="stat-content">
-
-            <span class="stat-title">
-              AVG RESOLUTION
-            </span>
-
-            <h2>
-              {{ stats.avgResolution }}
-            </h2>
-
-            <span class="stat-neutral">
-              — &nbsp;neutral vs yesterday
-            </span>
-
-          </div>
-
-          <div class="stat-icon cyan">
-            ◷
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           LIVE ACTIVITY FEED
-      ================================================== -->
-
-      <section class="dashboard-card">
+      <!-- ==================== LIVE ACTIVITY ==================== -->
+      <div class="dashboard-card activity-card">
 
         <div class="card-header">
 
           <div>
-
-            <h2>
-              Live Activity Feed
-            </h2>
-
-            <p>
-              Real-time support activities
-            </p>
-
+            <h3>Live Activity Feed</h3>
+            <p>Latest staff activities</p>
           </div>
 
-          <div class="live-status">
-
-            <span></span>
-
-            Live
-
-          </div>
+          <button
+            type="button"
+            class="view-all-btn"
+            (click)="goTo('/admin/live-feed')"
+          >
+            View All
+          </button>
 
         </div>
 
@@ -296,45 +198,41 @@
 
             </div>
 
-            <div class="activity-information">
 
-              <div class="activity-main-line">
+            <div class="activity-details">
+
+              <div class="activity-top">
 
                 <strong>
                   {{ activity.name }}
                 </strong>
 
-                <span class="arrow">
-                  ›
-                </span>
-
-                <span class="client-name">
-                  {{ activity.client }}
-                </span>
-
-                <span class="client-id">
-                  ({{ activity.clientId }})
+                <span class="activity-time">
+                  {{ activity.time }}
                 </span>
 
               </div>
 
 
-              <div class="activity-sub-line">
+              <div class="activity-client">
+
+                {{ activity.client }}
+
+                <span>
+                  {{ activity.clientId }}
+                </span>
+
+              </div>
+
+
+              <div class="activity-meta">
 
                 <span>
                   {{ activity.category }}
                 </span>
 
-                <span>•</span>
-
                 <span>
-                  ◷ {{ activity.duration }}
-                </span>
-
-                <span>•</span>
-
-                <span>
-                  {{ activity.time }}
+                  {{ activity.duration }}
                 </span>
 
               </div>
@@ -347,61 +245,61 @@
               [ngClass]="{
                 'resolved': activity.status === 'Resolved',
                 'pending': activity.status === 'Pending',
+                'in-progress': activity.status === 'In Progress',
                 'escalated': activity.status === 'Escalated'
               }"
             >
-
               ● {{ activity.status }}
-
             </span>
 
           </div>
 
 
-          <!-- NO ACTIVITY -->
-
           <div
-            class="no-results"
+            class="empty-state"
             *ngIf="filteredActivities.length === 0"
           >
-
-            No matching activity found.
-
+            No activities found.
           </div>
 
         </div>
 
-      </section>
+      </div>
 
 
-      <!-- =================================================
-           ISSUE STATUS
-      ================================================== -->
-
-      <section class="dashboard-card">
+      <!-- ==================== ISSUE STATUS ==================== -->
+      <div class="dashboard-card issue-status-card">
 
         <div class="card-header">
 
           <div>
-
-            <h2>
-              Issue Status
-            </h2>
-
-            <p>
-              Today's distribution
-            </p>
-
+            <h3>Issue Status</h3>
+            <p>Current issue distribution</p>
           </div>
 
         </div>
 
 
-        <div class="donut-container">
+        <div class="issue-chart">
 
-          <div class="donut-chart">
+          <div class="chart-circle">
 
-            <div class="donut-center"></div>
+            <div class="chart-center">
+
+              <strong>
+                {{
+                  stats.issuesSolved +
+                  stats.pendingIssues +
+                  stats.escalated +
+                  stats.inProgress
+                }}
+              </strong>
+
+              <span>
+                Total
+              </span>
+
+            </div>
 
           </div>
 
@@ -410,13 +308,16 @@
 
         <div class="issue-legend">
 
+          <!-- Resolved -->
           <div class="legend-row">
 
-            <div class="legend-name">
+            <div class="legend-label">
 
               <span class="legend-dot resolved-dot"></span>
 
-              Resolved
+              <span>
+                Resolved
+              </span>
 
             </div>
 
@@ -425,19 +326,22 @@
             </strong>
 
             <span>
-              74%
+              —
             </span>
 
           </div>
 
 
+          <!-- Pending -->
           <div class="legend-row">
 
-            <div class="legend-name">
+            <div class="legend-label">
 
               <span class="legend-dot pending-dot"></span>
 
-              Pending
+              <span>
+                Pending
+              </span>
 
             </div>
 
@@ -446,19 +350,46 @@
             </strong>
 
             <span>
-              18%
+              —
             </span>
 
           </div>
 
 
+          <!-- In Progress -->
           <div class="legend-row">
 
-            <div class="legend-name">
+            <div class="legend-label">
+
+              <span class="legend-dot in-progress-dot"></span>
+
+              <span>
+                In Progress
+              </span>
+
+            </div>
+
+            <strong>
+              {{ stats.inProgress }}
+            </strong>
+
+            <span>
+              —
+            </span>
+
+          </div>
+
+
+          <!-- Escalated -->
+          <div class="legend-row">
+
+            <div class="legend-label">
 
               <span class="legend-dot escalated-dot"></span>
 
-              Escalated
+              <span>
+                Escalated
+              </span>
 
             </div>
 
@@ -467,35 +398,38 @@
             </strong>
 
             <span>
-              8%
+              —
             </span>
 
           </div>
 
         </div>
 
-      </section>
+      </div>
+
+    </section>
 
 
-      <!-- =================================================
-           ISSUES BY CATEGORY
-      ================================================== -->
+    <!-- ==================== SECOND DASHBOARD ROW ==================== -->
+    <section class="dashboard-grid second-row">
 
-      <section class="dashboard-card">
+      <!-- ==================== ISSUE CATEGORIES ==================== -->
+      <div class="dashboard-card category-card">
 
         <div class="card-header">
 
           <div>
-
-            <h2>
-              Issues by Category
-            </h2>
-
-            <p>
-              All time breakdown
-            </p>
-
+            <h3>Issue Categories</h3>
+            <p>Issues by category</p>
           </div>
+
+          <button
+            type="button"
+            class="view-all-btn"
+            (click)="goTo('/admin/issue-categories')"
+          >
+            Manage
+          </button>
 
         </div>
 
@@ -507,15 +441,24 @@
             *ngFor="let category of filteredCategories"
           >
 
-            <div class="category-label">
-              {{ category.name }}
+            <div class="category-info">
+
+              <span>
+                {{ category.name }}
+              </span>
+
+              <strong>
+                {{ category.value }}
+              </strong>
+
             </div>
 
-            <div class="category-bar-container">
+
+            <div class="category-progress">
 
               <div
-                class="category-bar"
-                [style.width]="getCategoryWidth(category.value)"
+                class="category-progress-fill"
+                [style.width.%]="getCategoryWidth(category.value)"
               ></div>
 
             </div>
@@ -524,417 +467,303 @@
 
 
           <div
-            class="no-results"
+            class="empty-state"
             *ngIf="filteredCategories.length === 0"
           >
-
-            No matching category found.
-
+            No categories found.
           </div>
 
         </div>
 
-      </section>
+      </div>
 
 
-      <!-- =================================================
-           WEEKLY TREND
-      ================================================== -->
-
-      <section class="dashboard-card">
+      <!-- ==================== WEEKLY ACTIVITY ==================== -->
+      <div class="dashboard-card weekly-card">
 
         <div class="card-header">
 
           <div>
-
-            <h2>
-              Weekly Trend
-            </h2>
-
-            <p>
-              Last 7 days performance
-            </p>
-
+            <h3>Weekly Activity</h3>
+            <p>Activity overview</p>
           </div>
 
         </div>
 
 
-        <div class="trend-chart">
+        <div class="weekly-chart">
 
-          <div class="chart-y-labels">
+          <div
+            class="weekly-column"
+            *ngFor="let day of weeklyData"
+          >
 
-            <span>60</span>
-            <span>45</span>
-            <span>30</span>
-            <span>15</span>
-            <span>0</span>
+            <div class="weekly-bars">
 
-          </div>
-
-
-          <div class="chart-area">
-
-            <div class="grid-line line-60"></div>
-            <div class="grid-line line-45"></div>
-            <div class="grid-line line-30"></div>
-            <div class="grid-line line-15"></div>
-            <div class="grid-line line-0"></div>
-
-
-            <svg
-              class="trend-svg"
-              viewBox="0 0 700 220"
-              preserveAspectRatio="none"
-            >
-
-              <defs>
-
-                <linearGradient
-                  id="trendGradient"
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-
-                  <stop
-                    offset="0%"
-                    stop-opacity="0.18"
-                  />
-
-                  <stop
-                    offset="100%"
-                    stop-opacity="0"
-                  />
-
-                </linearGradient>
-
-              </defs>
-
-
-              <path
-                d="M0,102
-                   C45,110 70,116 116,118
-                   C160,120 190,65 233,55
-                   C275,45 315,77 350,78
-                   C390,78 425,65 466,65
-                   C505,65 535,130 583,150
-                   C620,164 660,175 700,180
-                   L700,220
-                   L0,220 Z"
-                fill="url(#trendGradient)"
-              />
-
-
-              <path
-                d="M0,102
-                   C45,110 70,116 116,118
-                   C160,120 190,65 233,55
-                   C275,45 315,77 350,78
-                   C390,78 425,65 466,65
-                   C505,65 535,130 583,150
-                   C620,164 660,175 700,180"
-                fill="none"
-                stroke-width="3"
-                stroke-linecap="round"
-              />
-
-            </svg>
-
-
-            <div class="chart-days">
-
-              <span>Mon</span>
-              <span>Tue</span>
-              <span>Wed</span>
-              <span>Thu</span>
-              <span>Fri</span>
-              <span>Sat</span>
-              <span>Sun</span>
+              <div
+                class="weekly-bar"
+                [style.height.%]="day.value"
+              ></div>
 
             </div>
 
+            <span>
+              {{ day.day }}
+            </span>
+
           </div>
 
         </div>
 
+      </div>
 
-        <div class="trend-legend">
+    </section>
 
-          <span>
 
-            <i class="green-small-dot"></i>
+    <!-- ==================== RECENT TASKS ==================== -->
+    <section class="dashboard-card recent-tasks-card">
 
-            Resolved
+      <div class="card-header">
 
-          </span>
+        <div>
 
-          <span>
+          <h3>
+            Recent Tasks
+          </h3>
 
-            <i class="orange-small-dot"></i>
-
-            Pending
-
-          </span>
+          <p>
+            Latest submitted tasks
+          </p>
 
         </div>
 
-      </section>
+        <button
+          type="button"
+          class="view-all-btn"
+          (click)="goTo('/admin/reports/individual')"
+        >
+          View Reports
+        </button>
+
+      </div>
 
 
-      <!-- =================================================
-           RECENT TASKS
-      ================================================== -->
+      <div class="table-container">
 
-      <section class="dashboard-card">
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                CLIENT ID
+              </th>
+
+              <th>
+                CLIENT NAME
+              </th>
+
+              <th>
+                CATEGORY
+              </th>
+
+              <th>
+                STATUS
+              </th>
+
+              <th>
+                TIME
+              </th>
+
+              <th>
+                STAFF
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <tr
+              *ngFor="let task of filteredRecentTasks"
+            >
+
+              <td>
+                {{ task.clientId }}
+              </td>
+
+              <td>
+                {{ task.clientName }}
+              </td>
+
+              <td>
+                {{ task.category }}
+              </td>
+
+              <td>
+
+                <span
+                  class="table-status"
+                  [ngClass]="{
+                    'resolved': task.status === 'Resolved',
+                    'pending': task.status === 'Pending',
+                    'in-progress': task.status === 'In Progress',
+                    'escalated': task.status === 'Escalated'
+                  }"
+                >
+                  ● {{ task.status }}
+                </span>
+
+              </td>
+
+              <td>
+                {{ task.time }}
+              </td>
+
+              <td>
+                {{ task.staff }}
+              </td>
+
+            </tr>
+
+
+            <tr
+              *ngIf="filteredRecentTasks.length === 0"
+            >
+
+              <td
+                colspan="6"
+                class="empty-table"
+              >
+                No recent tasks found.
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================== ATTENDANCE SUMMARY ==================== -->
+    <section class="dashboard-grid attendance-grid">
+
+      <!-- Attendance Summary -->
+      <div class="dashboard-card attendance-summary-card">
 
         <div class="card-header">
 
           <div>
 
-            <h2>
-              Recent Tasks
-            </h2>
+            <h3>
+              Attendance Summary
+            </h3>
 
             <p>
-              Latest support tickets
+              Today's attendance overview
             </p>
 
           </div>
 
           <button
-            class="view-all"
             type="button"
+            class="view-all-btn"
+            (click)="goTo('/admin/Attendance/attendance')"
           >
-            View All
+            View Attendance
           </button>
 
         </div>
 
 
-        <div class="table-wrapper">
+        <div class="attendance-summary">
 
-          <table>
+          <!-- PRESENT -->
+          <div class="attendance-stat">
 
-            <thead>
+            <span>
+              Present
+            </span>
 
-              <tr>
+            <strong>
+              {{ stats.presentToday }}
+            </strong>
 
-                <th>
-                  CLIENT ID
-                </th>
-
-                <th>
-                  CLIENT NAME
-                </th>
-
-                <th>
-                  CATEGORY
-                </th>
-
-                <th>
-                  STATUS
-                </th>
-
-                <th>
-                  TIME
-                </th>
-
-                <th>
-                  STAFF
-                </th>
-
-              </tr>
-
-            </thead>
+          </div>
 
 
-            <tbody>
+          <!-- FIRST CHECK-IN -->
+          <div class="attendance-stat">
 
-              <tr
-                *ngFor="let task of filteredRecentTasks"
-              >
+            <span>
+              First Check-in
+            </span>
 
-                <td class="client-id-table">
-                  {{ task.clientId }}
-                </td>
+            <strong>
+              {{ attendanceSummary.firstCheckIn }}
+            </strong>
 
-                <td>
-                  {{ task.clientName }}
-                </td>
-
-                <td>
-                  {{ task.category }}
-                </td>
-
-                <td>
-
-                  <span
-                    class="table-status"
-                    [ngClass]="{
-                      'resolved': task.status === 'Resolved',
-                      'pending': task.status === 'Pending',
-                      'escalated': task.status === 'Escalated'
-                    }"
-                  >
-
-                    ● {{ task.status }}
-
-                  </span>
-
-                </td>
-
-                <td>
-                  {{ task.time }}
-                </td>
-
-                <td>
-                  {{ task.staff }}
-                </td>
-
-              </tr>
+          </div>
 
 
-              <tr
-                *ngIf="filteredRecentTasks.length === 0"
-              >
+          <!-- AVERAGE HOURS -->
+          <div class="attendance-stat">
 
-                <td
-                  colspan="6"
-                  class="no-table-results"
-                >
+            <span>
+              Avg. Hours
+            </span>
 
-                  No matching task found.
+            <strong>
+              {{ attendanceSummary.averageHours }}
+            </strong>
 
-                </td>
+          </div>
 
-              </tr>
 
-            </tbody>
+          <!-- LATE -->
+          <div class="attendance-stat">
 
-          </table>
+            <span>
+              Late
+            </span>
+
+            <strong>
+              {{ attendanceSummary.late }}
+            </strong>
+
+          </div>
 
         </div>
 
-      </section>
+      </div>
 
 
-      <!-- =================================================
-           ATTENDANCE SUMMARY
-      ================================================== -->
-
-      <section class="dashboard-card">
+      <!-- Attendance List -->
+      <div class="dashboard-card attendance-list-card">
 
         <div class="card-header">
 
           <div>
 
-            <h2>
-              Attendance Summary
-            </h2>
+            <h3>
+              Staff Attendance
+            </h3>
 
             <p>
-              {{ getFormattedDate() }}
+              Today's staff status
             </p>
 
           </div>
 
         </div>
 
-
-        <!-- ATTENDANCE STATISTICS -->
-
-        <div class="attendance-stats">
-
-
-          <div class="attendance-stat">
-
-            <div class="attendance-stat-icon green-icon">
-              ♙
-            </div>
-
-            <div>
-
-              <span>
-                Staff Present
-              </span>
-
-              <strong>
-                10/12
-              </strong>
-
-            </div>
-
-          </div>
-
-
-          <div class="attendance-stat">
-
-            <div class="attendance-stat-icon blue-icon">
-              ◷
-            </div>
-
-            <div>
-
-              <span>
-                Avg Check-In
-              </span>
-
-              <strong>
-                09:08 AM
-              </strong>
-
-            </div>
-
-          </div>
-
-
-          <div class="attendance-stat">
-
-            <div class="attendance-stat-icon purple-icon">
-              ◴
-            </div>
-
-            <div>
-
-              <span>
-                Avg Working Hrs
-              </span>
-
-              <strong>
-                7h 56m
-              </strong>
-
-            </div>
-
-          </div>
-
-
-          <div class="attendance-stat">
-
-            <div class="attendance-stat-icon red-icon">
-              !
-            </div>
-
-            <div>
-
-              <span>
-                Absent Today
-              </span>
-
-              <strong>
-                2
-              </strong>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- ATTENDANCE PEOPLE -->
 
         <div class="attendance-list">
 
@@ -943,21 +772,21 @@
             *ngFor="let person of filteredAttendance"
           >
 
-            <div class="attendance-person">
+            <div class="attendance-avatar">
+              {{ person.initials }}
+            </div>
 
-              <div class="attendance-avatar">
-                {{ person.initials }}
-              </div>
+
+            <div class="attendance-person">
 
               <strong>
                 {{ person.name }}
               </strong>
 
-            </div>
+              <span>
+                {{ person.time }}
+              </span>
 
-
-            <div class="attendance-time">
-              {{ person.time }}
             </div>
 
 
@@ -965,29 +794,29 @@
               class="attendance-status"
               [ngClass]="{
                 'present': person.status === 'Present',
+                'late': person.status === 'Late',
                 'absent': person.status === 'Absent'
               }"
             >
-
-              ● {{ person.status }}
-
+              {{ person.status }}
             </span>
 
           </div>
 
 
           <div
-            class="no-results"
+            class="empty-state"
             *ngIf="filteredAttendance.length === 0"
           >
-
-            No matching staff found.
-
+            No attendance records found.
           </div>
 
         </div>
 
-      </section>
+      </div>
 
+    </section>
 
-    </div>
+  </main>
+
+</div>

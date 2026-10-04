@@ -4,6 +4,11 @@
 
 .page-content {
   padding: 30px 26px 50px;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .page-header {
@@ -15,14 +20,14 @@
 
 .page-header h1 {
   margin: 0;
-  font-size: 27px;
+  font-size: 29px;
   font-weight: 700;
   color: #102a43;
 }
 
 .page-header p {
   margin: 5px 0 0;
-  font-size: 15px;
+  font-size: 16px;
   color: #6e829e;
 }
 
@@ -62,9 +67,15 @@
 ================================ */
 
 .staff-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+  width: 100%;
+  min-height: 250px;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 999 !important;
 }
 
 
@@ -73,13 +84,20 @@
 ================================ */
 
 .staff-card {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100%;
+  min-height: 225px;
+  box-sizing: border-box;
   background: #ffffff;
   border: 1px solid #e6ebf2;
   border-radius: 17px;
   padding: 22px;
-  min-height: 225px;
   box-shadow: 0 3px 12px rgba(23, 44, 70, 0.06);
   transition: 0.25s ease;
+  position: relative;
+  z-index: 10;
 }
 
 .staff-card:hover {
@@ -88,7 +106,9 @@
 }
 
 
-/* Card top */
+/* ===============================
+   CARD TOP
+================================ */
 
 .card-top {
   display: flex;
@@ -97,7 +117,9 @@
 }
 
 
-/* Avatar */
+/* ===============================
+   AVATAR
+================================ */
 
 .staff-avatar {
   width: 48px;
@@ -133,7 +155,9 @@
 }
 
 
-/* Status dot */
+/* ===============================
+   STATUS DOT
+================================ */
 
 .status-dot {
   width: 11px;
@@ -158,7 +182,9 @@
 }
 
 
-/* Status badge */
+/* ===============================
+   STATUS BADGE
+================================ */
 
 .status-badge {
   padding: 4px 10px;
@@ -183,7 +209,9 @@
 }
 
 
-/* Staff information */
+/* ===============================
+   STAFF INFORMATION
+================================ */
 
 .staff-info {
   margin-top: 15px;
@@ -191,7 +219,7 @@
 
 .staff-info h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   color: #102a43;
   font-weight: 600;
 }
@@ -199,11 +227,13 @@
 .staff-info p {
   margin: 4px 0 0;
   color: #7890ad;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 
-/* Divider */
+/* ===============================
+   DIVIDER
+================================ */
 
 .card-divider {
   height: 1px;
@@ -212,29 +242,58 @@
 }
 
 
-/* Statistics */
+/* ===============================
+   STATISTICS
+================================ */
 
 .staff-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  width: 100%;
+  gap: 6px;
+}
+
+.staff-stats > div {
+  min-width: 0;
   text-align: center;
 }
 
-.staff-stats div {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .staff-stats strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
   color: #102a43;
-  font-size: 19px;
-  font-weight: 600;
 }
 
 .staff-stats span {
+  display: block;
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.2;
+  color: #7890ad;
+  white-space: nowrap;
+}
+
+
+/* ===============================
+   NO RESULTS
+================================ */
+
+.no-results {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.no-results h3 {
+  margin: 0;
+  color: #102a43;
+}
+
+.no-results p {
+  margin-top: 6px;
   color: #8295ae;
-  font-size: 13px;
 }
 
 
@@ -258,7 +317,7 @@
   }
 
   .staff-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
   }
 }
 

@@ -16,6 +16,10 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Employee> Employees { get; set; }
 public DbSet<Attendance> Attendances { get; set; }
+
+public DbSet<TaskEntry> TaskEntries { get; set; }
+
+public DbSet<IssueCategory> IssueCategories { get; set; }
     // MODEL CONFIGURATION
 
     protected override void OnModelCreating(
@@ -36,6 +40,18 @@ public DbSet<Attendance> Attendances { get; set; }
             .OnDelete(DeleteBehavior.Cascade);
 
 
+
+ // USER <-> TASK ENTRY
+        // One User can have many Task Entries
+        // Each Task Entry belongs to one User
+
+        modelBuilder.Entity<TaskEntry>()
+            .HasOne(task => task.User)
+            .WithMany()
+            .HasForeignKey(task => task.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            
         // USER USERNAME
 
         modelBuilder.Entity<User>()
