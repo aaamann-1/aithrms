@@ -92,29 +92,59 @@
     <button
       type="button"
       class="profile-button"
-      (click)="openProfile()">
+      (click)="toggleProfile()">
 
       <div class="profile-avatar">
-        {{ currentUser?.fullName?.charAt(0) || 'S' }}
+        {{ avatarInitial }}
       </div>
 
       <div class="profile-info">
 
         <strong>
-          {{ currentUser?.fullName || 'Staff' }}
+          {{ fullName }}
         </strong>
 
         <span>
-          {{ currentUser?.designation || 'Support Executive' }}
+          {{ designation }}
         </span>
 
       </div>
 
       <span class="profile-arrow">
-        ▸
+        ▾
       </span>
 
     </button>
+
+
+    <!-- PROFILE DROPDOWN -->
+    <div
+      class="profile-dropdown"
+      *ngIf="showProfile">
+
+      <div class="profile-dropdown-header">
+
+        <strong>
+          {{ fullName }}
+        </strong>
+
+        <span>
+          {{ designation }}
+        </span>
+
+      </div>
+
+
+      <!-- ONLY SETTINGS -->
+      <button
+        type="button"
+        (click)="openSettings()">
+
+        Settings
+
+      </button>
+
+    </div>
 
   </div>
 
