@@ -59,13 +59,19 @@
 
           <div class="report-buttons">
 
-            <button type="button" class="pdf-button">
-              ⇩ PDF
-            </button>
+            <button
+  type="button"
+  class="pdf-button"
+  (click)="downloadTodayPdf()">
+  ⇩ PDF
+</button>
 
-            <button type="button" class="excel-button">
-              ▧ Excel
-            </button>
+<button
+  type="button"
+  class="excel-button"
+  (click)="downloadTodayExcel()">
+  ▧ Excel
+</button>
 
           </div>
 
@@ -186,7 +192,7 @@
       </div>
 
 
-      <!-- ================= QUICK EXPORT ================= -->
+            <!-- ================= QUICK EXPORT ================= -->
       <div class="quick-export">
 
         <div class="quick-export-header">
@@ -204,21 +210,18 @@
 
           <button
             type="button"
-            class="quick-excel-button">
-
+            class="quick-excel-button"
+            (click)="downloadTodayExcel()">
             ▧
             Download Today's Excel Report
-
           </button>
-
 
           <button
             type="button"
-            class="quick-pdf-button">
-
+            class="quick-pdf-button"
+            (click)="downloadTodayPdf()">
             ⇩
             Download Today's PDF Report
-
           </button>
 
         </div>

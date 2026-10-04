@@ -1,3 +1,4 @@
+using QuestPDF.Infrastructure;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +8,39 @@ using MyProject.API.Services;
 using MyProject.API.Settings;
 using Microsoft.OpenApi;
 
+QuestPDF.Settings.License = LicenseType.Community;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+// =========================================================
+// SERVICES
+// =========================================================
+
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 
+
+// =========================================================
+// CORS
+// =========================================================
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AngularApp", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
+// =========================================================
+// SWAGGER
+// =========================================================
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -34,66 +63,109 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 
+// =========================================================
+// JWT SETTINGS
+// =========================================================
 
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("Jwt"));
+
+
+// =========================================================
+// DATABASE
+// =========================================================
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+// =========================================================
+// APPLICATION SERVICES
+// =========================================================
+
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+
+builder.Services.AddScoped<IReportService, ReportService>();
+
+builder.Services.AddScoped<IReportExportService, ReportExportService>();
+
+
+// =========================================================
+// JWT CONFIGURATION
+// =========================================================
 
 var jwtSettings = builder.Configuration
     .GetSection("Jwt")
     .Get<JwtSettings>()!;
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(
+    JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+        options.TokenValidationParameters =
+            new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
 
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSettings.Key))
-        };
+                ValidIssuer = jwtSettings.Issuer,
+
+                ValidAudience = jwtSettings.Audience,
+
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(
+                            jwtSettings.Key))
+            };
     });
 
-builder.Services.AddAuthorization();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AngularApp", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
+// =========================================================
+// BUILD APPLICATION
+// =========================================================
 
 var app = builder.Build();
 
+
+// =========================================================
+// DATABASE SEEDING
+// =========================================================
+
 await DbInitializer.SeedAsync(app.Services);
+
+
+// =========================================================
+// SWAGGER
+// =========================================================
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+
     app.UseSwaggerUI();
 }
+
+
+// =========================================================
+// HTTP PIPELINE
+// =========================================================
 
 app.UseHttpsRedirection();
 
 app.UseCors("AngularApp");
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+// =========================================================
+// RUN
+// =========================================================
 
 app.Run();

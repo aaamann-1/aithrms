@@ -133,6 +133,7 @@ public class EmployeeController : ControllerBase
         };
 
         _context.Employees.Add(employee);
+
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(
@@ -143,7 +144,9 @@ public class EmployeeController : ControllerBase
                 message = "Employee and staff login created successfully.",
                 employeeId = employee.Id,
                 loginUsername = user.Username,
-                defaultPassword = defaultStaffPassword.StartsWith("$2") ? "staff@123" : defaultStaffPassword,
+                defaultPassword = defaultStaffPassword.StartsWith("$2")
+                    ? "staff@123"
+                    : defaultStaffPassword,
                 role = user.Role
             });
     }
@@ -199,86 +202,186 @@ public class EmployeeController : ControllerBase
 
         if (employee is null)
         {
-            return NotFound(new { message = "Employee profile not found." });
+            return NotFound(new
+            {
+                message = "Employee profile not found."
+            });
         }
 
         return Ok(employee);
     }
 
     // =========================================================
-    // GET ALL STAFF FOR EMPLOYEE LIST
-    // Reads from Users, so old staff accounts also appear.
+    // GET ALL STAFF FOR EMPLOYEE MANAGEMENT
+    // Existing endpoint - DO NOT REMOVE
     // =========================================================
 
+    [HttpGet]
+    public async Task<IActionResult> GetEmployees()
+    {
+        var staffMembers = await _context.Users
+            .AsNoTracking()
+            .Where(user => user.Role == "Staff")
+            .OrderBy(user => user.FullName)
+            .Select(user => new
+            {
+                id = user.Id,
 
-[HttpGet]
-public async Task<IActionResult> GetEmployees()
-{
-    var staffMembers = await _context.Users
-        .AsNoTracking()
-        .Where(user => user.Role == "Staff")
-        .OrderBy(user => user.FullName)
-        .Select(user => new
-        {
-            id = user.Id,
+                title = user.Employee != null
+                    ? user.Employee.Title
+                    : "",
 
-            title = user.Employee != null
-                ? user.Employee.Title
-                : "",
+                employeeName = user.Employee != null
+                    ? user.Employee.EmployeeName
+                    : user.FullName,
 
-            employeeName = user.Employee != null
-                ? user.Employee.EmployeeName
-                : user.FullName,
+                personalEmail = user.Employee != null
+                    ? user.Employee.PersonalEmail
+                    : user.Username,
 
-            personalEmail = user.Employee != null
-                ? user.Employee.PersonalEmail
-                : user.Username,
+                mobileNumber = user.Employee != null
+                    ? user.Employee.MobileNumber
+                    : user.ContactNumber,
 
-            mobileNumber = user.Employee != null
-                ? user.Employee.MobileNumber
-                : user.ContactNumber,
+                designation = user.Employee != null
+                    ? user.Employee.Designation
+                    : "Not added",
 
-            designation = user.Employee != null
-                ? user.Employee.Designation
-                : "Not added",
+                status = "Active",
 
-            status = "Active",
+                fatherName = user.Employee != null
+                    ? user.Employee.FatherName
+                    : "",
 
-            fatherName = user.Employee != null ? user.Employee.FatherName : "",
-            motherName = user.Employee != null ? user.Employee.MotherName : "",
-            gender = user.Employee != null ? user.Employee.Gender : "",
-            dateOfBirth = user.Employee != null ? user.Employee.DateOfBirth : "",
-            bloodGroup = user.Employee != null ? user.Employee.BloodGroup : "",
-            nationality = user.Employee != null ? user.Employee.Nationality : "",
-            maritalStatus = user.Employee != null ? user.Employee.MaritalStatus : "",
-            spouseName = user.Employee != null ? user.Employee.SpouseName : "",
-            aadhaarNumber = user.Employee != null ? user.Employee.AadhaarNumber : "",
-            panNumber = user.Employee != null ? user.Employee.PanNumber : "",
-            religion = user.Employee != null ? user.Employee.Religion : "",
+                motherName = user.Employee != null
+                    ? user.Employee.MotherName
+                    : "",
 
-            currentAddress = user.Employee != null ? user.Employee.CurrentAddress : "",
-            currentCountry = user.Employee != null ? user.Employee.CurrentCountry : "",
-            currentState = user.Employee != null ? user.Employee.CurrentState : "",
-            currentCity = user.Employee != null ? user.Employee.CurrentCity : "",
-            currentPincode = user.Employee != null ? user.Employee.CurrentPincode : "",
+                gender = user.Employee != null
+                    ? user.Employee.Gender
+                    : "",
 
-            permanentAddress = user.Employee != null ? user.Employee.PermanentAddress : "",
-            permanentCountry = user.Employee != null ? user.Employee.PermanentCountry : "",
-            permanentState = user.Employee != null ? user.Employee.PermanentState : "",
-            permanentCity = user.Employee != null ? user.Employee.PermanentCity : "",
-            permanentPincode = user.Employee != null ? user.Employee.PermanentPincode : "",
+                dateOfBirth = user.Employee != null
+                    ? user.Employee.DateOfBirth
+                    : "",
 
-            emergencyContact = user.Employee != null ? user.Employee.EmergencyContact : "",
-            emergencyMobile = user.Employee != null ? user.Employee.EmergencyMobile : "",
-            emergencyRelation = user.Employee != null ? user.Employee.EmergencyRelation : ""
-        })
-        .ToListAsync();
+                bloodGroup = user.Employee != null
+                    ? user.Employee.BloodGroup
+                    : "",
 
-    Console.WriteLine($"STAFF FOUND IN USERS TABLE: {staffMembers.Count}");
+                nationality = user.Employee != null
+                    ? user.Employee.Nationality
+                    : "",
 
-    return Ok(staffMembers);
-}
+                maritalStatus = user.Employee != null
+                    ? user.Employee.MaritalStatus
+                    : "",
 
+                spouseName = user.Employee != null
+                    ? user.Employee.SpouseName
+                    : "",
+
+                aadhaarNumber = user.Employee != null
+                    ? user.Employee.AadhaarNumber
+                    : "",
+
+                panNumber = user.Employee != null
+                    ? user.Employee.PanNumber
+                    : "",
+
+                religion = user.Employee != null
+                    ? user.Employee.Religion
+                    : "",
+
+                currentAddress = user.Employee != null
+                    ? user.Employee.CurrentAddress
+                    : "",
+
+                currentCountry = user.Employee != null
+                    ? user.Employee.CurrentCountry
+                    : "",
+
+                currentState = user.Employee != null
+                    ? user.Employee.CurrentState
+                    : "",
+
+                currentCity = user.Employee != null
+                    ? user.Employee.CurrentCity
+                    : "",
+
+                currentPincode = user.Employee != null
+                    ? user.Employee.CurrentPincode
+                    : "",
+
+                permanentAddress = user.Employee != null
+                    ? user.Employee.PermanentAddress
+                    : "",
+
+                permanentCountry = user.Employee != null
+                    ? user.Employee.PermanentCountry
+                    : "",
+
+                permanentState = user.Employee != null
+                    ? user.Employee.PermanentState
+                    : "",
+
+                permanentCity = user.Employee != null
+                    ? user.Employee.PermanentCity
+                    : "",
+
+                permanentPincode = user.Employee != null
+                    ? user.Employee.PermanentPincode
+                    : "",
+
+                emergencyContact = user.Employee != null
+                    ? user.Employee.EmergencyContact
+                    : "",
+
+                emergencyMobile = user.Employee != null
+                    ? user.Employee.EmergencyMobile
+                    : "",
+
+                emergencyRelation = user.Employee != null
+                    ? user.Employee.EmergencyRelation
+                    : ""
+            })
+            .ToListAsync();
+
+        Console.WriteLine(
+            $"STAFF FOUND IN USERS TABLE: {staffMembers.Count}");
+
+        return Ok(staffMembers);
+    }
+
+    // =========================================================
+    // GET STAFF FOR REPORTS
+    // IMPORTANT: Returns EmployeeId, not UserId
+    // =========================================================
+
+    [HttpGet("staff")]
+    public async Task<IActionResult> GetStaff()
+    {
+        var staff = await _context.Employees
+            .AsNoTracking()
+            .OrderBy(employee => employee.EmployeeName)
+            .Select(employee => new
+            {
+                employeeId = employee.Id,
+                employeeName = employee.EmployeeName,
+                title = employee.Title,
+                personalEmail = employee.PersonalEmail,
+                mobileNumber = employee.MobileNumber,
+                department = employee.Department,
+                designation = employee.Designation,
+                joiningDate = employee.JoiningDate
+            })
+            .ToListAsync();
+
+        Console.WriteLine(
+            $"STAFF FOUND FOR REPORTS: {staff.Count}");
+
+        return Ok(staff);
+    }
 
     // =========================================================
     // DELETE EMPLOYEE PROFILE AND/OR STAFF LOGIN
@@ -308,7 +411,8 @@ public async Task<IActionResult> GetEmployees()
             });
         }
 
-        // Supports older staff users that do not yet have an Employee record.
+        // Supports older staff users that do not yet have
+        // an Employee record.
         var staffUser = await _context.Users
             .FirstOrDefaultAsync(user =>
                 user.Id == id &&
@@ -316,10 +420,14 @@ public async Task<IActionResult> GetEmployees()
 
         if (staffUser is null)
         {
-            return NotFound(new { message = "Employee not found." });
+            return NotFound(new
+            {
+                message = "Employee not found."
+            });
         }
 
         _context.Users.Remove(staffUser);
+
         await _context.SaveChangesAsync();
 
         return Ok(new

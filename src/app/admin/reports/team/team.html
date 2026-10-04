@@ -1,28 +1,118 @@
- <!-- =================================================
-         PAGE CONTENT
-    ================================================== -->
+<!-- =================================================
+     PAGE CONTENT
+================================================== -->
 
-    <div class="content">
+<div class="content">
+
+  <!-- PAGE TITLE -->
+
+  <div class="page-heading">
+
+    <h1>
+      Team Reports
+    </h1>
+
+    <p>
+      Overall team attendance performance
+    </p>
+
+  </div>
 
 
-      <!-- PAGE TITLE -->
+  <!-- =================================================
+       DATE RANGE
+  ================================================== -->
 
-      <div class="page-heading">
+  <section class="report-card">
 
-        <h1>
-          Team Reports
-        </h1>
+    <div class="card-heading">
 
-        <p>
-          Overall team performance metrics
-        </p>
+      <h2>
+        Report Date Range
+      </h2>
+
+      <p>
+        Select the attendance period you want to analyse.
+      </p>
+
+    </div>
+
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      "
+    >
+
+      <div>
+
+        <label
+          for="fromDate"
+          style="
+            display: block;
+            color: #7890af;
+            font-size: 13px;
+            margin-bottom: 5px;
+          "
+        >
+          From Date
+        </label>
+
+        <input
+          id="fromDate"
+          type="date"
+          [(ngModel)]="fromDate"
+          (change)="onDateChange()"
+          style="
+            padding: 10px 12px;
+            border: 1px solid #dce5ef;
+            border-radius: 10px;
+            color: #243d59;
+            background: white;
+          "
+        />
 
       </div>
 
 
-      <!-- SELECTED DATE -->
+      <div>
 
-      <div class="selected-date">
+        <label
+          for="toDate"
+          style="
+            display: block;
+            color: #7890af;
+            font-size: 13px;
+            margin-bottom: 5px;
+          "
+        >
+          To Date
+        </label>
+
+        <input
+          id="toDate"
+          type="date"
+          [(ngModel)]="toDate"
+          (change)="onDateChange()"
+          style="
+            padding: 10px 12px;
+            border: 1px solid #dce5ef;
+            border-radius: 10px;
+            color: #243d59;
+            background: white;
+          "
+        />
+
+      </div>
+
+
+      <div
+        class="selected-date"
+        style="margin-bottom: 0;"
+      >
 
         <span>
           Reports for:
@@ -34,420 +124,600 @@
 
       </div>
 
+    </div>
 
-      <!-- =================================================
-           STAFF PERFORMANCE
-      ================================================== -->
+  </section>
 
-      <section class="report-card">
 
-        <div class="card-heading">
+  <!-- =================================================
+       SEARCH
+  ================================================== -->
 
-          <h2>
-            Staff Performance Leaderboard
-          </h2>
+  <section
+    class="report-card"
+    style="padding-bottom: 18px;"
+  >
 
-          <p>
-            Ranked by resolved tickets today
-          </p>
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      "
+    >
 
+      <div class="card-heading">
+
+        <h2>
+          Team Attendance
+        </h2>
+
+        <p>
+          Attendance performance for each employee
+        </p>
+
+      </div>
+
+
+      <input
+        id="teamSearch"
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search employee..."
+        style="
+          width: 260px;
+          padding: 11px 14px;
+          border: 1px solid #dce5ef;
+          border-radius: 10px;
+          outline: none;
+          color: #243d59;
+        "
+      />
+
+    </div>
+
+  </section>
+
+
+  <!-- =================================================
+       ERROR
+  ================================================== -->
+
+  <div
+    *ngIf="errorMessage"
+    style="
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #ffeded;
+      color: #c62828;
+      border: 1px solid #ffd0d0;
+    "
+  >
+
+    {{ errorMessage }}
+
+  </div>
+
+
+  <!-- =================================================
+       LOADING
+  ================================================== -->
+
+  <section
+    class="report-card"
+    *ngIf="loadingReport"
+  >
+
+    <div
+      class="no-result"
+      style="padding: 60px;"
+    >
+
+      <h3>
+        Loading team report...
+      </h3>
+
+      <p>
+        Please wait while the attendance report is loaded.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =================================================
+       REPORT
+  ================================================== -->
+
+  <ng-container
+    *ngIf="!loadingReport && teamReport"
+  >
+
+
+    <!-- =================================================
+         STAFF PERFORMANCE
+    ================================================== -->
+
+    <section class="report-card">
+
+      <div class="card-heading">
+
+        <h2>
+          Staff Attendance Performance
+        </h2>
+
+        <p>
+          Ranked by total hours worked
+        </p>
+
+      </div>
+
+
+      <!-- HEADER -->
+
+      <div class="table-header">
+
+        <div>
+          RANK
         </div>
 
-
-        <!-- HEADER -->
-
-        <div class="table-header">
-
-          <div>RANK</div>
-
-          <div>STAFF NAME</div>
-
-          <div>TOTAL TICKETS</div>
-
-          <div>RESOLVED</div>
-
-          <div>PENDING</div>
-
-          <div>ESCALATED</div>
-
-          <div>WORKING HOURS</div>
-
+        <div>
+          STAFF NAME
         </div>
 
-
-        <!-- ROWS -->
-
-        <div
-          class="staff-row"
-          *ngFor="let staff of filteredStaff"
-          [class.highlight-row]="staff.rank === 3"
-        >
-
-          <div class="rank">
-
-            <span
-              *ngIf="staff.rank === 1"
-              class="medal gold"
-            >
-              🥇
-            </span>
-
-            <span
-              *ngIf="staff.rank === 2"
-              class="medal silver"
-            >
-              🥈
-            </span>
-
-            <span
-              *ngIf="staff.rank === 3"
-              class="medal bronze"
-            >
-              🥉
-            </span>
-
-            <span
-              *ngIf="staff.rank > 3"
-              class="rank-number"
-            >
-              {{ staff.rank }}
-            </span>
-
-          </div>
-
-
-          <div class="staff-name">
-
-            <div
-              class="avatar"
-              [attr.data-rank]="staff.rank"
-            >
-              {{ staff.initials }}
-            </div>
-
-            <div>
-
-              <strong>
-                {{ staff.name }}
-              </strong>
-
-              <span>
-                {{ staff.role }}
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <div class="total-tickets">
-            {{ staff.totalTickets }}
-          </div>
-
-          <div class="resolved">
-            {{ staff.resolved }}
-          </div>
-
-          <div class="pending">
-            {{ staff.pending }}
-          </div>
-
-          <div class="escalated">
-            {{ staff.escalated }}
-          </div>
-
-          <div class="working-hours">
-            {{ staff.workingHours }}
-          </div>
-
+        <div>
+          ATTENDANCE
         </div>
 
-
-        <div
-          class="no-result"
-          *ngIf="filteredStaff.length === 0"
-        >
-
-          No staff found for
-          "{{ searchText }}"
-
+        <div>
+          HOURS
         </div>
 
-      </section>
-
-
-      <!-- =================================================
-           TICKET VOLUME
-      ================================================== -->
-
-      <section class="report-card chart-card">
-
-        <div class="card-heading">
-
-          <h2>
-            Ticket Volume by Staff
-          </h2>
-
-          <p>
-            Today's workload distribution
-          </p>
-
+        <div>
+          DEPARTMENT
         </div>
 
-
-        <div class="chart-container">
-
-          <div class="y-axis">
-
-            <span>60</span>
-            <span>45</span>
-            <span>30</span>
-            <span>15</span>
-            <span>0</span>
-
-          </div>
-
-
-          <div class="chart">
-
-            <div
-              class="bar-column"
-              *ngFor="let staff of filteredStaff"
-            >
-
-              <div class="bar-wrapper">
-
-                <div
-                  class="bar resolved-bar"
-                  [style.height.%]="getBarHeight(staff.resolved)"
-                  title="Resolved"
-                ></div>
-
-                <div
-                  class="bar pending-bar"
-                  [style.height.%]="getBarHeight(staff.pending)"
-                  title="Pending"
-                ></div>
-
-                <div
-                  class="bar escalated-bar"
-                  [style.height.%]="getBarHeight(staff.escalated)"
-                  title="Escalated"
-                ></div>
-
-              </div>
-
-
-              <span class="bar-name">
-                {{ staff.name.split(' ')[0] }}
-              </span>
-
-            </div>
-
-          </div>
-
+        <div>
+          DESIGNATION
         </div>
 
+        <div>
+          TOTAL HOURS
+        </div>
 
-        <div class="chart-legend">
+      </div>
 
-          <span>
-            <i class="legend resolved-dot"></i>
-            Resolved
+
+      <!-- ROWS -->
+
+      <div
+        class="staff-row"
+        *ngFor="
+          let staff of filteredStaff;
+          let i = index
+        "
+        [class.highlight-row]="getRank(staff) === 1"
+      >
+
+
+        <!-- RANK -->
+
+        <div class="rank">
+
+          <span
+            *ngIf="getRank(staff) === 1"
+            class="medal gold"
+          >
+            🥇
           </span>
 
-          <span>
-            <i class="legend pending-dot"></i>
-            Pending
+          <span
+            *ngIf="getRank(staff) === 2"
+            class="medal silver"
+          >
+            🥈
           </span>
 
-          <span>
-            <i class="legend escalated-dot"></i>
-            Escalated
+          <span
+            *ngIf="getRank(staff) === 3"
+            class="medal bronze"
+          >
+            🥉
+          </span>
+
+          <span
+            *ngIf="getRank(staff) > 3"
+            class="rank-number"
+          >
+            {{ getRank(staff) }}
           </span>
 
         </div>
 
-      </section>
 
+        <!-- STAFF -->
 
-      <!-- =================================================
-           STATUS SUMMARY
-      ================================================== -->
-
-      <section class="report-card">
-
-        <div class="card-heading">
-
-          <h2>
-            Ticket Status Summary
-          </h2>
-
-          <p>
-            Current team ticket status
-          </p>
-
-        </div>
-
-
-        <div class="status-grid">
-
-          <div class="status-box resolved-status">
-
-            <div class="status-icon">
-              ✓
-            </div>
-
-            <div>
-
-              <span>Resolved</span>
-
-              <strong>
-                {{ totalResolved }}
-              </strong>
-
-            </div>
-
-          </div>
-
-
-          <div class="status-box pending-status">
-
-            <div class="status-icon">
-              !
-            </div>
-
-            <div>
-
-              <span>Pending</span>
-
-              <strong>
-                {{ totalPending }}
-              </strong>
-
-            </div>
-
-          </div>
-
-
-          <div class="status-box escalated-status">
-
-            <div class="status-icon">
-              ↑
-            </div>
-
-            <div>
-
-              <span>Escalated</span>
-
-              <strong>
-                {{ totalEscalated }}
-              </strong>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           RESOLUTION RATE
-      ================================================== -->
-
-      <section class="report-card">
-
-        <div class="card-heading">
-
-          <h2>
-            Resolution Rate
-          </h2>
-
-          <p>
-            % of tickets resolved per staff
-          </p>
-
-        </div>
-
-
-        <div class="resolution-list">
+        <div class="staff-name">
 
           <div
-            class="resolution-item"
+            class="avatar"
+            [attr.data-rank]="getRank(staff)"
+          >
+
+            {{ getInitials(staff.employeeName) }}
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              {{ staff.employeeName }}
+            </strong>
+
+            <span>
+              {{ staff.designation || 'Staff' }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- ATTENDANCE -->
+
+        <div class="total-tickets">
+
+          {{ staff.totalAttendanceRecords }}
+
+        </div>
+
+
+        <!-- HOURS -->
+
+        <div class="resolved">
+
+          {{ formatMinutes(staff.totalHoursWorkedMinutes) }}
+
+        </div>
+
+
+        <!-- DEPARTMENT -->
+
+        <div class="pending">
+
+          {{ staff.department || '-' }}
+
+        </div>
+
+
+        <!-- DESIGNATION -->
+
+        <div class="escalated">
+
+          {{ staff.designation || '-' }}
+
+        </div>
+
+
+        <!-- TOTAL HOURS -->
+
+        <div class="working-hours">
+
+          {{ formatMinutes(staff.totalHoursWorkedMinutes) }}
+
+        </div>
+
+      </div>
+
+
+      <!-- NO RESULTS -->
+
+      <div
+        class="no-result"
+        *ngIf="filteredStaff.length === 0"
+      >
+
+        No employees found for
+        "{{ searchText }}"
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         HOURS CHART
+    ================================================== -->
+
+    <section class="report-card chart-card">
+
+      <div class="card-heading">
+
+        <h2>
+          Working Hours by Staff
+        </h2>
+
+        <p>
+          Total attendance hours during the selected period
+        </p>
+
+      </div>
+
+
+      <div class="chart-container">
+
+        <div class="y-axis">
+
+          <span>
+            {{ totalHoursWorked }}
+          </span>
+
+          <span>
+            75%
+          </span>
+
+          <span>
+            50%
+          </span>
+
+          <span>
+            25%
+          </span>
+
+          <span>
+            0
+          </span>
+
+        </div>
+
+
+        <div class="chart">
+
+          <div
+            class="bar-column"
             *ngFor="let staff of filteredStaff"
           >
 
-            <div class="resolution-info">
-
-              <strong>
-                {{ staff.name }}
-              </strong>
-
-            </div>
-
-
-            <div class="progress-container">
+            <div class="bar-wrapper">
 
               <div
-                class="progress-bar"
-                [style.width.%]="getResolutionRate(staff)"
+                class="bar resolved-bar"
+                [style.height.%]="
+                  getBarHeight(
+                    staff.totalHoursWorkedMinutes
+                  )
+                "
+                [title]="
+                  formatMinutes(
+                    staff.totalHoursWorkedMinutes
+                  )
+                "
               ></div>
 
             </div>
 
 
-            <div class="percentage">
+            <span class="bar-name">
 
-              {{ getResolutionRate(staff) }}%
+              {{ staff.employeeName.split(' ')[0] }}
 
-            </div>
+            </span>
 
           </div>
 
         </div>
 
+      </div>
 
-        <!-- TEAM RATE -->
 
-        <div class="team-rate">
+      <div class="chart-legend">
+
+        <span>
+
+          <i class="legend resolved-dot"></i>
+
+          Working Hours
+
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         TEAM SUMMARY
+    ================================================== -->
+
+    <section class="report-card">
+
+      <div class="card-heading">
+
+        <h2>
+          Team Attendance Summary
+        </h2>
+
+        <p>
+          Overall attendance statistics
+        </p>
+
+      </div>
+
+
+      <div class="status-grid">
+
+
+        <!-- ATTENDANCE -->
+
+        <div class="status-box resolved-status">
+
+          <div class="status-icon">
+            ✓
+          </div>
 
           <div>
 
             <span>
-              Overall Team Resolution Rate
+              Attendance Records
             </span>
 
             <strong>
-              {{ teamResolutionRate }}%
+              {{ totalAttendanceRecords }}
             </strong>
-
-          </div>
-
-
-          <div class="team-progress">
-
-            <div
-              class="team-progress-bar"
-              [style.width.%]="teamResolutionRate"
-            ></div>
 
           </div>
 
         </div>
 
-      </section>
+
+        <!-- HOURS -->
+
+        <div class="status-box pending-status">
+
+          <div class="status-icon">
+            ◷
+          </div>
+
+          <div>
+
+            <span>
+              Total Hours
+            </span>
+
+            <strong>
+              {{ totalHoursWorked }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- EMPLOYEES -->
+
+        <div class="status-box escalated-status">
+
+          <div class="status-icon">
+            #
+          </div>
+
+          <div>
+
+            <span>
+              Employees
+            </span>
+
+            <strong>
+              {{ filteredStaff.length }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         AVERAGE HOURS
+    ================================================== -->
+
+    <section class="report-card">
+
+      <div class="card-heading">
+
+        <h2>
+          Average Working Hours
+        </h2>
+
+        <p>
+          Average hours worked per employee
+        </p>
+
+      </div>
+
+
+      <div class="team-rate">
+
+        <div>
+
+          <span>
+            Average Team Hours
+          </span>
+
+          <strong>
+            {{ averageHoursWorked }}
+          </strong>
+
+        </div>
+
+
+        <div class="team-progress">
+
+          <div
+            class="team-progress-bar"
+            style="width: 100%;"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </ng-container>
+
+
+  <!-- =================================================
+       EMPTY
+  ================================================== -->
+
+  <section
+    class="report-card"
+    *ngIf="
+      !loadingReport &&
+      teamReport &&
+      filteredStaff.length === 0
+    "
+  >
+
+    <div
+      class="no-result"
+      style="padding: 60px;"
+    >
+
+      <h3>
+        No attendance records found
+      </h3>
+
+      <p>
+        No team attendance records are available
+        for {{ getFormattedDate() }}.
+      </p>
 
     </div>
 
+  </section>
 
 
-  <!-- HELP -->
+</div>
 
-  <button
-    class="help-button"
-    type="button"
-  >
-    ?
-  </button>
+
+<!-- =================================================
+     HELP
+================================================== -->
+
+<button
+  class="help-button"
+  type="button"
+>
+  ?
+</button>
