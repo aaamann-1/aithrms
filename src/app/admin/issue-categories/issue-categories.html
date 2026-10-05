@@ -1,81 +1,461 @@
+<div class="page-content">
 
-    <section class="page-content">
-      <div class="page-heading">
-        <div>
-          <h1>Issue Categories</h1>
-          <p>Manage support issue classifications</p>
+  <!-- PAGE HEADER -->
+  <div class="page-heading">
+    <div>
+      <h1>Issue Categories</h1>
+      <p>Manage and monitor client support issue categories.</p>
+    </div>
+
+    <button
+      type="button"
+      class="add-category-btn"
+      (click)="addCategory()"
+    >
+      + Add Category
+    </button>
+  </div>
+
+
+  <!-- SEARCH -->
+  <div class="filter-section">
+
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search categories..."
+      />
+    </div>
+
+  </div>
+
+
+  <!-- CATEGORY CARDS -->
+  <section class="categories-grid">
+
+    <article
+      class="category-card"
+      *ngFor="let category of filteredCategories"
+      [class.selected-category]="
+        selectedCategory?.id === category.id
+      "
+    >
+
+      <!-- CARD TOP -->
+      <div class="category-card-top">
+
+        <div
+          class="category-icon"
+          [style.color]="category.color"
+          [style.background]="category.background"
+        >
+          ◇
         </div>
 
-        <button class="add-category-button" type="button" (click)="addCategory()">
-          <span>＋</span>
-          Add Category
-        </button>
+        <!-- ACTION BUTTONS -->
+        <div class="card-actions">
+
+          <button
+            type="button"
+            title="Edit"
+            (click)="editCategory(category)"
+          >
+            ✎
+          </button>
+
+          <button
+            type="button"
+            title="Delete"
+            (click)="deleteCategory(category)"
+          >
+            ×
+          </button>
+
+        </div>
+
       </div>
 
-      <section class="categories-grid">
-        <article
-          class="category-card"
-          *ngFor="let category of filteredCategories"
+
+      <!-- CATEGORY NAME -->
+      <h2>
+        {{ category.name }}
+      </h2>
+
+
+      <!-- DESCRIPTION -->
+      <p>
+        {{ category.description }}
+      </p>
+
+
+      <!-- TOTAL -->
+      <div class="category-total">
+
+        <span>
+          Total Issues
+        </span>
+
+        <strong
+          [style.color]="category.color"
         >
-          <div class="category-card-top">
-            <div
-              class="category-icon"
-              [style.color]="category.color"
-              [style.background]="category.background"
-            >
-              ◇
-            </div>
+          {{ category.total }}
+        </strong>
 
-            <div class="card-actions">
-              <button type="button" (click)="editCategory(category)">♢</button>
-              <button type="button" (click)="deleteCategory(category)">♧</button>
-            </div>
+      </div>
+
+
+      <!-- VIEW ISSUES -->
+      <button
+        type="button"
+        class="view-issues-btn"
+        [class.active]="
+          selectedCategory?.id === category.id
+        "
+        (click)="openCategory(category)"
+      >
+
+        <span>
+          {{
+            selectedCategory?.id === category.id
+              ? 'Hide Issues'
+              : 'View Issues'
+          }}
+        </span>
+
+        <span>
+          {{
+            selectedCategory?.id === category.id
+              ? '↑'
+              : '→'
+          }}
+        </span>
+
+      </button>
+
+    </article>
+
+  </section>
+
+
+  <!-- NO CATEGORIES -->
+  <div
+    class="empty-state"
+    *ngIf="filteredCategories.length === 0"
+  >
+
+    <h3>
+      No categories found
+    </h3>
+
+    <p>
+      No issue categories match your search.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       FULL ISSUE DETAILS
+       ===================================================== -->
+
+  <section
+    class="category-tasks-card"
+    *ngIf="selectedCategory"
+  >
+
+    <!-- HEADER -->
+    <div class="category-tasks-header">
+
+      <div>
+
+        <h2>
+          {{ selectedCategory.name }} Issues
+        </h2>
+
+        <p>
+          Full issue details for
+          {{ selectedCategory.name }}
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="close-tasks-button"
+        (click)="closeCategoryTasks()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- LOADING -->
+    <div
+      class="tasks-loading"
+      *ngIf="isLoadingTasks"
+    >
+      Loading Task Entries...
+    </div>
+
+
+    <!-- NO TASKS -->
+    <div
+      class="no-tasks"
+      *ngIf="
+        !isLoadingTasks &&
+        categoryTasks.length === 0
+      "
+    >
+
+      <strong>
+        No issues found
+      </strong>
+
+      <p>
+        There are no task entries for
+        {{ selectedCategory.name }}.
+      </p>
+
+    </div>
+
+
+    <!-- TASK LIST -->
+    <div
+      class="tasks-list"
+      *ngIf="
+        !isLoadingTasks &&
+        categoryTasks.length > 0
+      "
+    >
+
+      <article
+        class="task-detail-card"
+        *ngFor="let task of categoryTasks"
+      >
+
+        <!-- TASK HEADER -->
+        <div class="task-detail-top">
+
+          <div>
+
+            <h3>
+              {{ task.clientName || 'Unknown Client' }}
+            </h3>
+
+            <span class="client-id">
+              Client ID:
+              {{ task.clientId || '-' }}
+            </span>
+
           </div>
 
-          <h2>{{ category.name }}</h2>
-          <p>{{ category.description }}</p>
 
-          <div class="category-total">
-            <span>Total Issues</span>
-            <strong [style.color]="category.color">{{ category.total }}</strong>
-          </div>
-        </article>
-      </section>
+          <!-- STATUS -->
+          <span
+            class="task-status"
+            [class.status-resolved]="
+              task.status === 'Resolved'
+            "
+            [class.status-pending]="
+              task.status === 'Pending'
+            "
+            [class.status-progress]="
+              task.status === 'In Progress'
+            "
+            [class.status-escalated]="
+              task.status === 'Escalated'
+            "
+          >
+            {{ task.status || '-' }}
+          </span>
 
-      <section class="analytics-card">
-        <div class="analytics-header">
-          <h2>Category Analytics</h2>
-          <p>Issue distribution by category</p>
         </div>
 
-        <div class="chart">
-          <div class="chart-y-axis">
-            <span>60</span>
-            <span>45</span>
-            <span>30</span>
-            <span>15</span>
-            <span>0</span>
+
+        <!-- TASK INFORMATION -->
+        <div class="task-detail-info">
+
+          <div>
+
+            <span>
+              Staff
+            </span>
+
+            <strong>
+              {{ task.staffName || '-' }}
+            </strong>
+
           </div>
 
-          <div class="chart-area">
-            <div class="grid-line line-1"></div>
-            <div class="grid-line line-2"></div>
-            <div class="grid-line line-3"></div>
-            <div class="grid-line line-4"></div>
-            <div class="grid-line line-5"></div>
 
-            <div class="bars">
-              <div class="bar-column" *ngFor="let category of categories">
-                <div
-                  class="bar"
-                  [style.height]="getBarHeight(category.total)"
-                  [style.background]="category.color"
-                ></div>
+          <div>
 
-                <span>{{ category.shortName }}</span>
-              </div>
-            </div>
+            <span>
+              Category
+            </span>
+
+            <strong>
+              {{ task.issueCategory || '-' }}
+            </strong>
+
           </div>
+
+
+          <div>
+
+            <span>
+              Start Time
+            </span>
+
+            <strong>
+              {{ task.startTime || '-' }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              End Time
+            </span>
+
+            <strong>
+              {{ task.endTime || '-' }}
+            </strong>
+
+          </div>
+
         </div>
-      </section>
-    </section>
+
+
+        <!-- ISSUE DESCRIPTION -->
+        <div class="task-description">
+
+          <span>
+            Issue Description
+          </span>
+
+          <p>
+            {{ task.issueDescription || '-' }}
+          </p>
+
+        </div>
+
+
+        <!-- RESOLUTION NOTES -->
+        <div
+          class="task-resolution"
+          *ngIf="task.resolutionNotes"
+        >
+
+          <span>
+            Resolution Notes
+          </span>
+
+          <p>
+            {{ task.resolutionNotes }}
+          </p>
+
+        </div>
+
+
+        <!-- ESCALATED TO -->
+        <div
+          class="task-escalated"
+          *ngIf="task.escalatedTo"
+        >
+
+          <span>
+            Escalated To
+          </span>
+
+          <strong>
+            {{ task.escalatedTo }}
+          </strong>
+
+        </div>
+
+
+        <!-- CREATED -->
+        <div class="task-created">
+
+          Created:
+          {{ task.createdAt | date:'dd MMM yyyy, hh:mm a' }}
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       ANALYTICS
+       ===================================================== -->
+
+  <section class="analytics-card">
+
+    <div class="analytics-header">
+
+      <div>
+
+        <h2>
+          Issue Analytics
+        </h2>
+
+        <p>
+          Distribution of issues across categories.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="chart-area">
+
+      <div
+        class="chart-item"
+        *ngFor="let category of categories"
+      >
+
+        <div class="chart-label">
+
+          <span>
+            {{ category.name }}
+          </span>
+
+          <strong>
+            {{ category.total }}
+          </strong>
+
+        </div>
+
+
+        <div class="chart-bar-background">
+
+          <div
+            class="chart-bar"
+            [style.width.%]="
+              getBarHeight(category.total)
+            "
+            [style.background]="category.color"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

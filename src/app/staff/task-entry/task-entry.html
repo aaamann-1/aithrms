@@ -8,7 +8,6 @@
     </div>
   </div>
 
-
   <!-- Task Form Card -->
   <div class="task-card">
 
@@ -29,7 +28,6 @@
           />
         </div>
 
-
         <div class="form-group">
           <label for="clientId">Client ID</label>
 
@@ -44,10 +42,10 @@
 
       </div>
 
-
-      <!-- Issue Category -->
+      <!-- Issue Category + Status -->
       <div class="form-row">
 
+        <!-- Issue Category -->
         <div class="form-group">
 
           <label for="issueCategory">
@@ -59,10 +57,35 @@
             name="issueCategory"
             [(ngModel)]="issueCategory"
             (change)="onCategoryChange()"
+            required
           >
 
-            <option value="">
+            <option value="" disabled>
               Select category
+            </option>
+
+            <option value="Invoice">
+              Invoice
+            </option>
+
+            <option value="Payment">
+              Payment
+            </option>
+
+            <option value="Refund">
+              Refund
+            </option>
+
+            <option value="Account">
+              Account
+            </option>
+
+            <option value="Billing Plan">
+              Billing Plan
+            </option>
+
+            <option value="Subscription">
+              Subscription
             </option>
 
             <option value="Other">
@@ -70,7 +93,6 @@
             </option>
 
           </select>
-
 
           <!-- Manual Category -->
           <div
@@ -93,7 +115,6 @@
           </div>
 
         </div>
-
 
         <!-- Status -->
         <div class="form-group">
@@ -131,7 +152,6 @@
 
           </select>
 
-
           <!-- Escalated To -->
           <div
             class="conditional-field"
@@ -167,7 +187,6 @@
 
       </div>
 
-
       <!-- Issue Description -->
       <div class="form-group full-width">
 
@@ -184,7 +203,6 @@
         ></textarea>
 
       </div>
-
 
       <!-- Time -->
       <div class="form-row">
@@ -204,7 +222,6 @@
 
         </div>
 
-
         <div class="form-group">
 
           <label for="endTime">
@@ -222,7 +239,6 @@
 
       </div>
 
-
       <!-- Resolution Notes -->
       <div class="form-group full-width">
 
@@ -239,7 +255,6 @@
         ></textarea>
 
       </div>
-
 
       <!-- Buttons -->
       <div class="form-actions">

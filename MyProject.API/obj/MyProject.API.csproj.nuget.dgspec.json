@@ -1,20 +1,28 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj": {}
+=======
+    "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj": {}
+>>>>>>> 8f7082198b2d375b35587b8633311d734c3321fe
   },
   "projects": {
-    "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj": {
+    "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
+        "projectUniqueName": "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
         "projectName": "MyProject.API",
-        "projectPath": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
-        "packagesPath": "C:\\Users\\aksha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\obj\\",
+        "projectPath": "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
+        "packagesPath": "C:\\Users\\SAYEED MOMIN\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SAYEED MOMIN\\OneDrive\\Documents\\GitHub\\aithrms\\MyProject.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\aksha\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+          "C:\\Users\\SAYEED MOMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> 8f7082198b2d375b35587b8633311d734c3321fe
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -39,7 +47,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.400"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
@@ -96,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.303/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
