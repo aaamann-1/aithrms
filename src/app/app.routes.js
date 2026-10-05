@@ -1,3 +1,4 @@
+import { adminGuard } from './guards/admin-guard';
 import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
@@ -5,15 +6,19 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 // =========================
 // ADMIN
 // =========================
+import { AdminLayout } from './admin/admin-layout/admin-layout';
 import { Dashboard } from './admin/dashboard/dashboard';
 import { LiveFeedComponent } from './admin/live-feed/live-feed';
 import { IndividualReports } from './admin/reports/Individual/individual';
 import { TeamReportsComponent } from './admin/reports/Team/team';
 import { StaffManagement } from './admin/staff-management/staff-management';
-import { Employee } from './admin/employee/employee';
 import { Attendance } from './admin/Attendance/attendance';
 import { IssueCategoriesComponent } from './admin/issue-categories/issue-categories';
+import { Employee } from './admin/employee/employee';
+import { EmployeeForm } from './admin/employee-form/employee-form';
 import { ExportReports } from './admin/export-reports/export-reports';
+import { Settings } from './admin/settings/settings';
+import { Profile as AdminProfile } from './admin/profile/profile';
 // =========================
 // STAFF
 // =========================
@@ -22,6 +27,8 @@ import { Dashboard as StaffDashboard } from './staff/dashboard/dashboard';
 import { AttendanceComponent } from './staff/attendance/attendance';
 import { TaskEntry } from './staff/task-entry/task-entry';
 import { Profile } from './staff/profile/profile';
+import { MyReports } from './staff/my-reports/my-reports';
+import { StaffSettings } from './staff/settings/settings';
 export const routes = [
     // =========================
     // PUBLIC PAGES - HRMS
@@ -46,48 +53,97 @@ export const routes = [
     // ADMIN
     // =========================
     {
-        path: 'admin/dashboard',
-        component: Dashboard
-    },
-    {
-        path: 'admin/live-feed',
-        component: LiveFeedComponent
-    },
-    {
-        path: 'admin/staff-management',
-        component: StaffManagement
-    },
-
-    {
-  path: 'admin/employee',
-  component: Employee
-},
-
-    {
-        path: 'admin/attendance',
-        component: Attendance
-    },
-    // =========================
-    // ADMIN REPORTS
-    // =========================
-    {
-        path: 'admin/reports/individual',
-        component: IndividualReports
-    },
-    {
-        path: 'admin/reports/team',
-        component: TeamReportsComponent
-    },
-    // =========================
-    // ADMIN OTHER
-    // =========================
-    {
-        path: 'admin/issue-categories',
-        component: IssueCategoriesComponent
-    },
-    {
-        path: 'admin/export-reports',
-        component: ExportReports
+        path: 'admin',
+        component: AdminLayout,
+        canActivate: [adminGuard],
+        children: [
+            // =========================
+            // ADMIN DASHBOARD
+            // =========================
+            {
+                path: 'dashboard',
+                component: Dashboard
+            },
+            // =========================
+            // LIVE FEED
+            // =========================
+            {
+                path: 'live-feed',
+                component: LiveFeedComponent
+            },
+            // =========================
+            // STAFF MANAGEMENT
+            // =========================
+            {
+                path: 'staff-management',
+                component: StaffManagement
+            },
+            // =========================
+            // EMPLOYEE
+            // =========================
+            {
+                path: 'employee',
+                component: Employee
+            },
+            {
+                path: 'employee/new',
+                component: EmployeeForm
+            },
+            // =========================
+            // ATTENDANCE
+            // =========================
+            {
+                path: 'attendance',
+                component: Attendance
+            },
+            // =========================
+            // ADMIN REPORTS
+            // =========================
+            {
+                path: 'reports/individual',
+                component: IndividualReports
+            },
+            {
+                path: 'reports/team',
+                component: TeamReportsComponent
+            },
+            // =========================
+            // ISSUE CATEGORIES
+            // =========================
+            {
+                path: 'issue-categories',
+                component: IssueCategoriesComponent
+            },
+            // =========================
+            // EXPORT REPORTS
+            // =========================
+            {
+                path: 'export-reports',
+                component: ExportReports
+            },
+            // =========================
+            // ADMIN SETTINGS
+            // =========================
+            {
+                path: 'settings',
+                component: Settings
+            },
+            // =========================
+            // ADMIN PROFILE
+            // =========================
+            {
+                path: 'profile',
+                component: AdminProfile
+            },
+            // =========================
+            // DEFAULT ADMIN PAGE
+            // =========================
+            {
+                path: '',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            }
+        ]
     },
     // =========================
     // STAFF
@@ -96,11 +152,42 @@ export const routes = [
         path: 'staff',
         component: StaffLayout,
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: StaffDashboard },
-            { path: 'task-entry', component: TaskEntry },
-            { path: 'attendance', component: AttendanceComponent },
-            { path: 'profile', component: Profile }
+            // DEFAULT STAFF PAGE
+            {
+                path: '',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            },
+            // STAFF DASHBOARD
+            {
+                path: 'dashboard',
+                component: StaffDashboard
+            },
+            // TASK ENTRY
+            {
+                path: 'task-entry',
+                component: TaskEntry
+            },
+            // ATTENDANCE
+            {
+                path: 'attendance',
+                component: AttendanceComponent
+            },
+            // STAFF PROFILE
+            {
+                path: 'profile',
+                component: Profile
+            },
+            // STAFF SETTINGS
+            {
+                path: 'settings',
+                component: StaffSettings
+            },
+            // MY REPORTS
+            {
+                path: 'my-reports',
+                component: MyReports
+            }
         ]
     },
     // =========================

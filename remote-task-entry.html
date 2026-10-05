@@ -1,0 +1,268 @@
+<div class="task-entry-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1>Add Task / Submit Report</h1>
+      <p>Log a new client support case for today.</p>
+    </div>
+  </div>
+
+
+  <!-- Task Form Card -->
+  <div class="task-card">
+
+    <form (ngSubmit)="submitTask()">
+
+      <!-- Client Information -->
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="clientName">Client Name</label>
+
+          <input
+            id="clientName"
+            type="text"
+            name="clientName"
+            [(ngModel)]="clientName"
+            placeholder="e.g. Arjun Mehta"
+          />
+        </div>
+
+
+        <div class="form-group">
+          <label for="clientId">Client ID</label>
+
+          <input
+            id="clientId"
+            type="text"
+            name="clientId"
+            [(ngModel)]="clientId"
+            placeholder="e.g. CL-1042"
+          />
+        </div>
+
+      </div>
+
+
+      <!-- Issue Category -->
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label for="issueCategory">
+            Issue Category
+          </label>
+
+          <select
+            id="issueCategory"
+            name="issueCategory"
+            [(ngModel)]="issueCategory"
+            (change)="onCategoryChange()"
+          >
+
+            <option value="">
+              Select category
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
+          </select>
+
+
+          <!-- Manual Category -->
+          <div
+            class="conditional-field"
+            *ngIf="issueCategory === 'Other'"
+          >
+
+            <label for="otherIssueCategory">
+              Enter Issue Category
+            </label>
+
+            <input
+              id="otherIssueCategory"
+              type="text"
+              name="otherIssueCategory"
+              [(ngModel)]="otherIssueCategory"
+              placeholder="Enter issue category"
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- Status -->
+        <div class="form-group">
+
+          <label for="status">
+            Status
+          </label>
+
+          <select
+            id="status"
+            name="status"
+            [(ngModel)]="status"
+            (change)="onStatusChange()"
+          >
+
+            <option value="">
+              Select status
+            </option>
+
+            <option value="Resolved">
+              Resolved
+            </option>
+
+            <option value="Pending">
+              Pending
+            </option>
+
+            <option value="In Progress">
+              In Progress
+            </option>
+
+            <option value="Escalated">
+              Escalated
+            </option>
+
+          </select>
+
+
+          <!-- Escalated To -->
+          <div
+            class="conditional-field"
+            *ngIf="status === 'Escalated'"
+          >
+
+            <label for="escalatedTo">
+              Escalated To
+            </label>
+
+            <select
+              id="escalatedTo"
+              name="escalatedTo"
+              [(ngModel)]="escalatedTo"
+            >
+
+              <option value="">
+                Select person
+              </option>
+
+              <option
+                *ngFor="let user of escalatedUsers"
+                [value]="user"
+              >
+                {{ user }}
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Issue Description -->
+      <div class="form-group full-width">
+
+        <label for="issueDescription">
+          Issue Description
+        </label>
+
+        <textarea
+          id="issueDescription"
+          name="issueDescription"
+          [(ngModel)]="issueDescription"
+          placeholder="Describe the client's issue in detail..."
+          rows="4"
+        ></textarea>
+
+      </div>
+
+
+      <!-- Time -->
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label for="startTime">
+            Start Time
+          </label>
+
+          <input
+            id="startTime"
+            type="time"
+            name="startTime"
+            [(ngModel)]="startTime"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="endTime">
+            End Time
+          </label>
+
+          <input
+            id="endTime"
+            type="time"
+            name="endTime"
+            [(ngModel)]="endTime"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- Resolution Notes -->
+      <div class="form-group full-width">
+
+        <label for="resolutionNotes">
+          Resolution Notes
+        </label>
+
+        <textarea
+          id="resolutionNotes"
+          name="resolutionNotes"
+          [(ngModel)]="resolutionNotes"
+          placeholder="Steps taken to resolve the issue..."
+          rows="4"
+        ></textarea>
+
+      </div>
+
+
+      <!-- Buttons -->
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="btn-submit"
+        >
+          Submit Task
+        </button>
+
+        <button
+          type="button"
+          class="btn-clear"
+          (click)="clearForm()"
+        >
+          Clear Form
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

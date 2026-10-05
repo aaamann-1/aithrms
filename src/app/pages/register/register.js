@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 let Register = class Register {
+    authService;
+    constructor(authService) {
+        this.authService = authService;
+    }
     fullName = '';
     username = '';
     contactNumber = '';
@@ -15,7 +19,6 @@ let Register = class Register {
     submitted = false;
     register() {
         this.submitted = true;
-        // Required field validation
         if (!this.fullName ||
             !this.username ||
             !this.contactNumber ||
@@ -23,25 +26,31 @@ let Register = class Register {
             !this.confirmPassword) {
             return;
         }
-        // Contact validation
         if (this.contactNumber.length !== 10) {
             return;
         }
-        // Password validation
         if (this.password.length < 6) {
             return;
         }
-        // Confirm password validation
         if (this.password !== this.confirmPassword) {
             return;
         }
-        console.log({
+        const userData = {
             fullName: this.fullName,
             username: this.username,
             contactNumber: this.contactNumber,
+            password: this.password,
+            confirmPassword: this.confirmPassword,
             role: this.selectedRole
+        };
+        this.authService.register(userData).subscribe({
+            next: () => {
+                alert('Account created successfully. You can now sign in.');
+            },
+            error: (error) => {
+                alert(error.error?.message || 'Registration failed. Please try again.');
+            }
         });
-        alert('Account Created successfully.');
     }
 };
 Register = __decorate([
