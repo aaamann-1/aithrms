@@ -111,7 +111,6 @@ builder.Services.AddAuthentication(
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
 
-<<<<<<< HEAD
                 ValidIssuer = jwtSettings.Issuer,
 
                 ValidAudience = jwtSettings.Audience,
@@ -121,15 +120,6 @@ builder.Services.AddAuthentication(
                         Encoding.UTF8.GetBytes(
                             jwtSettings.Key))
             };
-=======
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSettings.Key)),
-
-                  RoleClaimType = System.Security.Claims.ClaimTypes.Role
-        };
->>>>>>> 8f7082198b2d375b35587b8633311d734c3321fe
     });
 
 

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-staff-settings',
@@ -8,18 +9,19 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './settings.html',
   styleUrl: './settings.css'
 })
-export class StaffSettings {
+export class StaffSettings implements OnInit {
 
   // ================================
   // STAFF PROFILE
   // ================================
 
-  fullName = 'Rahul Sharma';
-  email = 'rahul.sharma@dsrpanel.com';
-  contactNumber = '+91 98765 43210';
-  employeeId = 'EMP-0072';
-  department = 'Customer Support';
-  designation = 'Support Executive';
+  fullName = '';
+  email = '';
+  contactNumber = '';
+  employeeId = '';
+  department = '';
+  designation = '';
+  joiningDate = '';
 
   // ================================
   // PREFERENCES
@@ -40,14 +42,50 @@ export class StaffSettings {
   newPassword = '';
   confirmPassword = '';
 
+  constructor(private authService: AuthService) {}
+
+  // ================================
+  // LOAD LOGGED-IN STAFF
+  // ================================
+
+  ngOnInit(): void {
+    this.loadStaffDetails();
+  }
+
+  loadStaffDetails(): void {
+
+    const user = this.authService.getCurrentUser();
+
+    if (user) {
+
+      this.fullName = user.fullName || '';
+      this.email = user.email || '';
+      this.contactNumber = user.contactNumber || '';
+      this.employeeId = user.employeeId?.toString() || '';
+      this.department = user.department || '';
+      this.designation = user.designation || '';
+      this.joiningDate = user.joiningDate || '';
+
+    } else {
+
+      // Fallback: read the values saved during login
+      this.fullName = localStorage.getItem('fullName') || '';
+      this.email = localStorage.getItem('email') || '';
+      this.contactNumber = localStorage.getItem('contactNumber') || '';
+      this.employeeId = localStorage.getItem('employeeId') || '';
+      this.department = localStorage.getItem('department') || '';
+      this.designation = localStorage.getItem('designation') || '';
+      this.joiningDate = localStorage.getItem('joiningDate') || '';
+
+    }
+  }
+
   // ================================
   // SAVE SETTINGS
   // ================================
 
   saveChanges(): void {
-
     alert('Settings saved successfully!');
-
   }
 
   // ================================
@@ -59,15 +97,10 @@ export class StaffSettings {
     this.darkMode = !this.darkMode;
 
     if (this.darkMode) {
-
       document.body.classList.add('dark-mode');
-
     } else {
-
       document.body.classList.remove('dark-mode');
-
     }
-
   }
 
   // ================================
@@ -75,9 +108,7 @@ export class StaffSettings {
   // ================================
 
   openChangePassword(): void {
-
     this.showPasswordForm = true;
-
   }
 
   closeChangePassword(): void {
@@ -87,7 +118,6 @@ export class StaffSettings {
     this.currentPassword = '';
     this.newPassword = '';
     this.confirmPassword = '';
-
   }
 
   updatePassword(): void {
@@ -97,33 +127,23 @@ export class StaffSettings {
       !this.newPassword ||
       !this.confirmPassword
     ) {
-
       alert('Please fill all password fields.');
-
       return;
-
     }
 
     if (this.newPassword.length < 6) {
-
       alert('New password must contain at least 6 characters.');
-
       return;
-
     }
 
     if (this.newPassword !== this.confirmPassword) {
-
       alert('New password and confirm password do not match.');
-
       return;
-
     }
 
     alert('Password changed successfully!');
 
     this.closeChangePassword();
-
   }
 
   // ================================
@@ -131,9 +151,7 @@ export class StaffSettings {
   // ================================
 
   openTwoFactor(): void {
-
     alert('Two-Factor Authentication settings will be available soon.');
-
   }
 
 }

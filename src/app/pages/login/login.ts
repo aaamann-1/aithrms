@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.css'
 })
 export class Login {
+
   username = '';
   contactNumber = '';
   password = '';
@@ -22,13 +23,18 @@ export class Login {
   ) {}
 
   login() {
+
     if (
       !this.username ||
       !this.contactNumber ||
       !this.password ||
       !this.selectedRole
     ) {
-      alert('Please enter username, contact number, password, and role.');
+
+      alert(
+        'Please enter username, contact number, password, and role.'
+      );
+
       return;
     }
 
@@ -41,53 +47,137 @@ export class Login {
 
     this.authService.login(loginData).subscribe({
 
+      next: (response: any) => {
 
-     next: (response: any) => {
+        // ================================
+        // SAVE LOGIN INFORMATION
+        // ================================
 
-  localStorage.setItem('token', response.token);
-  localStorage.setItem('role', response.role);
-localStorage.setItem('fullName', response.fullName);
-localStorage.setItem('username', response.username);
-localStorage.setItem('contactNumber', response.contactNumber);
+        localStorage.setItem(
+          'token',
+          response.token || ''
+        );
 
-if (response.role === 'Staff') {
-  localStorage.setItem('employeeId', response.employeeId?.toString() ?? '');
-  localStorage.setItem('department', response.department ?? '');
-  localStorage.setItem('designation', response.designation ?? '');
-  localStorage.setItem('joiningDate', response.joiningDate ?? '');
-}
+        localStorage.setItem(
+          'role',
+          response.role || ''
+        );
 
+        localStorage.setItem(
+          'fullName',
+          response.fullName || ''
+        );
 
-  // Save logged-in user's profile information
-  const currentUser = {
-    username: response.username,
-    fullName: response.fullName,
-    contactNumber: response.contactNumber,
-    role: response.role
-  };
+        localStorage.setItem(
+          'username',
+          response.username || ''
+        );
 
-  localStorage.setItem(
-    'currentUser',
-    JSON.stringify(currentUser)
-  );
+        localStorage.setItem(
+          'email',
+          response.email || ''
+        );
 
-  if (response.role === 'Admin') {
-    this.router.navigate(['/admin']);
-  } else {
-    this.router.navigate(['/staff']);
-  }
-},
+        localStorage.setItem(
+          'contactNumber',
+          response.contactNumber || ''
+        );
 
 
+        // ================================
+        // SAVE STAFF INFORMATION
+        // ================================
+
+        if (response.role === 'Staff') {
+
+          localStorage.setItem(
+            'employeeId',
+            response.employeeId?.toString() || ''
+          );
+
+          localStorage.setItem(
+            'department',
+            response.department || ''
+          );
+
+          localStorage.setItem(
+            'designation',
+            response.designation || ''
+          );
+
+          localStorage.setItem(
+            'joiningDate',
+            response.joiningDate || ''
+          );
+        }
+
+
+        // ================================
+        // SAVE CURRENT USER
+        // ================================
+
+        const currentUser = {
+
+          username: response.username || '',
+
+          fullName: response.fullName || '',
+
+          email: response.email || '',
+
+          contactNumber: response.contactNumber || '',
+
+          role: response.role || '',
+
+          employeeId: response.employeeId || '',
+
+          department: response.department || '',
+
+          designation: response.designation || '',
+
+          joiningDate: response.joiningDate || ''
+
+        };
+
+        localStorage.setItem(
+          'currentUser',
+          JSON.stringify(currentUser)
+        );
+
+
+        // ================================
+        // NAVIGATION
+        // ================================
+
+        if (response.role === 'Admin') {
+
+          this.router.navigate(['/admin']);
+
+        } else {
+
+          this.router.navigate(['/staff']);
+
+        }
+
+      },
+
+
+      // ================================
+      // LOGIN ERROR
+      // ================================
 
       error: (error: any) => {
+
         console.log(error);
 
         alert(
           error.error?.message ||
           'Login failed. Check your details and role.'
         );
+
       }
+
     });
+
   }
+
 }
