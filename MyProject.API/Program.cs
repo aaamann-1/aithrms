@@ -99,39 +99,26 @@ var jwtSettings = builder.Configuration
     .GetSection("Jwt")
     .Get<JwtSettings>()!;
 
-builder.Services.AddAuthentication(
-    JwtBearerDefaults.AuthenticationScheme)
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters =
-            new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
 
-<<<<<<< HEAD
-                ValidIssuer = jwtSettings.Issuer,
-
-                ValidAudience = jwtSettings.Audience,
-
-                IssuerSigningKey =
-                    new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(
-                            jwtSettings.Key))
-            };
-=======
             ValidIssuer = jwtSettings.Issuer,
             ValidAudience = jwtSettings.Audience,
+
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtSettings.Key)),
 
-                  RoleClaimType = System.Security.Claims.ClaimTypes.Role
+            RoleClaimType = System.Security.Claims.ClaimTypes.Role
         };
->>>>>>> 8f7082198b2d375b35587b8633311d734c3321fe
     });
-
 
 // =========================================================
 // BUILD APPLICATION
