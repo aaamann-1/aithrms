@@ -1,30 +1,22 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-interface Activity {
-  clientName: string;
-  clientId: string;
-  category: string;
-  time: string;
-  status: 'Resolved' | 'Pending' | 'Escalated';
-  date: string;
-}
+import { EmployeeService } from '../../../services/employee.service';
+import {
+  ReportService,
+  IndividualReport,
+  AttendanceReportItem
+} from '../../../services/report.service';
 
-interface StaffReport {
+interface Staff {
+  id: number;
   name: string;
   initials: string;
   role: string;
   status: 'Online' | 'Offline' | 'Busy';
   color: string;
-
-  totalTickets: number;
-  resolved: number;
-  pending: number;
-  escalated: number;
-
-  activities: Activity[];
 }
 
 @Component({
@@ -34,399 +26,439 @@ interface StaffReport {
   templateUrl: './individual.html',
   styleUrl: './individual.css'
 })
-export class IndividualReports {
+export class IndividualReports implements OnInit {
 
   sidebarCollapsed = false;
 
   searchQuery = '';
 
-  // Default date
-  selectedDate = '2026-08-19';
+  /*
+   * Report date range.
+   *
+   * We start with the current month.
+   */
+  fromDate = this.getFirstDayOfCurrentMonth();
+  toDate = this.getToday();
 
   profileOpen = false;
   notificationOpen = false;
 
-  selectedStaff: StaffReport;
+  staffList: Staff[] = [];
 
-  staffList: StaffReport[] = [
+  selectedStaff: Staff | null = null;
 
-    {
-      name: 'Rahul Verma',
-      initials: 'RV',
-      role: 'Senior Support',
-      status: 'Online',
-      color: 'green',
+  selectedReport: IndividualReport | null = null;
 
-      totalTickets: 48,
-      resolved: 43,
-      pending: 3,
-      escalated: 2,
+  loadingStaff = false;
+  loadingReport = false;
 
-      activities: [
-        {
-          clientName: 'Sharma Enterprises',
-          clientId: 'CLI-4821',
-          category: 'Licensing',
-          time: '14m',
-          status: 'Resolved',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Heritage Foods Ltd',
-          clientId: 'CLI-9901',
-          category: 'Bill Format Modification',
-          time: '25m',
-          status: 'Resolved',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Mehta & Sons Pvt Ltd',
-          clientId: 'CLI-3309',
-          category: 'Bill Format Modification',
-          time: '32m',
-          status: 'Pending',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Rajkumar Trading',
-          clientId: 'CLI-5517',
-          category: 'Backup & Restore',
-          time: '1h 05m',
-          status: 'Escalated',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Sharma Enterprises',
-          clientId: 'CLI-4821',
-          category: 'Licensing',
-          time: '14m',
-          status: 'Resolved',
-          date: '2026-08-18'
-        }
-      ]
-    },
+  errorMessage = '';
 
-    {
-      name: 'Priya Nair',
-      initials: 'PN',
-      role: 'Support Engineer',
-      status: 'Online',
-      color: 'blue',
+  constructor(
+  private router: Router,
+  private employeeService: EmployeeService,
+  private reportService: ReportService,
+  private cdr: ChangeDetectorRef
+) {}
 
-      totalTickets: 41,
-      resolved: 35,
-      pending: 4,
-      escalated: 2,
-
-      activities: [
-        {
-          clientName: 'Mehta & Sons Pvt Ltd',
-          clientId: 'CLI-3309',
-          category: 'Bill Format Modification',
-          time: '32m',
-          status: 'Pending',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Patel Pharma Ltd',
-          clientId: 'CLI-2234',
-          category: 'Wallet Activation',
-          time: '22m',
-          status: 'Resolved',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Apex Solutions',
-          clientId: 'CLI-7743',
-          category: 'Licensing',
-          time: '35m',
-          status: 'Resolved',
-          date: '2026-08-18'
-        },
-        {
-          clientName: 'Sunrise Exports',
-          clientId: 'CLI-1122',
-          category: 'Installation',
-          time: '18m',
-          status: 'Escalated',
-          date: '2026-08-18'
-        }
-      ]
-    },
-
-    {
-      name: 'Amit Sharma',
-      initials: 'AS',
-      role: 'Support Engineer',
-      status: 'Busy',
-      color: 'purple',
-
-      totalTickets: 39,
-      resolved: 32,
-      pending: 4,
-      escalated: 3,
-
-      activities: [
-        {
-          clientName: 'Rajkumar Trading',
-          clientId: 'CLI-5517',
-          category: 'Backup & Restore',
-          time: '1h 05m',
-          status: 'Escalated',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Global Textiles Co',
-          clientId: 'CLI-6601',
-          category: 'Windows Formatting',
-          time: '48m',
-          status: 'Pending',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Sharma Enterprises',
-          clientId: 'CLI-4821',
-          category: 'Licensing',
-          time: '20m',
-          status: 'Resolved',
-          date: '2026-08-18'
-        }
-      ]
-    },
-
-    {
-      name: 'Sneha Joshi',
-      initials: 'SJ',
-      role: 'Junior Support',
-      status: 'Online',
-      color: 'orange',
-
-      totalTickets: 36,
-      resolved: 31,
-      pending: 4,
-      escalated: 1,
-
-      activities: [
-        {
-          clientName: 'Patel Pharma Ltd',
-          clientId: 'CLI-2234',
-          category: 'Wallet Activation',
-          time: '22m',
-          status: 'Resolved',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Sunrise Exports',
-          clientId: 'CLI-1122',
-          category: 'Installation',
-          time: '18m',
-          status: 'Resolved',
-          date: '2026-08-18'
-        },
-        {
-          clientName: 'Heritage Foods Ltd',
-          clientId: 'CLI-9901',
-          category: 'Bill Format Modification',
-          time: '27m',
-          status: 'Pending',
-          date: '2026-08-18'
-        }
-      ]
-    },
-
-    {
-      name: 'Karan Mehta',
-      initials: 'KM',
-      role: 'Senior Support',
-      status: 'Offline',
-      color: 'yellow',
-
-      totalTickets: 33,
-      resolved: 28,
-      pending: 3,
-      escalated: 2,
-
-      activities: [
-        {
-          clientName: 'Global Textiles Co',
-          clientId: 'CLI-6601',
-          category: 'Windows Formatting',
-          time: '48m',
-          status: 'Pending',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Apex Solutions',
-          clientId: 'CLI-7743',
-          category: 'Licensing',
-          time: '40m',
-          status: 'Resolved',
-          date: '2026-08-18'
-        }
-      ]
-    },
-
-    {
-      name: 'Divya Pillai',
-      initials: 'DP',
-      role: 'Support Engineer',
-      status: 'Online',
-      color: 'pink',
-
-      totalTickets: 45,
-      resolved: 40,
-      pending: 3,
-      escalated: 2,
-
-      activities: [
-        {
-          clientName: 'Sunrise Exports',
-          clientId: 'CLI-1122',
-          category: 'Installation',
-          time: '18m',
-          status: 'Resolved',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Patel Pharma Ltd',
-          clientId: 'CLI-2234',
-          category: 'Wallet Activation',
-          time: '29m',
-          status: 'Resolved',
-          date: '2026-08-18'
-        }
-      ]
-    },
-
-    {
-      name: 'Rohan Gupta',
-      initials: 'RG',
-      role: 'Junior Support',
-      status: 'Online',
-      color: 'green',
-
-      totalTickets: 31,
-      resolved: 25,
-      pending: 4,
-      escalated: 2,
-
-      activities: [
-        {
-          clientName: 'Apex Solutions',
-          clientId: 'CLI-7743',
-          category: 'Licensing',
-          time: '2h 10m',
-          status: 'Escalated',
-          date: '2026-08-19'
-        },
-        {
-          clientName: 'Global Textiles Co',
-          clientId: 'CLI-6601',
-          category: 'Windows Formatting',
-          time: '35m',
-          status: 'Resolved',
-          date: '2026-08-18'
-        }
-      ]
-    },
-
-    {
-      name: 'Ananya Singh',
-      initials: 'AS',
-      role: 'Support Engineer',
-      status: 'Busy',
-      color: 'purple',
-
-      totalTickets: 37,
-      resolved: 30,
-      pending: 5,
-      escalated: 2,
-
-      activities: [
-        {
-          clientName: 'Mehta & Sons Pvt Ltd',
-          clientId: 'CLI-3309',
-          category: 'Bill Format Modification',
-          time: '30m',
-          status: 'Resolved',
-          date: '2026-08-19'
-        }
-      ]
-    }
-  ];
-
-  constructor(private router: Router) {
-    this.selectedStaff = this.staffList[0];
+  ngOnInit(): void {
+    this.loadStaff();
   }
+
+  // =========================================================
+  // STAFF
+  // =========================================================
+
+ loadStaff(): void {
+  console.log('1. loadStaff() started');
+
+  this.loadingStaff = true;
+
+  this.employeeService.getStaff().subscribe({
+    next: (employees: any[]) => {
+      console.log('2. STAFF API RESPONSE:', employees);
+
+      this.staffList = employees.map(employee => {
+        const name =
+          employee.employeeName ??
+          employee.name ??
+          'Unknown Employee';
+
+        return {
+          id: employee.employeeId ?? employee.id,
+          name: name,
+          initials: this.getInitials(name),
+          role: employee.designation ?? employee.title ?? 'Staff',
+          status: 'Online' as 'Online',
+          color: this.getColor(name)
+        };
+      });
+
+      console.log('3. staffList AFTER MAP:', this.staffList);
+
+      this.loadingStaff = false;
+
+      console.log('4. loadingStaff:', this.loadingStaff);
+
+      if (this.staffList.length > 0) {
+        console.log(
+          '5. Selecting first staff:',
+          this.staffList[0]
+        );
+
+        this.selectStaff(this.staffList[0]);
+      }
+
+      // Force Angular to refresh the screen
+      this.cdr.detectChanges();
+    },
+
+    error: (error: any) => {
+      console.error('STAFF API ERROR:', error);
+
+      this.loadingStaff = false;
+
+      this.errorMessage =
+        'Unable to load staff members. Please check the API connection.';
+
+      this.cdr.detectChanges();
+    }
+  });
+}
+  selectStaff(staff: Staff): void {
+
+    this.selectedStaff = staff;
+
+    this.loadIndividualReport();
+  }
+
+  // =========================================================
+  // INDIVIDUAL REPORT
+  // =========================================================
+
+  loadIndividualReport(): void {
+  if (!this.selectedStaff) {
+    return;
+  }
+
+  console.log(
+    '1. Loading report for employee:',
+    this.selectedStaff.id
+  );
+
+  this.loadingReport = true;
+  this.selectedReport = null;
+  this.errorMessage = '';
+
+  this.reportService
+    .getIndividualReport(
+      this.selectedStaff.id,
+      this.fromDate,
+      this.toDate
+    )
+    .subscribe({
+      next: (report: IndividualReport) => {
+        console.log('2. REPORT API RESPONSE:', report);
+
+        this.selectedReport = report;
+        this.loadingReport = false;
+
+        console.log(
+          '3. selectedReport:',
+          this.selectedReport
+        );
+
+        console.log(
+          '4. loadingReport:',
+          this.loadingReport
+        );
+
+        // Force Angular to refresh the view
+        this.cdr.detectChanges();
+      },
+
+      error: (error: any) => {
+        console.error(
+          'REPORT API ERROR:',
+          error
+        );
+
+        this.loadingReport = false;
+        this.selectedReport = null;
+
+        if (error.status === 404) {
+          this.errorMessage = 'Employee report not found.';
+        } else if (error.status === 400) {
+          this.errorMessage =
+            error.error?.message ||
+            'Invalid report date range.';
+        } else if (error.status === 401) {
+          this.errorMessage =
+            'Your session has expired. Please log in again.';
+        } else if (error.status === 403) {
+          this.errorMessage =
+            'You are not authorized to view reports.';
+        } else {
+          this.errorMessage =
+            'Unable to load the attendance report.';
+        }
+
+        this.cdr.detectChanges();
+      }
+    });
+}
+
+  onDateChange(): void {
+    this.loadIndividualReport();
+  }
+
+  // =========================================================
+  // DATE HELPERS
+  // =========================================================
+
+  getToday(): string {
+
+    const today = new Date();
+
+    return this.formatDate(today);
+  }
+
+  getFirstDayOfCurrentMonth(): string {
+
+    const date = new Date();
+
+    date.setDate(1);
+
+    return this.formatDate(date);
+  }
+
+  private formatDate(date: Date): string {
+
+    const year = date.getFullYear();
+
+    const month = String(
+      date.getMonth() + 1
+    ).padStart(2, '0');
+
+    const day = String(
+      date.getDate()
+    ).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  // =========================================================
+  // DISPLAY DATE
+  // =========================================================
 
   get formattedDate(): string {
 
-    if (!this.selectedDate) {
-      return 'Select date';
+    if (!this.fromDate || !this.toDate) {
+      return 'Select date range';
     }
 
-    const date = new Date(this.selectedDate + 'T00:00:00');
+    const from = new Date(
+      this.fromDate + 'T00:00:00'
+    );
 
-    return date.toLocaleDateString('en-IN', {
-      weekday: 'long',
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric'
-    });
+    const to = new Date(
+      this.toDate + 'T00:00:00'
+    );
+
+    const fromText = from.toLocaleDateString(
+      'en-IN',
+      {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }
+    );
+
+    const toText = to.toLocaleDateString(
+      'en-IN',
+      {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }
+    );
+
+    return `${fromText} - ${toText}`;
   }
 
-  onDateChange(): void {
-    // Recent Activity automatically updates
-    // through getFilteredActivities()
+  // =========================================================
+  // ATTENDANCE
+  // =========================================================
+
+  getFilteredActivities(): AttendanceReportItem[] {
+
+    if (!this.selectedReport) {
+      return [];
+    }
+
+    const search =
+      this.searchQuery
+        .trim()
+        .toLowerCase();
+
+    if (!search) {
+      return this.selectedReport.attendance;
+    }
+
+    return this.selectedReport.attendance.filter(
+      attendance => {
+
+        const date =
+          this.formatAttendanceDate(
+            attendance.date
+          ).toLowerCase();
+
+        const half =
+          attendance.half
+            ?.toLowerCase() ?? '';
+
+        return (
+          date.includes(search) ||
+          half.includes(search)
+        );
+      }
+    );
   }
 
-  getFilteredActivities(): Activity[] {
+  formatAttendanceDate(dateValue: string): string {
 
-    const search = this.searchQuery
+    if (!dateValue) {
+      return '';
+    }
+
+    const date = new Date(dateValue);
+
+    return date.toLocaleDateString(
+      'en-IN',
+      {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }
+    );
+  }
+
+  formatTime(dateValue: string | null): string {
+
+    if (!dateValue) {
+      return '-';
+    }
+
+    const date = new Date(dateValue);
+
+    return date.toLocaleTimeString(
+      'en-IN',
+      {
+        hour: '2-digit',
+        minute: '2-digit'
+      }
+    );
+  }
+
+  formatMinutes(minutes: number): string {
+
+    if (!minutes || minutes <= 0) {
+      return '0m';
+    }
+
+    const hours = Math.floor(
+      minutes / 60
+    );
+
+    const remainingMinutes =
+      minutes % 60;
+
+    if (hours === 0) {
+      return `${remainingMinutes}m`;
+    }
+
+    if (remainingMinutes === 0) {
+      return `${hours}h`;
+    }
+
+    return `${hours}h ${remainingMinutes}m`;
+  }
+
+  // =========================================================
+  // REPORT STATISTICS
+  // =========================================================
+
+  get totalAttendanceRecords(): number {
+
+    return this.selectedReport
+      ?.totalAttendanceRecords ?? 0;
+  }
+
+  get totalHoursWorkedMinutes(): number {
+
+    return this.selectedReport
+      ?.totalHoursWorkedMinutes ?? 0;
+  }
+
+  get totalHoursWorked(): string {
+
+    return this.formatMinutes(
+      this.totalHoursWorkedMinutes
+    );
+  }
+
+  // =========================================================
+  // STAFF HELPERS
+  // =========================================================
+
+  getInitials(name: string): string {
+
+    if (!name) {
+      return '?';
+    }
+
+    const parts = name
       .trim()
-      .toLowerCase();
+      .split(/\s+/);
 
-    return this.selectedStaff.activities.filter(activity => {
-
-      const matchesDate =
-        !this.selectedDate ||
-        activity.date === this.selectedDate;
-
-      const matchesSearch =
-        !search ||
-        activity.clientName.toLowerCase().includes(search) ||
-        activity.clientId.toLowerCase().includes(search) ||
-        activity.category.toLowerCase().includes(search) ||
-        activity.status.toLowerCase().includes(search);
-
-      return matchesDate && matchesSearch;
-    });
-  }
-
-  selectStaff(staff: StaffReport): void {
-    this.selectedStaff = staff;
-  }
-
-  getStatusClass(status: string): string {
-
-    switch (status) {
-      case 'Resolved':
-        return 'resolved';
-
-      case 'Pending':
-        return 'pending';
-
-      case 'Escalated':
-        return 'escalated';
-
-      default:
-        return '';
+    if (parts.length === 1) {
+      return parts[0]
+        .substring(0, 2)
+        .toUpperCase();
     }
+
+    return (
+      parts[0][0] +
+      parts[parts.length - 1][0]
+    ).toUpperCase();
+  }
+
+  getColor(name: string): string {
+
+    const colors = [
+      'green',
+      'blue',
+      'purple',
+      'orange',
+      'yellow',
+      'pink'
+    ];
+
+    let total = 0;
+
+    for (let i = 0; i < name.length; i++) {
+      total += name.charCodeAt(i);
+    }
+
+    return colors[
+      total % colors.length
+    ];
   }
 
   getStatusDot(status: string): string {
 
     switch (status) {
+
       case 'Online':
         return 'online';
 
@@ -441,26 +473,52 @@ export class IndividualReports {
     }
   }
 
+  // =========================================================
+  // SIDEBAR / NAVIGATION
+  // =========================================================
+
   toggleSidebar(): void {
-    this.sidebarCollapsed = !this.sidebarCollapsed;
+
+    this.sidebarCollapsed =
+      !this.sidebarCollapsed;
   }
 
   goTo(path: string): void {
+
     this.router.navigate([path]);
   }
 
+  // =========================================================
+  // PROFILE / NOTIFICATIONS
+  // =========================================================
+
   toggleProfile(): void {
-    this.profileOpen = !this.profileOpen;
+
+    this.profileOpen =
+      !this.profileOpen;
+
     this.notificationOpen = false;
   }
 
   toggleNotifications(): void {
-    this.notificationOpen = !this.notificationOpen;
+
+    this.notificationOpen =
+      !this.notificationOpen;
+
     this.profileOpen = false;
   }
 
+  // =========================================================
+  // LOGOUT
+  // =========================================================
+
   logout(): void {
+
+    localStorage.removeItem('authUser');
+    localStorage.removeItem('token');
+
     sessionStorage.removeItem('currentUser');
+
     this.router.navigate(['/login']);
   }
 }

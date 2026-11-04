@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
@@ -15,10 +14,8 @@ export class AuthService {
   login(data: any) {
     return this.http.post<any>(`${this.apiUrl}/login`, data).pipe(
       tap(response => {
-        // Save login response
         localStorage.setItem('authUser', JSON.stringify(response));
 
-        // Save JWT token separately
         if (response.token) {
           localStorage.setItem('token', response.token);
         }
