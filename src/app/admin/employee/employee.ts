@@ -123,12 +123,18 @@ loadEmployees(): void {
     this.router.navigate(['/admin/employee/new']);
   }
 
-  editEmployee(employee: EmployeeData): void {
-    // We will connect this to a real update API next.
-    this.router.navigate(['/admin/employee/new'], {
-      queryParams: { id: employee.id }
-    });
-  }
+ editEmployee(employee: EmployeeData): void {
+
+  console.log('Selected employee:', employee);
+  console.log('Selected employee ID:', employee.id);
+
+  localStorage.setItem(
+    'editingEmployee',
+    JSON.stringify(employee)
+  );
+
+  this.router.navigate(['/admin/employee/new']);
+}
 
   viewEmployee(employee: EmployeeData): void {
     this.selectedEmployee = employee;
