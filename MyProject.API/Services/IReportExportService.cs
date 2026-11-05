@@ -1,25 +1,27 @@
-using System.Threading.Tasks;
-
 namespace MyProject.API.Services
 {
     public interface IReportExportService
     {
         Task<byte[]> ExportIndividualExcelAsync(
-            int employeeId,
-            DateTime fromDate,
-            DateTime toDate);
+            int employeeId, DateTime fromDate, DateTime toDate);
 
         Task<byte[]> ExportIndividualPdfAsync(
-            int employeeId,
-            DateTime fromDate,
-            DateTime toDate);
+            int employeeId, DateTime fromDate, DateTime toDate);
 
         Task<byte[]> ExportTeamExcelAsync(
-            DateTime fromDate,
-            DateTime toDate);
+            DateTime fromDate, DateTime toDate);
 
         Task<byte[]> ExportTeamPdfAsync(
-            DateTime fromDate,
-            DateTime toDate);
+            DateTime fromDate, DateTime toDate);
+
+        Task<byte[]> ExportReportExcelAsync(
+            string reportType, DateTime fromDate, DateTime toDate);
+
+        Task<byte[]> ExportReportPdfAsync(
+            string reportType, DateTime fromDate, DateTime toDate);
+
+        Task<byte[]> ExportQuickExcelAsync();
+
+        Task<byte[]> ExportQuickPdfAsync();
     }
 }

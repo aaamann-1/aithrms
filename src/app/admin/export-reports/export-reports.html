@@ -1,231 +1,220 @@
-<!-- ================= PAGE CONTENT ================= -->
-    <main class="page-content">
 
-      <!-- Page Header -->
-      <div class="page-header">
+<main class="page-content">
 
-        <div>
-          <h1>Export Reports</h1>
-          <p>Download reports in various formats</p>
-        </div>
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <h1>Export Reports</h1>
+      <p>Download reports in various formats</p>
+    </div>
+  </div>
+
+  <!-- REPORT GRID -->
+  <div class="report-grid">
+
+    <!-- 1. DAILY SUMMARY -->
+    <div class="report-card">
+
+      <div class="report-icon pdf-icon">⇩</div>
+
+      <h3>Daily Summary Report</h3>
+
+      <p>Complete daily support activity overview</p>
+
+      <div class="report-buttons">
+
+        <button
+          type="button"
+          class="pdf-button"
+          (click)="downloadDailySummaryPdf()">
+          ⇩ PDF
+        </button>
+
+        <button
+          type="button"
+          class="excel-button"
+          (click)="downloadDailySummaryExcel()">
+          ▧ Excel
+        </button>
 
       </div>
+    </div>
 
+    <!-- 2. STAFF PERFORMANCE -->
+    <div class="report-card">
 
-      <!-- ================= REPORT GRID ================= -->
-      <div class="report-grid">
+      <div class="report-icon excel-icon">▤</div>
 
+      <h3>Staff Performance Report</h3>
 
-        <!-- ================= DAILY SUMMARY ================= -->
-        <div class="report-card">
+      <p>Individual and team performance metrics</p>
 
-          <div class="report-icon pdf-icon">
-            ⇩
-          </div>
+      <div class="report-buttons">
 
-          <h3>Daily Summary Report</h3>
+        <button
+          type="button"
+          class="pdf-button"
+          (click)="downloadStaffPerformancePdf()">
+          ⇩ PDF
+        </button>
 
-          <p>
-            Complete daily support activity overview
-          </p>
-
-          <div class="report-buttons">
-
-            <button type="button" class="pdf-button">
-              ⇩ PDF
-            </button>
-
-            <button type="button" class="excel-button">
-              ▧ Excel
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- ================= STAFF PERFORMANCE ================= -->
-        <div class="report-card">
-
-          <div class="report-icon excel-icon">
-            ▤
-          </div>
-
-          <h3>Staff Performance Report</h3>
-
-          <p>
-            Individual and team performance metrics
-          </p>
-
-          <div class="report-buttons">
-
-            <button
-  type="button"
-  class="pdf-button"
-  (click)="downloadTodayPdf()">
-  ⇩ PDF
-</button>
-
-<button
-  type="button"
-  class="excel-button"
-  (click)="downloadTodayExcel()">
-  ▧ Excel
-</button>
-
-          </div>
-
-        </div>
-
-
-        <!-- ================= ISSUE CATEGORY ================= -->
-        <div class="report-card">
-
-          <div class="report-icon pdf-icon">
-            ▥
-          </div>
-
-          <h3>Issue Category Report</h3>
-
-          <p>
-            Breakdown by issue type and resolution
-          </p>
-
-          <div class="report-buttons">
-
-            <button type="button" class="pdf-button">
-              ⇩ PDF
-            </button>
-
-            <button type="button" class="excel-button">
-              ▧ Excel
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- ================= ATTENDANCE ================= -->
-        <div class="report-card">
-
-          <div class="report-icon excel-icon">
-            ♙
-          </div>
-
-          <h3>Attendance Report</h3>
-
-          <p>
-            Staff attendance and working hours log
-          </p>
-
-          <div class="report-buttons">
-
-            <button type="button" class="pdf-button">
-              ⇩ PDF
-            </button>
-
-            <button type="button" class="excel-button">
-              ▧ Excel
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- ================= CLIENT SUPPORT HISTORY ================= -->
-        <div class="report-card">
-
-          <div class="report-icon pdf-icon">
-            ▤
-          </div>
-
-          <h3>Client Support History</h3>
-
-          <p>
-            All client interactions and resolutions
-          </p>
-
-          <div class="report-buttons">
-
-            <button type="button" class="pdf-button">
-              ⇩ PDF
-            </button>
-
-            <button type="button" class="excel-button">
-              ▧ Excel
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- ================= MONTHLY ANALYTICS ================= -->
-        <div class="report-card">
-
-          <div class="report-icon excel-icon">
-            ↗
-          </div>
-
-          <h3>Monthly Analytics Report</h3>
-
-          <p>
-            Trends, KPIs, and performance analytics
-          </p>
-
-          <div class="report-buttons">
-
-            <button type="button" class="pdf-button">
-              ⇩ PDF
-            </button>
-
-            <button type="button" class="excel-button">
-              ▧ Excel
-            </button>
-
-          </div>
-
-        </div>
+        <button
+          type="button"
+          class="excel-button"
+          (click)="downloadStaffPerformanceExcel()">
+          ▧ Excel
+        </button>
 
       </div>
+    </div>
 
+    <!-- 3. ISSUE CATEGORY -->
+    <div class="report-card">
 
-            <!-- ================= QUICK EXPORT ================= -->
-      <div class="quick-export">
+      <div class="report-icon pdf-icon">▥</div>
 
-        <div class="quick-export-header">
+      <h3>Issue Category Report</h3>
 
-          <h2>Quick Export</h2>
+      <p>Breakdown by issue type and resolution</p>
 
-          <p>
-            One-click downloads for today's data
-          </p>
+      <div class="report-buttons">
 
-        </div>
+        <button
+          type="button"
+          class="pdf-button"
+          (click)="downloadIssueCategoryPdf()">
+          ⇩ PDF
+        </button>
 
-
-        <div class="quick-export-buttons">
-
-          <button
-            type="button"
-            class="quick-excel-button"
-            (click)="downloadTodayExcel()">
-            ▧
-            Download Today's Excel Report
-          </button>
-
-          <button
-            type="button"
-            class="quick-pdf-button"
-            (click)="downloadTodayPdf()">
-            ⇩
-            Download Today's PDF Report
-          </button>
-
-        </div>
+        <button
+          type="button"
+          class="excel-button"
+          (click)="downloadIssueCategoryExcel()">
+          ▧ Excel
+        </button>
 
       </div>
+    </div>
 
-    </main>
+    <!-- 4. ATTENDANCE -->
+    <div class="report-card">
+
+      <div class="report-icon excel-icon">♙</div>
+
+      <h3>Attendance Report</h3>
+
+      <p>Staff attendance and working hours log</p>
+
+      <div class="report-buttons">
+
+        <button
+          type="button"
+          class="pdf-button"
+          (click)="downloadAttendancePdf()">
+          ⇩ PDF
+        </button>
+
+        <button
+          type="button"
+          class="excel-button"
+          (click)="downloadAttendanceExcel()">
+          ▧ Excel
+        </button>
+
+      </div>
+    </div>
+
+    <!-- 5. CLIENT SUPPORT HISTORY -->
+    <div class="report-card">
+
+      <div class="report-icon pdf-icon">▤</div>
+
+      <h3>Client Support History</h3>
+
+      <p>All client interactions and resolutions</p>
+
+      <div class="report-buttons">
+
+        <button
+          type="button"
+          class="pdf-button"
+          (click)="downloadClientHistoryPdf()">
+          ⇩ PDF
+        </button>
+
+        <button
+          type="button"
+          class="excel-button"
+          (click)="downloadClientHistoryExcel()">
+          ▧ Excel
+        </button>
+
+      </div>
+    </div>
+
+    <!-- 6. MONTHLY ANALYTICS -->
+    <div class="report-card">
+
+      <div class="report-icon excel-icon">↗</div>
+
+      <h3>Monthly Analytics Report</h3>
+
+      <p>Trends, KPIs, and performance analytics</p>
+
+      <div class="report-buttons">
+
+        <button
+          type="button"
+          class="pdf-button"
+          (click)="downloadMonthlyAnalyticsPdf()">
+          ⇩ PDF
+        </button>
+
+        <button
+          type="button"
+          class="excel-button"
+          (click)="downloadMonthlyAnalyticsExcel()">
+          ▧ Excel
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUICK EXPORT -->
+  <div class="quick-export">
+
+    <div class="quick-export-header">
+
+      <h2>Quick Export</h2>
+
+      <p>One-click downloads for all today's reports</p>
+
+    </div>
+
+    <div class="quick-export-buttons">
+
+      <button
+        type="button"
+        class="quick-excel-button"
+        (click)="downloadTodayExcel()">
+
+        ▧ Download Today's Complete Excel Report
+
+      </button>
+
+      <button
+        type="button"
+        class="quick-pdf-button"
+        (click)="downloadTodayPdf()">
+
+        ⇩ Download Today's Complete PDF Report
+
+      </button>
+
+    </div>
+
+  </div>
+
+</main>
