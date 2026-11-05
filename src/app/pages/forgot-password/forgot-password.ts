@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -29,6 +30,10 @@ export class ForgotPassword {
       return;
     }
 
-    alert('Reset request validated. Backend password reset will be connected later.');
+    alert(
+      'Please contact your HR Administrator to reset your password.'
+    );
+
+    form.resetForm();
   }
 }

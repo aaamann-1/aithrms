@@ -85,7 +85,9 @@
 }
 
 
-/* Text */
+/* =========================================================
+   REPORT CARD TEXT
+========================================================= */
 
 .report-card h3 {
   margin: 0;
@@ -102,7 +104,9 @@
 }
 
 
-/* Buttons */
+/* =========================================================
+   REPORT BUTTONS
+========================================================= */
 
 .report-buttons {
   display: grid;
@@ -125,6 +129,9 @@
   margin-right: 6px;
 }
 
+
+/* PDF */
+
 .pdf-button {
   background: #fff0f0;
   color: #f00018;
@@ -133,6 +140,9 @@
 .pdf-button:hover {
   background: #ffe2e2;
 }
+
+
+/* Excel */
 
 .excel-button {
   background: #e9fbf3;
@@ -145,11 +155,11 @@
 
 
 /* =========================================================
-   QUICK EXPORT
+   QUICK EXPORT SECTION
 ========================================================= */
 
 .quick-export {
-  background: white;
+  background: #ffffff;
   margin-top: 22px;
   padding: 25px 27px 23px;
   border: 1px solid #e3e8ef;
@@ -157,10 +167,14 @@
   box-shadow: 0 2px 4px rgba(24, 44, 74, 0.07);
 }
 
+
+/* Quick export heading */
+
 .quick-export-header h2 {
   margin: 0;
   font-size: 18px;
   color: #10203c;
+  font-weight: 700;
 }
 
 .quick-export-header p {
@@ -170,54 +184,112 @@
 }
 
 
+/* Quick export button layout */
+
 .quick-export-buttons {
   display: flex;
   gap: 13px;
+  flex-wrap: wrap;
 }
 
+
+/* Common button styling */
+
 .quick-export-buttons button {
-  height: 48px;
-  border: none;
+  min-height: 48px;
+  border: 1px solid transparent;
   border-radius: 13px;
   padding: 0 27px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
-  color: white;
   cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: 0.2s ease;
-}
 
-.quick-icon {
-  font-size: 19px;
-}
-
-.quick-excel {
-  background: #00a873;
-  min-width: 318px;
-}
-
-.quick-excel:hover {
-  background: #008f62;
-  transform: translateY(-1px);
-}
-
-.quick-pdf {
-  background: #ed0014;
-  min-width: 310px;
-}
-
-.quick-pdf:hover {
-  background: #d90012;
-  transform: translateY(-1px);
+  transition: all 0.25s ease;
+  opacity: 1;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   QUICK EXPORT EXCEL BUTTON
+========================================================= */
+
+.quick-export-buttons .quick-excel-button {
+  background-color: #e9fbf3 !important;
+  color: #008f62 !important;
+  border: 1px solid #c7f0df !important;
+  min-width: 318px;
+}
+
+.quick-export-buttons .quick-excel-button:hover {
+  background-color: #d7f6e9 !important;
+  color: #006b49 !important;
+  border-color: #a7e8cd !important;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 4px 10px rgba(0, 143, 98, 0.12);
+}
+
+
+/* Excel disabled state */
+
+.quick-export-buttons .quick-excel-button:disabled {
+  background-color: #e9fbf3 !important;
+  color: #008f62 !important;
+  border-color: #c7f0df !important;
+
+  opacity: 1 !important;
+  filter: none !important;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   QUICK EXPORT PDF BUTTON
+========================================================= */
+
+.quick-export-buttons .quick-pdf-button {
+  background-color: #fff0f0 !important;
+  color: #dc0014 !important;
+  border: 1px solid #ffdada !important;
+  min-width: 310px;
+}
+
+.quick-export-buttons .quick-pdf-button:hover {
+  background-color: #ffe2e2 !important;
+  color: #b90010 !important;
+  border-color: #ffc4c4 !important;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 4px 10px rgba(220, 0, 20, 0.10);
+}
+
+
+/* PDF disabled state */
+
+.quick-export-buttons .quick-pdf-button:disabled {
+  background-color: #fff0f0 !important;
+  color: #dc0014 !important;
+  border-color: #ffdada !important;
+
+  opacity: 1 !important;
+  filter: none !important;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
 ========================================================= */
 
 @media (max-width: 1000px) {
@@ -241,6 +313,10 @@
 
 }
 
+
+/* =========================================================
+   TABLET AND MOBILE
+========================================================= */
 
 @media (max-width: 760px) {
 
@@ -289,10 +365,15 @@
 
   .quick-export-buttons button {
     width: 100%;
+    min-width: 0;
   }
 
 }
 
+
+/* =========================================================
+   SMALL MOBILE SCREENS
+========================================================= */
 
 @media (max-width: 520px) {
 
@@ -319,6 +400,17 @@
 
   .report-card {
     padding: 22px;
+  }
+
+  .quick-export {
+    padding: 20px;
+  }
+
+  .quick-export-buttons button {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 15px;
+    font-size: 13px;
   }
 
 }

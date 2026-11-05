@@ -35,7 +35,7 @@ export interface CreateTaskRequest {
 })
 export class TaskService {
 
-  private apiUrl = 'http://localhost:5000/api/TaskEntry';
+  private apiUrl = 'http://localhost:5089/api/TaskEntry';
 
   constructor(private http: HttpClient) {}
 

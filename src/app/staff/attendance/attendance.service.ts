@@ -18,7 +18,7 @@ export interface AttendanceSession {
 export class AttendanceService {
 
   private readonly apiUrl =
-    'https://localhost:7022/api/Attendance';
+  'http://localhost:5089/api/Attendance';
 
   constructor(private http: HttpClient) {}
 

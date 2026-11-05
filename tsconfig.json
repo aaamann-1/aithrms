@@ -16,11 +16,18 @@
     "target": "ES2022",
     "module": "ES2022"
   },
-  "angularCompilerOptions": {
+    "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true
   },
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

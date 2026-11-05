@@ -1,13 +1,10 @@
+
 <div class="reports-page">
 
-  <!-- HEADER -->
- 
-
-
-  <!-- MAIN -->
   <main class="main-content">
 
-    <!-- TITLE -->
+    <!-- HEADER -->
+
     <div class="page-heading">
 
       <div>
@@ -33,89 +30,76 @@
 
     </div>
 
+    <!-- LOADING -->
+
+    <p *ngIf="loading">Loading your reports...</p>
+
+    <!-- ERROR -->
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+
+      <button type="button" (click)="loadReports()">
+        Retry
+      </button>
+    </div>
 
     <!-- SUMMARY CARDS -->
+
     <section class="summary-grid">
 
       <div class="summary-card">
-
         <div class="card-top">
           <div class="card-icon tasks-icon">📋</div>
-
           <span class="week-label blue">
-            This Week
+            {{ selectedPeriod }}
           </span>
         </div>
 
-        <div class="card-value">53</div>
-
-        <div class="card-title">
-          Total Tasks
-        </div>
-
+        <div class="card-value">{{ totalTasks }}</div>
+        <div class="card-title">Total Tasks</div>
       </div>
 
-
       <div class="summary-card">
-
         <div class="card-top">
           <div class="card-icon resolved-icon">✓</div>
-
           <span class="week-label green">
-            This Week
+            {{ selectedPeriod }}
           </span>
         </div>
 
-        <div class="card-value">40</div>
-
-        <div class="card-title">
-          Resolved
-        </div>
-
+        <div class="card-value">{{ resolved }}</div>
+        <div class="card-title">Resolved</div>
       </div>
 
-
       <div class="summary-card">
-
         <div class="card-top">
           <div class="card-icon pending-icon">⏳</div>
-
           <span class="week-label orange">
-            This Week
+            {{ selectedPeriod }}
           </span>
         </div>
 
-        <div class="card-value">11</div>
-
-        <div class="card-title">
-          Pending
-        </div>
-
+        <div class="card-value">{{ pending }}</div>
+        <div class="card-title">Pending / In Progress</div>
       </div>
 
-
       <div class="summary-card">
-
         <div class="card-top">
           <div class="card-icon time-icon">⚡</div>
-
           <span class="week-label purple">
-            This Week
+            {{ selectedPeriod }}
           </span>
         </div>
 
-        <div class="card-value">19 min</div>
-
-        <div class="card-title">
-          Avg Resolution Time
-        </div>
-
+        <div class="card-value">{{ avgResolutionTime }}</div>
+        <div class="card-title">Avg Resolution Time</div>
       </div>
 
     </section>
 
-
     <!-- FILTERS -->
+
     <section class="filters-card">
 
       <h2>Filters</h2>
@@ -125,38 +109,48 @@
         <input
           type="date"
           class="filter-input"
+          [(ngModel)]="dateFilter"
+          (ngModelChange)="applyFilters()"
         />
 
-        <select class="filter-input">
-          <option>All</option>
-          <option>Submitted</option>
-          <option>Pending</option>
-          <option>Draft</option>
+        <select
+          class="filter-input"
+          [(ngModel)]="statusFilter"
+          (ngModelChange)="applyFilters()">
+
+          <option value="All">All Statuses</option>
+          <option value="Resolved">Resolved</option>
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Escalated">Escalated</option>
+
         </select>
 
         <input
           type="text"
           class="filter-input"
           placeholder="Client Name"
+          [(ngModel)]="clientSearch"
+          (ngModelChange)="applyFilters()"
         />
 
-        <select class="filter-input">
-          <option>All</option>
-          <option>Resolved</option>
-          <option>Pending</option>
-          <option>Escalated</option>
-        </select>
+        <button
+          type="button"
+          class="filter-input"
+          (click)="clearFilters()">
+          Clear Filters
+        </button>
 
       </div>
 
     </section>
 
+    <!-- REPORTS TABLE -->
 
-    <!-- TABLE -->
     <section class="reports-card">
 
       <div class="reports-title">
-        Daily Reports
+        {{ selectedPeriod }} Reports
       </div>
 
       <div class="table-container">
@@ -165,7 +159,7 @@
 
           <thead>
             <tr>
-              <th>DATE</th>
+              <th>{{ selectedPeriod === 'Daily' ? 'DATE' : 'WEEK' }}</th>
               <th>TOTAL TASKS</th>
               <th>RESOLVED</th>
               <th>PENDING</th>
@@ -207,6 +201,14 @@
                 <span class="status-badge">
                   {{ report.status }}
                 </span>
+              </td>
+
+            </tr>
+
+            <tr *ngIf="!loading && !errorMessage && reports.length === 0">
+
+              <td colspan="7" class="text-center">
+                No reports found for the selected filters.
               </td>
 
             </tr>

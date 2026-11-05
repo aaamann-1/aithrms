@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component,  OnDestroy,OnInit,ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -59,13 +59,12 @@ export class Dashboard implements OnInit, OnDestroy {
   private dashboardTimer:
     ReturnType<typeof setInterval> | undefined;
 
-
-  constructor(
-    private attendanceService: AttendanceService,
-    private taskService: TaskService,
-    private router: Router
-  ) {}
-
+constructor(
+  private attendanceService: AttendanceService,
+  private taskService: TaskService,
+  private router: Router,
+  private cdr: ChangeDetectorRef
+) {}
 
   // =====================================================
   // INIT
@@ -199,304 +198,225 @@ export class Dashboard implements OnInit, OnDestroy {
   // =====================================================
   // ATTENDANCE
   // =====================================================
+loadTodayAttendance(): void {
 
-  loadTodayAttendance(): void {
+  this.attendanceService.getMyAttendance().subscribe({
 
-    this.attendanceService
-      .getMyToday()
-      .subscribe({
+    next: (records: AttendanceSession[]) => {
 
-        next: (records: AttendanceSession[]) => {
+      console.log('ALL ATTENDANCE RECORDS:', records);
 
-          this.updateAttendanceDashboard(records);
+      const today = new Date().toLocaleDateString('en-CA');
 
-        },
+      const todayRecords = (records || []).filter(record => {
 
-        error: (error) => {
+        if (!record.date) return false;
 
-          console.error(
-            'Failed to load today attendance:',
-            error
-          );
-
-          this.hoursWorked = '0h 00m';
-
-          this.attendanceStatus = 'Not Marked';
-        }
+        return new Date(record.date).toLocaleDateString('en-CA') === today;
 
       });
-  }
 
+      console.log('TODAY ATTENDANCE RECORDS:', todayRecords);
+console.table(
+  todayRecords.map(record => ({
+    id: record.id,
+    half: record.half,
+    checkIn: record.checkIn,
+    checkOut: record.checkOut,
+    hoursWorkedMinutes: record.hoursWorkedMinutes
+  }))
+);
+      this.updateAttendanceDashboard(todayRecords);
 
-  updateAttendanceDashboard(
-    records: AttendanceSession[]
-  ): void {
+      this.cdr.detectChanges();
 
-    if (!records || records.length === 0) {
+    },
+
+    error: (error) => {
+
+      console.error('Failed to load attendance:', error);
 
       this.hoursWorked = '0h 00m';
-
       this.attendanceStatus = 'Not Marked';
 
-      return;
+      this.cdr.detectChanges();
+
     }
 
+  });
 
-    let totalMinutes = 0;
-
-    let currentlyWorking = false;
-
-    const now = new Date();
+}
 
 
-    for (const record of records) {
 
-      if (!record.checkIn) {
+updateAttendanceDashboard(records: AttendanceSession[]): void {
 
-        continue;
-      }
-
-
-      const checkIn =
-        new Date(record.checkIn);
-
-
-      const checkOut =
-        record.checkOut
-          ? new Date(record.checkOut)
-          : now;
-
-
-      if (!record.checkOut) {
-
-        currentlyWorking = true;
-      }
-
-
-      const halfStart =
-        new Date(checkIn);
-
-
-      const halfEnd =
-        new Date(checkIn);
-
-
-      if (record.half === 'half1') {
-
-        halfStart.setHours(
-          9,
-          30,
-          0,
-          0
-        );
-
-        halfEnd.setHours(
-          14,
-          0,
-          0,
-          0
-        );
-
-      }
-
-      else {
-
-        halfStart.setHours(
-          15,
-          0,
-          0,
-          0
-        );
-
-        halfEnd.setHours(
-          18,
-          0,
-          0,
-          0
-        );
-      }
-
-
-      const start =
-        Math.max(
-          checkIn.getTime(),
-          halfStart.getTime()
-        );
-
-
-      const end =
-        Math.min(
-          checkOut.getTime(),
-          halfEnd.getTime()
-        );
-
-
-      if (end > start) {
-
-        totalMinutes +=
-          Math.floor(
-            (end - start) / 60000
-          );
-      }
-    }
-
-
-    this.hoursWorked =
-      this.formatDuration(totalMinutes);
-
-
-    this.attendanceStatus =
-      currentlyWorking
-        ? 'Working'
-        : 'Present';
+  if (!records || records.length === 0) {
+    this.hoursWorked = '0h 00m';
+    this.attendanceStatus = 'Not Marked';
+    return;
   }
 
+  const now = new Date();
+  const intervals: { start: number; end: number }[] = [];
+  let currentlyWorking = false;
 
-  formatDuration(
-    totalMinutes: number
-  ): string {
+  for (const record of records) {
 
-    if (totalMinutes <= 0) {
-
-      return '0h 00m';
+    if (!record.checkIn) {
+      continue;
     }
 
+    const checkIn = new Date(record.checkIn);
+    const checkOut = record.checkOut
+      ? new Date(record.checkOut)
+      : now;
 
-    const hours =
-      Math.floor(
-        totalMinutes / 60
-      );
+    if (isNaN(checkIn.getTime())) {
+      continue;
+    }
 
+    if (!record.checkOut) {
+      currentlyWorking = true;
+    }
 
-    const minutes =
-      totalMinutes % 60;
+    const halfStart = new Date(checkIn);
+    const halfEnd = new Date(checkIn);
 
+    if (record.half === 'half1') {
+      halfStart.setHours(9, 30, 0, 0);
+      halfEnd.setHours(14, 0, 0, 0);
+    } else {
+      halfStart.setHours(15, 0, 0, 0);
+      halfEnd.setHours(18, 0, 0, 0);
+    }
 
-    return `${hours}h ${String(minutes).padStart(2, '0')}m`;
+    const start = Math.max(
+      checkIn.getTime(),
+      halfStart.getTime()
+    );
+
+    const end = Math.min(
+      checkOut.getTime(),
+      halfEnd.getTime(),
+      now.getTime()
+    );
+
+    if (end > start) {
+      intervals.push({ start, end });
+    }
   }
 
+  // Sort intervals and merge overlaps to avoid double counting.
+  intervals.sort((a, b) => a.start - b.start);
 
+  let totalMilliseconds = 0;
+  let currentStart = 0;
+  let currentEnd = 0;
+
+  for (const interval of intervals) {
+
+    if (currentEnd === 0) {
+      currentStart = interval.start;
+      currentEnd = interval.end;
+    } else if (interval.start <= currentEnd) {
+      currentEnd = Math.max(currentEnd, interval.end);
+    } else {
+      totalMilliseconds += currentEnd - currentStart;
+      currentStart = interval.start;
+      currentEnd = interval.end;
+    }
+  }
+
+  if (currentEnd !== 0) {
+    totalMilliseconds += currentEnd - currentStart;
+  }
+
+  const totalMinutes = Math.floor(
+    totalMilliseconds / 60000
+  );
+
+  this.hoursWorked = this.formatDuration(totalMinutes);
+
+  this.attendanceStatus = currentlyWorking
+    ? 'Working'
+    : 'Present';
+}
+formatDuration(totalMinutes: number): string {
+
+  if (totalMinutes <= 0) {
+    return '0h 00m';
+  }
+
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  return `${hours}h ${String(minutes).padStart(2, '0')}m`;
+}
   // =====================================================
   // TASKS
   // =====================================================
 
   loadMyTasks(): void {
 
-    this.taskService
-      .getMyTasks()
-      .subscribe({
+  this.taskService.getMyTasks().subscribe({
 
-        next: (tasks: StaffTask[]) => {
+    next: (tasks: StaffTask[]) => {
 
-          this.tasks = tasks || [];
+      console.log('API TASKS:', tasks);
 
-          this.filterTodayTasks();
+      this.tasks = tasks || [];
 
-        },
+      this.filterTodayTasks();
 
-        error: (error) => {
+      console.log('TODAY TASKS:', this.todayTasks);
+      console.log('TOTAL TASKS:', this.totalTasks);
+      console.log('COMPLETED TASKS:', this.completedTasks);
+      console.log('PENDING TASKS:', this.pendingTasks);
 
-          console.error(
-            'Failed to load staff tasks:',
-            error
-          );
+      this.cdr.detectChanges();
 
-          this.tasks = [];
+    },
 
-          this.todayTasks = [];
+    error: (error) => {
 
-          this.totalTasks = 0;
+      console.error('Failed to load staff tasks:', error);
 
-          this.completedTasks = 0;
+    }
 
-          this.pendingTasks = 0;
+  });
 
-          this.resolvedTasks = 0;
-        }
-
-      });
-  }
-
+}
 
   // =====================================================
   // TODAY'S TASKS
   // =====================================================
 
-  filterTodayTasks(): void {
+filterTodayTasks(): void {
+  const today = new Date().toDateString();
 
-    const today = new Date();
+  this.todayTasks = (this.tasks || []).filter(task => {
+    if (!task.createdAt) {
+      return false;
+    }
 
+    return new Date(task.createdAt).toDateString() === today;
+  });
 
-    this.todayTasks =
-      this.tasks.filter(
-        (task: StaffTask) => {
+  this.totalTasks = this.todayTasks.length;
 
-          if (!task.createdAt) {
+  this.completedTasks = this.todayTasks.filter(
+    task => task.status?.toLowerCase() === 'resolved'
+  ).length;
 
-            return false;
-          }
+  this.pendingTasks = this.todayTasks.filter(task => {
+    const status = task.status?.toLowerCase();
 
+    return status === 'pending' || status === 'in progress';
+  }).length;
 
-          const taskDate =
-            new Date(task.createdAt);
-
-
-          return (
-            taskDate.getFullYear() ===
-              today.getFullYear() &&
-
-            taskDate.getMonth() ===
-              today.getMonth() &&
-
-            taskDate.getDate() ===
-              today.getDate()
-          );
-
-        }
-      );
-
-
-    // Today's assigned tasks
-    this.totalTasks =
-      this.todayTasks.length;
-
-
-    // Completed / Resolved
-    this.completedTasks =
-      this.todayTasks.filter(
-        task =>
-          task.status?.toLowerCase() ===
-          'resolved'
-      ).length;
-
-
-    // Pending + In Progress
-    this.pendingTasks =
-      this.todayTasks.filter(
-        task => {
-
-          const status =
-            task.status?.toLowerCase();
-
-
-          return (
-            status === 'pending' ||
-            status === 'in progress'
-          );
-
-        }
-      ).length;
-
-
-    // Issues resolved today
-    this.resolvedTasks =
-      this.todayTasks.filter(
-        task =>
-          task.status?.toLowerCase() ===
-          'resolved'
-      ).length;
-  }
-
+  this.resolvedTasks = this.completedTasks;
+}
 
   // =====================================================
   // ADD TASK

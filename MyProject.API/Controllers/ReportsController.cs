@@ -10,194 +10,222 @@ namespace MyProject.API.Controllers
     public class ReportsController : ControllerBase
     {
         private readonly IReportService _reportService;
-        private readonly IReportExportService _reportExportService;
+        private readonly IReportExportService _exportService;
 
         public ReportsController(
             IReportService reportService,
-            IReportExportService reportExportService)
+            IReportExportService exportService)
         {
             _reportService = reportService;
-            _reportExportService = reportExportService;
+            _exportService = exportService;
         }
 
-
-        // =========================================================
+        // ==========================================
         // INDIVIDUAL REPORT
-        // =========================================================
-        [HttpGet("individual/{employeeId:int}")]
+        // ==========================================
+
+        [HttpGet("individual/{employeeId}")]
         public async Task<IActionResult> GetIndividualReport(
             int employeeId,
             [FromQuery] DateTime fromDate,
             [FromQuery] DateTime toDate)
         {
-            if (fromDate > toDate)
-                return BadRequest(new
-                {
-                    message = "From date cannot be later than to date."
-                });
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
 
             var report = await _reportService.GetIndividualReportAsync(
-                employeeId,
-                fromDate,
-                toDate);
+                employeeId, fromDate, toDate);
 
             if (report == null)
-                return NotFound(new
-                {
-                    message = "Employee not found."
-                });
+                return NotFound("Employee not found.");
 
             return Ok(report);
         }
 
-
-        // =========================================================
-        // TEAM REPORT
-        // =========================================================
-        [HttpGet("team")]
-        public async Task<IActionResult> GetTeamReport(
-            [FromQuery] DateTime fromDate,
-            [FromQuery] DateTime toDate)
-        {
-            if (fromDate > toDate)
-                return BadRequest(new
-                {
-                    message = "From date cannot be later than to date."
-                });
-
-            var report = await _reportService.GetTeamReportAsync(
-                fromDate,
-                toDate);
-
-            return Ok(report);
-        }
-
-
-        // =========================================================
         // INDIVIDUAL EXCEL
-        // =========================================================
-        [HttpGet("individual/{employeeId:int}/export/excel")]
+        [HttpGet("individual/{employeeId}/export/excel")]
         public async Task<IActionResult> ExportIndividualExcel(
             int employeeId,
             [FromQuery] DateTime fromDate,
             [FromQuery] DateTime toDate)
         {
-            if (fromDate > toDate)
-                return BadRequest(new
-                {
-                    message = "From date cannot be later than to date."
-                });
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
 
-            try
-            {
-                var file = await _reportExportService
-                    .ExportIndividualExcelAsync(
-                        employeeId,
-                        fromDate,
-                        toDate);
+            var file = await _exportService.ExportIndividualExcelAsync(
+                employeeId, fromDate, toDate);
 
-                return File(
-                    file,
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    $"Individual_Attendance_{employeeId}_{fromDate:yyyyMMdd}_{toDate:yyyyMMdd}.xlsx");
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new
-                {
-                    message = "Employee not found."
-                });
-            }
+            return File(
+                file,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                $"Individual_Report_{employeeId}.xlsx");
         }
 
-
-        // =========================================================
         // INDIVIDUAL PDF
-        // =========================================================
-        [HttpGet("individual/{employeeId:int}/export/pdf")]
+        [HttpGet("individual/{employeeId}/export/pdf")]
         public async Task<IActionResult> ExportIndividualPdf(
             int employeeId,
             [FromQuery] DateTime fromDate,
             [FromQuery] DateTime toDate)
         {
-            if (fromDate > toDate)
-                return BadRequest(new
-                {
-                    message = "From date cannot be later than to date."
-                });
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
 
-            try
-            {
-                var file = await _reportExportService
-                    .ExportIndividualPdfAsync(
-                        employeeId,
-                        fromDate,
-                        toDate);
+            var file = await _exportService.ExportIndividualPdfAsync(
+                employeeId, fromDate, toDate);
 
-                return File(
-                    file,
-                    "application/pdf",
-                    $"Individual_Attendance_{employeeId}_{fromDate:yyyyMMdd}_{toDate:yyyyMMdd}.pdf");
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new
-                {
-                    message = "Employee not found."
-                });
-            }
+            return File(
+                file,
+                "application/pdf",
+                $"Individual_Report_{employeeId}.pdf");
         }
 
+        // ==========================================
+        // TEAM REPORT
+        // ==========================================
 
-        // =========================================================
+        [HttpGet("team")]
+        public async Task<IActionResult> GetTeamReport(
+            [FromQuery] DateTime fromDate,
+            [FromQuery] DateTime toDate)
+        {
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
+
+            var report = await _reportService.GetTeamReportAsync(
+                fromDate, toDate);
+
+            return Ok(report);
+        }
+
         // TEAM EXCEL
-        // =========================================================
         [HttpGet("team/export/excel")]
         public async Task<IActionResult> ExportTeamExcel(
             [FromQuery] DateTime fromDate,
             [FromQuery] DateTime toDate)
         {
-            if (fromDate > toDate)
-                return BadRequest(new
-                {
-                    message = "From date cannot be later than to date."
-                });
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
 
-            var file = await _reportExportService
-                .ExportTeamExcelAsync(
-                    fromDate,
-                    toDate);
+            var file = await _exportService.ExportTeamExcelAsync(
+                fromDate, toDate);
 
             return File(
                 file,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                $"Team_Attendance_{fromDate:yyyyMMdd}_{toDate:yyyyMMdd}.xlsx");
+                "Team_Attendance_Report.xlsx");
         }
 
-
-        // =========================================================
         // TEAM PDF
-        // =========================================================
         [HttpGet("team/export/pdf")]
         public async Task<IActionResult> ExportTeamPdf(
             [FromQuery] DateTime fromDate,
             [FromQuery] DateTime toDate)
         {
-            if (fromDate > toDate)
-                return BadRequest(new
-                {
-                    message = "From date cannot be later than to date."
-                });
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
 
-            var file = await _reportExportService
-                .ExportTeamPdfAsync(
-                    fromDate,
-                    toDate);
+            var file = await _exportService.ExportTeamPdfAsync(
+                fromDate, toDate);
 
             return File(
                 file,
                 "application/pdf",
-                $"Team_Attendance_{fromDate:yyyyMMdd}_{toDate:yyyyMMdd}.pdf");
+                "Team_Attendance_Report.pdf");
+        }
+
+        // ==========================================
+        // SIX REPORT TYPES
+        // ==========================================
+
+        // REPORT EXCEL
+        [HttpGet("export/{reportType}/excel")]
+        public async Task<IActionResult> ExportReportExcel(
+            string reportType,
+            [FromQuery] DateTime fromDate,
+            [FromQuery] DateTime toDate)
+        {
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
+
+            try
+            {
+                var file = await _exportService.ExportReportExcelAsync(
+                    reportType, fromDate, toDate);
+
+                return File(
+                    file,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    $"{reportType}_Report.xlsx");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // REPORT PDF
+        [HttpGet("export/{reportType}/pdf")]
+        public async Task<IActionResult> ExportReportPdf(
+            string reportType,
+            [FromQuery] DateTime fromDate,
+            [FromQuery] DateTime toDate)
+        {
+            if (!IsValidDateRange(fromDate, toDate))
+                return BadRequest("Invalid date range.");
+
+            try
+            {
+                var file = await _exportService.ExportReportPdfAsync(
+                    reportType, fromDate, toDate);
+
+                return File(
+                    file,
+                    "application/pdf",
+                    $"{reportType}_Report.pdf");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // ==========================================
+        // QUICK EXPORT - ALL DATA
+        // ==========================================
+
+        [HttpGet("quick-export/excel")]
+        public async Task<IActionResult> ExportQuickExcel()
+        {
+            var file = await _exportService.ExportQuickExcelAsync();
+
+            return File(
+                file,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "Complete_DSR_Report.xlsx");
+        }
+
+        [HttpGet("quick-export/pdf")]
+        public async Task<IActionResult> ExportQuickPdf()
+        {
+            var file = await _exportService.ExportQuickPdfAsync();
+
+            return File(
+                file,
+                "application/pdf",
+                "Complete_DSR_Report.pdf");
+        }
+
+        // ==========================================
+        // DATE VALIDATION
+        // ==========================================
+
+        private static bool IsValidDateRange(
+            DateTime fromDate, DateTime toDate)
+        {
+            return fromDate != default
+                && toDate != default
+                && fromDate.Date <= toDate.Date;
         }
     }
 }

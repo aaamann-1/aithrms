@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -152,6 +153,128 @@ public class EmployeeController : ControllerBase
     }
 
     // =========================================================
+    // UPDATE EXISTING EMPLOYEE
+    // =========================================================
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateEmployee(
+        int id,
+        [FromBody] CreateEmployeeRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.EmployeeName) ||
+            string.IsNullOrWhiteSpace(request.PersonalEmail) ||
+            string.IsNullOrWhiteSpace(request.MobileNumber) ||
+            string.IsNullOrWhiteSpace(request.Title))
+        {
+            return BadRequest(new
+            {
+                message = "Employee name, title, personal email, and mobile number are required."
+            });
+        }
+
+        var employee = await _context.Employees
+            .Include(e => e.User)
+            .FirstOrDefaultAsync(e => e.Id == id);
+
+        if (employee == null)
+        {
+            return NotFound(new
+            {
+                message = "Employee not found."
+            });
+        }
+
+        request.EmployeeName = request.EmployeeName.Trim();
+        request.PersonalEmail = request.PersonalEmail.Trim().ToLower();
+        request.MobileNumber = request.MobileNumber.Trim();
+        request.Title = request.Title.Trim();
+
+        // Check duplicate email
+        bool emailExists = await _context.Users.AnyAsync(user =>
+            user.Username.ToLower() == request.PersonalEmail &&
+            user.Id != employee.UserId);
+
+        if (emailExists)
+        {
+            return BadRequest(new
+            {
+                message = "This email is already used by another account."
+            });
+        }
+
+        // Check duplicate mobile number
+        bool mobileExists = await _context.Users.AnyAsync(user =>
+            user.ContactNumber == request.MobileNumber &&
+            user.Id != employee.UserId);
+
+        if (mobileExists)
+        {
+            return BadRequest(new
+            {
+                message = "This mobile number is already used by another account."
+            });
+        }
+
+        // Update employee personal details
+        employee.Title = request.Title;
+        employee.EmployeeName = request.EmployeeName;
+        employee.FatherName = request.FatherName;
+        employee.MotherName = request.MotherName;
+        employee.Gender = request.Gender;
+        employee.DateOfBirth = request.DateOfBirth;
+        employee.BloodGroup = request.BloodGroup;
+        employee.MobileNumber = request.MobileNumber;
+        employee.PersonalEmail = request.PersonalEmail;
+        employee.Nationality = request.Nationality;
+        employee.MaritalStatus = request.MaritalStatus;
+        employee.SpouseName = request.SpouseName;
+        employee.AadhaarNumber = request.AadhaarNumber;
+        employee.PanNumber = request.PanNumber;
+        employee.Religion = request.Religion;
+
+        // Update job details
+        employee.Department = request.Department;
+        employee.Designation = request.Designation;
+        employee.JoiningDate = request.JoiningDate;
+
+        // Update current address
+        employee.CurrentAddress = request.CurrentAddress;
+        employee.CurrentCountry = request.CurrentCountry;
+        employee.CurrentState = request.CurrentState;
+        employee.CurrentCity = request.CurrentCity;
+        employee.CurrentPincode = request.CurrentPincode;
+
+        // Update permanent address
+        employee.PermanentAddress = request.PermanentAddress;
+        employee.PermanentCountry = request.PermanentCountry;
+        employee.PermanentState = request.PermanentState;
+        employee.PermanentCity = request.PermanentCity;
+        employee.PermanentPincode = request.PermanentPincode;
+
+        // Update emergency contact
+        employee.EmergencyContact = request.EmergencyContact;
+        employee.EmergencyMobile = request.EmergencyMobile;
+        employee.EmergencyRelation = request.EmergencyRelation;
+
+        // Update linked staff login details
+        if (employee.User != null)
+        {
+            employee.User.FullName =
+                $"{request.Title} {request.EmployeeName}".Trim();
+
+            employee.User.Username = request.PersonalEmail;
+            employee.User.ContactNumber = request.MobileNumber;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new
+        {
+            message = "Employee updated successfully."
+        });
+    }
+
+    // =========================================================
     // GET ONE EMPLOYEE PROFILE
     // =========================================================
 
@@ -213,7 +336,7 @@ public class EmployeeController : ControllerBase
 
     // =========================================================
     // GET ALL STAFF FOR EMPLOYEE MANAGEMENT
-    // Existing endpoint - DO NOT REMOVE
+    // Returns Employee ID for editing
     // =========================================================
 
     [HttpGet]
@@ -225,7 +348,9 @@ public class EmployeeController : ControllerBase
             .OrderBy(user => user.FullName)
             .Select(user => new
             {
-                id = user.Id,
+                id = user.Employee != null
+                    ? user.Employee.Id
+                    : user.Id,
 
                 title = user.Employee != null
                     ? user.Employee.Title
@@ -355,7 +480,7 @@ public class EmployeeController : ControllerBase
 
     // =========================================================
     // GET STAFF FOR REPORTS
-    // IMPORTANT: Returns EmployeeId, not UserId
+    // Returns EmployeeId, not UserId
     // =========================================================
 
     [HttpGet("staff")]
@@ -411,8 +536,7 @@ public class EmployeeController : ControllerBase
             });
         }
 
-        // Supports older staff users that do not yet have
-        // an Employee record.
+        // Supports older staff users without an Employee record.
         var staffUser = await _context.Users
             .FirstOrDefaultAsync(user =>
                 user.Id == id &&
