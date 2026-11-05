@@ -79,7 +79,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
 // =========================================================
 // APPLICATION SERVICES
 // =========================================================
@@ -119,6 +118,8 @@ builder.Services
             RoleClaimType = System.Security.Claims.ClaimTypes.Role
         };
     });
+
+builder.Services.AddAuthorization();
 
 // =========================================================
 // BUILD APPLICATION

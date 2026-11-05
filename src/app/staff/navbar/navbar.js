@@ -3,26 +3,27 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 let Navbar = class Navbar {
+    router;
+    authService;
     menuToggle = new EventEmitter();
     searchQuery = '';
-    // Today's date by default
     selectedDate = this.getTodayDate();
     showNotifications = false;
-    showProfile = false;
+    // Logged-in staff information
+    currentUser = null;
+    constructor(router, authService) {
+        this.router = router;
+        this.authService = authService;
+        this.currentUser = this.authService.getCurrentUser();
+    }
     toggleMenu() {
         this.menuToggle.emit();
     }
     toggleNotifications() {
         this.showNotifications = !this.showNotifications;
-        if (this.showNotifications) {
-            this.showProfile = false;
-        }
     }
-    toggleProfile() {
-        this.showProfile = !this.showProfile;
-        if (this.showProfile) {
-            this.showNotifications = false;
-        }
+    openProfile() {
+        this.router.navigate(['/staff/profile']);
     }
     getTodayDate() {
         const today = new Date();

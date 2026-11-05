@@ -3428,19 +3428,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aksha\\.nuget\\packages\\": {}
+    "C:\\Users\\Manasa\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
+      "projectUniqueName": "C:\\Users\\Manasa\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
       "projectName": "MyProject.API",
-      "projectPath": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\MyProject.API.csproj",
-      "packagesPath": "C:\\Users\\aksha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aksha\\OneDrive\\Desktop\\aithrms\\MyProject.API\\obj\\",
+      "projectPath": "C:\\Users\\Manasa\\Documents\\GitHub\\aithrms\\MyProject.API\\MyProject.API.csproj",
+      "packagesPath": "C:\\Users\\Manasa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Manasa\\Documents\\GitHub\\aithrms\\MyProject.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\aksha\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Manasa\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"

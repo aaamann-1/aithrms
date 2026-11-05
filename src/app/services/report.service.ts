@@ -107,6 +107,3 @@ downloadTeamPdf(fromDate: string, toDate: string) {
     );
   }
 }
-
-
-
