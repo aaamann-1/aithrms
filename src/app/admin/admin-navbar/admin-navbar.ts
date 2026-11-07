@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Output
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -14,17 +19,15 @@ import { Router } from '@angular/router';
   styleUrl: './admin-navbar.css'
 })
 export class AdminNavbarComponent {
-@Output() menuToggle = new EventEmitter<void>();
-  searchQuery = '';
+  @Output() menuToggle = new EventEmitter<void>();
 
+  searchQuery = '';
   selectedDate = '';
 
   notificationOpen = false;
-
   profileOpen = false;
 
   currentUser: any = null;
-
 
   notifications = [
     {
@@ -44,37 +47,40 @@ export class AdminNavbarComponent {
     }
   ];
 
-
   constructor(private router: Router) {
-
     const savedUser = localStorage.getItem('currentUser');
 
     if (savedUser) {
-
       try {
         this.currentUser = JSON.parse(savedUser);
-      }
-      catch {
+      } catch {
         this.currentUser = null;
       }
-
     }
 
-
     const today = new Date();
-
-    this.selectedDate =
-      today.toISOString().split('T')[0];
-
+    this.selectedDate = today.toISOString().split('T')[0];
   }
 
- toggleMenu(): void {
+  // Closes dropdowns when the user clicks anywhere outside them.
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const clickedElement = event.target as HTMLElement;
+
+    if (!clickedElement.closest('.notification-wrapper')) {
+      this.notificationOpen = false;
+    }
+
+    if (!clickedElement.closest('.profile-wrapper')) {
+      this.profileOpen = false;
+    }
+  }
+
+  toggleMenu(): void {
     this.menuToggle.emit();
   }
-  /* SEARCH */
 
   performSearch(): void {
-
     const query = this.searchQuery.trim();
 
     if (!query) {
@@ -82,44 +88,28 @@ export class AdminNavbarComponent {
     }
 
     console.log('Searching:', query);
-
   }
 
-
   onSearchKey(event: KeyboardEvent): void {
-
     if (event.key === 'Enter') {
       this.performSearch();
     }
-
   }
-
 
   clearSearch(): void {
     this.searchQuery = '';
   }
 
-
-  /* DATE */
-
   onDateChange(): void {
-
-    console.log(
-      'Selected date:',
-      this.selectedDate
-    );
-
+    console.log('Selected date:', this.selectedDate);
   }
 
-
   getFormattedDate(): string {
-
     if (!this.selectedDate) {
       return '';
     }
 
-    const date =
-      new Date(this.selectedDate);
+    const date = new Date(this.selectedDate);
 
     return date.toLocaleDateString(
       'en-IN',
@@ -129,64 +119,34 @@ export class AdminNavbarComponent {
         year: 'numeric'
       }
     );
-
   }
-
-
-  /* NOTIFICATIONS */
 
   toggleNotifications(): void {
-
-    this.notificationOpen =
-      !this.notificationOpen;
-
+    this.notificationOpen = !this.notificationOpen;
     this.profileOpen = false;
-
   }
-
-
-  /* PROFILE */
 
   toggleProfile(): void {
-
-    this.profileOpen =
-      !this.profileOpen;
-
+    this.profileOpen = !this.profileOpen;
     this.notificationOpen = false;
-
   }
-
 
   openProfile(): void {
-
     this.profileOpen = false;
-
-    this.router.navigate([
-      '/admin/profile'
-    ]);
-
+    this.router.navigate(['/admin/profile']);
   }
-
 
   openSettings(): void {
-
     this.profileOpen = false;
-
-    this.router.navigate([
-      '/admin/settings'
-    ]);
-
+    this.router.navigate(['/admin/settings']);
   }
-
 
   logout(): void {
-
     localStorage.removeItem('isLoggedIn');
-
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
 
     this.router.navigate(['/login']);
-
   }
-
 }
