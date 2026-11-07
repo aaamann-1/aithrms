@@ -146,7 +146,7 @@ public class EmployeeController : ControllerBase
                 employeeId = employee.Id,
                 loginUsername = user.Username,
                 defaultPassword = defaultStaffPassword.StartsWith("$2")
-                    ? "staff@123"
+                    ? "Password is hashed and not retrievable."
                     : defaultStaffPassword,
                 role = user.Role
             });
